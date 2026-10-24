@@ -111,9 +111,17 @@ def table(assess: dict, brief: dict) -> dict:
             plugs = sorted({p["name"] for x in sysk for p in ((cov.get(x) or {}).get("catalog") or {}).get("plugins") or []})
             ev = [{"label": f"{p} documentation", "href": _docs(p), "external": True} for p in plugs]
             ev += [{"label": "plugin coverage", "href": "plugins.html"}]
-            r = row(("a", "client", sysn, "plugin"), f"{sysn or 'Plugin'} client actions",
-                    "tasks of " + (", ".join(plugs) or "a Kestra plugin"),
-                    "plugin", evidence=ev)
+            gap = [x for x in sysk if (targets.get(x) or {}).get("pattern_gap")]
+            if not sysk:
+                # a client of REST hosts the export does not name: HTTP tasks, whatever the host is
+                r = row(("a", "client", "", "plugin"), "HTTP client actions",
+                        "HTTP tasks (io.kestra.plugin.core.http.Request)", "plugin",
+                        evidence=[{"label": "core HTTP task documentation", "href": _docs("core"), "external": True}])
+            else:
+                r = row(("a", "client", sysn, "plugin"), f"{sysn} client actions",
+                        "tasks of " + (", ".join(plugs) or "a Kestra plugin")
+                        + (", which does not cover this way of calling it, or HTTP tasks (see why)" if gap else ""),
+                        "plugin", evidence=ev)
         elif o == "Rebuild" and basis == "client":
             # rebuilt on HTTP where the system has no plugin; its uses for a system with one go with the plugin
             http = bool(sysk) and all((targets.get(x) or {}).get("reach") in ("http", "plugin") for x in sysk) \

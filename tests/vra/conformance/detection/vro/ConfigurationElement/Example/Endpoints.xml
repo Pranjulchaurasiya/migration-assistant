@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config-element id="c6000000-0000-4000-8000-000000000001" version="0.0.1">
+  <display-name><![CDATA[Endpoints]]></display-name>
+  <atts>
+    <att name="teamsWebhookUrl" type="string" read-only="false">
+      <value encoded="n"><![CDATA[https://example.webhook.office.com/webhookb2/detect-not-a-real-hook]]></value>
+    </att>
+    <att name="slackWebhookUrl" type="string" read-only="false">
+      <value encoded="n"><![CDATA[https://hooks.slack.com/services/DETECT/FAKE/not-a-real-hook]]></value>
+    </att>
+    <att name="towerUrl" type="string" read-only="false">
+      <value encoded="n"><![CDATA[https://tower.example.net]]></value>
+    </att>
+  </atts>
+</config-element>

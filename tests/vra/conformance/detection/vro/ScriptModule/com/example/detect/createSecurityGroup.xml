@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dunes-script-module name="createSecurityGroup" result-type="Any" api-version="6.0.0" id="a6000000-0000-4000-8000-000000000007" version="1.0.0" allowed-operations="vef"><description/><param n="ou" t="AD:OrganizationalUnit"/><param n="group" t="AD:UserGroup"/><param n="groupName" t="string"/><script encoded="false"><![CDATA[var existing = ActiveDirectory.searchExactMatch("UserGroup", groupName);
+if (existing && existing.length > 0) {
+    return existing[0];
+}
+ou.createUserGroup(groupName);
+group.setAttribute("description", "created by vRO");
+if (group.distinguishedName.indexOf("OU=Managed") < 0) {
+    System.warn("group outside the managed OU");
+}
+return group;]]></script></dunes-script-module>

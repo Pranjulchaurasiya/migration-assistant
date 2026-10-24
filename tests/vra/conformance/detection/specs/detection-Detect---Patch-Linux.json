@@ -1,0 +1,7 @@
+{
+  "workflow_uid": "detection-Detect---Patch-Linux",
+  "purpose": "Detect - Patch Linux, for the detection fixture.",
+  "confidence": "high",
+  "open_questions": [],
+  "external_systems": []
+}

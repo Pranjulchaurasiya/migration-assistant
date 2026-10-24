@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dunes-script-module name="postTeamsMessage" result-type="void" api-version="6.0.0" id="a6000000-0000-4000-8000-000000000005" version="1.0.0" allowed-operations="vef"><description/><param n="title" t="string"/><param n="text" t="string"/><script encoded="false"><![CDATA[var prototype = RESTHostManager.createHost("teams");
+prototype.url = System.getModule("com.example.detect").endpoint("teamsWebhookUrl");
+var host = RESTHostManager.createTransientHostFrom(prototype);
+var card = { "@type": "MessageCard", summary: title, text: text };
+var request = host.createRequest("POST", "", JSON.stringify(card));
+request.contentType = "application/json";
+request.execute();]]></script></dunes-script-module>

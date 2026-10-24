@@ -118,7 +118,10 @@ def _cls_where(snap: Snapshot, cls: str) -> dict:
     return {s: (bool(snap.owner(s, cls)) if snap.available(s) else None) for s in SOURCES}
 
 
-def _row(key: str, t: dict, ops: list[str], snap: Snapshot, via: str) -> dict:
+def _row(key: str, t: dict, ops: list[str], snap: Snapshot, via: str, op_reach: dict | None = None) -> dict:
+    """One system's coverage. An operation is matched by the map's `op_tasks` where the system has them. Where it
+    has none, Assess's reach for the operation decides: plugin reach (no gap in the map) counts as covered. A
+    system with a `pattern_gap` has a plugin, but not for the way vRO calls it: every operation stays unmatched."""
     group = t.get("kestra_group")
     if not group and "kestra_group" not in t:
         # the plugin that ships the first Kestra task the map names for this system
@@ -138,7 +141,7 @@ def _row(key: str, t: dict, ops: list[str], snap: Snapshot, via: str) -> dict:
             task_map.append({"op": op, "task": cls, "where": where})
             if not any(where.values()):
                 unmatched.append(op)
-        else:
+        elif t.get("op_tasks") or t.get("pattern_gap") or (op_reach or {}).get(op, t.get("reach")) != "plugin":
             unmatched.append(op)
     reach = t.get("reach", "none")
     if key == "rest-host":
@@ -157,7 +160,8 @@ def _row(key: str, t: dict, ops: list[str], snap: Snapshot, via: str) -> dict:
             "installed": inst, "catalog": cat, "disagreements": _disagree(inst, cat),
             "operations": len(ops), "ops": list(ops), "task_map": task_map, "unmatched_ops": unmatched,
             "http_task": HTTP_TASK if status in ("http", "partial") else None, "http_task_where": http_where,
-            "api": t.get("api"), "enterprise_only": any((p.get("license") or "") == "EE" for p in found)}
+            "api": t.get("api"), "enterprise_only": any((p.get("license") or "") == "EE" for p in found),
+            "pattern_gap": t.get("pattern_gap")}
 
 
 def coverage(targets: dict, ep_model: dict, pm: dict) -> dict:
@@ -169,7 +173,11 @@ def coverage(targets: dict, ep_model: dict, pm: dict) -> dict:
     for key, t in sorted(targets.items()):
         spec = dict(pmt.get(key) or {}, **{k: v for k, v in t.items() if v not in (None, [], "")})
         ops = [o["op"] for o in t.get("operations") or []] + list(t.get("action_only_operations") or [])
-        rows.append(_row(key, spec, ops, snap, "workflow code"))
+        op_reach = {o["op"]: o.get("reach") for o in t.get("operations") or []}
+        from . import targets as T
+        for op in t.get("action_only_operations") or []:
+            op_reach[op] = T.reach_for({"target": key, "op": op}, dict(pm, targets=dict(pmt, **{key: spec})))["reach"]
+        rows.append(_row(key, spec, ops, snap, "workflow code", op_reach))
     # What the cloud templates create: only reached from Kestra once vRA is replaced.
     rtypes: dict[str, list[str]] = {}
     for tpl in ep_model.get("cloud_templates") or []:

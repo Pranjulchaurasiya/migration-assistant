@@ -342,7 +342,9 @@ def test_plugin_coverage_from_a_snapshot(estate, tmp_path, monkeypatch):
     ib = rows["infoblox"]
     assert ib["installed"]["plugins"][0]["version"] == "1.0.0" and ib["catalog"]["plugins"][0]["version"] == "1.1.0"
     assert any("installed 1.0.0, catalogue 1.1.0" in d for d in ib["disagreements"])
-    assert ib["status"] == "partial" and "POST /wapi/v2.12/record:a" in ib["unmatched_ops"]
+    # no op_tasks for Infoblox, and Assess found no gap on any of its operations: the plugin covers them (1.0.0
+    # showed every such system as "some operations over HTTP")
+    assert ib["status"] == "plugin" and ib["unmatched_ops"] == [] and ib["operations"]
     assert rows["vro-platform"]["status"] == "replace"
     assert rows["vra"]["status"] == "trigger"
     vc = rows["vcenter"]                                  # no VMware plugin in this snapshot: HTTP

@@ -259,6 +259,102 @@ targets:
     kestra_tasks: [io.kestra.plugin.ee.infoblox.ipam.address.AllocateNextAvailable]
     kestra_evidence: https://kestra.io/plugins/plugin-ee-infoblox
 
+  # Checked 2026-10-24 against the bundled snapshot and kestra.io/plugins. A target with `pattern_gap` has a Kestra
+  # plugin for the system, but not for the way vRO calls it; the brief says so instead of naming a task that does
+  # something else.
+  ansible-tower:
+    category: configuration management
+    name: Ansible Tower / AWX
+    short_name: Ansible Tower
+    rest_signatures:
+      paths: ["^/api/v2/(job_templates|workflow_job_templates|jobs)/"]
+      headers: []
+    vro_plugin: (none; reached with the HTTP-REST plugin)
+    vro_type_prefixes: []
+    reach: plugin
+    confirmed: true
+    kestra_group: io.kestra.plugin.ansible
+    kestra_tasks: [io.kestra.plugin.ansible.cli.AnsibleCLI]
+    kestra_evidence: https://kestra.io/plugins/plugin-ansible
+    pattern_gap: "Kestra's Ansible plugin runs playbooks itself (AnsibleCLI); it has no task that launches a Tower or AWX job template. Run the job template's playbook with AnsibleCLI (its inventory and credentials move to Kestra), or keep Tower and call its API with io.kestra.plugin.core.http.Request"
+    api: "Tower / AWX REST API, https://<tower>/api/v2/ (job_templates/<id>/launch/, jobs/<id>/)"
+    note: "kestra.io also lists AnsibleRunner (plugin-ansible 2.3.1), which is not in the bundled snapshot. Neither launches a job template."
+
+  terraform-enterprise:
+    category: infrastructure as code
+    name: Terraform Cloud / Enterprise
+    short_name: Terraform Enterprise
+    rest_signatures:
+      paths: ["^/api/v2/(runs|workspaces|organizations/[^/]+/workspaces)"]
+      headers: ["^application/vnd\\.api\\+json$"]
+    vro_plugin: (none; reached with the HTTP-REST plugin)
+    vro_type_prefixes: []
+    reach: plugin
+    confirmed: true
+    kestra_group: io.kestra.plugin.terraform
+    kestra_tasks: [io.kestra.plugin.terraform.cli.TerraformCLI]
+    kestra_evidence: https://kestra.io/plugins/plugin-terraform
+    pattern_gap: "Kestra's Terraform plugin runs the terraform CLI (TerraformCLI); it has no task for the Terraform Cloud / Enterprise runs API. Run terraform apply with TerraformCLI, with Terraform Enterprise as the remote backend, or keep queuing runs through its API with io.kestra.plugin.core.http.Request"
+    api: "Terraform Cloud / Enterprise API, https://<tfe>/api/v2/ (workspaces, vars, runs), bearer team token"
+
+  ms-teams:
+    name: Microsoft Teams (incoming webhook)
+    short_name: Teams
+    rest_signatures:
+      paths: []
+      headers: []
+      # a host Sanitize saw in a replaced URL (it records the system, never the value)
+      hosts: ["(^|\\.)webhook\\.office\\.com$", "^outlook\\.office(365)?\\.com$"]
+      # a string literal in the request body
+      bodies: ["^MessageCard$", "^AdaptiveCard$"]
+    vro_plugin: (none; reached with the HTTP-REST plugin)
+    vro_type_prefixes: []
+    reach: plugin
+    confirmed: true
+    kestra_group: io.kestra.plugin.microsoft365
+    kestra_tasks: [io.kestra.plugin.microsoft365.teams.TeamsIncomingWebhook]
+    kestra_evidence: https://kestra.io/plugins/plugin-microsoft365/microsoft-teams
+    op_tasks:
+      - {match: "^POST ", task: teams.TeamsIncomingWebhook}
+
+  slack:
+    name: Slack
+    short_name: Slack
+    rest_signatures:
+      paths: ["^/services/", "^/api/chat\\.postMessage$"]
+      headers: []
+      hosts: ["^hooks\\.slack\\.com$"]
+    vro_plugin: (none; reached with the HTTP-REST plugin)
+    vro_type_prefixes: []
+    reach: plugin
+    confirmed: true
+    kestra_group: io.kestra.plugin.slack
+    kestra_tasks: [io.kestra.plugin.slack.notifications.SlackIncomingWebhook, io.kestra.plugin.slack.app.chats.Post]
+    kestra_evidence: https://kestra.io/plugins/plugin-slack
+    op_tasks:
+      - {match: "chat\\.postMessage", task: app.chats.Post}
+      - {match: "^POST ", task: notifications.SlackIncomingWebhook}
+    note: "io.kestra.plugin.notifications.slack.SlackIncomingWebhook is the older class name; plugin-slack's is current"
+
+  active-directory:
+    category: directory
+    name: Microsoft Active Directory
+    short_name: Active Directory
+    vro_plugin: Active Directory
+    vro_type_prefixes: [AD]
+    reach: plugin
+    confirmed: true
+    kestra_group: io.kestra.plugin.ldap
+    kestra_tasks: [io.kestra.plugin.ldap.Search, io.kestra.plugin.ldap.Add, io.kestra.plugin.ldap.Modify,
+                   io.kestra.plugin.ldap.Delete]
+    kestra_evidence: https://kestra.io/plugins/plugin-ldap
+    covers: "Search, and Add, Modify and Delete from LDIF: a group or user create is an LDIF render plus Add, a member add or an attribute change is Modify"
+    op_tasks:
+      - {match: "\\.(search|find|get)\\w*$", task: Search}
+      - {match: "\\.(delete|destroy)\\w*$", task: Delete}
+      - {match: "\\.create\\w*$", task: Add}
+      - {match: "\\.(add|remove|set|change|enable|disable|move|rename)\\w*$", task: Modify}
+
   vro-platform:
     name: vRO platform services
     short_name: vRO

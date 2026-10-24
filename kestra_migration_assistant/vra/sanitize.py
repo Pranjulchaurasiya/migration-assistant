@@ -44,6 +44,11 @@ resolve by them; so are names, event topics, conditions, input names and resourc
 
 The report never prints a redacted value, only its category, placeholder and a masked preview.
 No mapping from placeholder to value is written anywhere.
+
+What the copy can no longer show: which system a replaced URL or host was. A Teams or Slack webhook is known only by
+its host. So, for a host that matches a system's `hosts` signature in the plugin map (`hooks.slack.com`), Sanitize
+records the system against the placeholder (`<URL-03>: slack`), and against the configuration element attribute
+whose value it dropped (`slackWebhookUrl: slack`). The system's key, never the value: `systems_seen` in the report.
 """
 from __future__ import annotations
 
@@ -120,8 +125,11 @@ XML_TOKENS = re.compile(r"<!\[CDATA\[(.*?)\]\]>|<!--(.*?)-->|<[^>]*>", re.S)
 
 
 class Redactor:
-    def __init__(self, names: set[str] | frozenset[str] = frozenset()) -> None:
+    def __init__(self, names: set[str] | frozenset[str] = frozenset(),
+                 classify: Callable[[str], str | None] | None = None) -> None:
         self.names = {n.lower() for n in names}       # the export's module and category names: code, kept
+        self.classify = classify                      # host -> the system it belongs to, or None
+        self.systems_seen: dict[str, str] = {}        # placeholder or attribute name -> system (never a value)
         self.kept_names: Counter = Counter()
         self.maps: dict[str, dict[str, str]] = {c: {} for c in CATEGORIES}
         self.counts: Counter = Counter()
@@ -185,7 +193,14 @@ class Redactor:
         if host in PUBLIC_HOSTS:
             self.kept_public[host] += 1
             return m.group(0)
-        return self.ph("URL", u) + tail
+        return self._seen(self.ph("URL", u), host) + tail
+
+    def _seen(self, placeholder: str, host: str) -> str:
+        """Note which system a replaced value's host belongs to, if the plugin map knows it."""
+        kind = self.classify(host) if self.classify else None
+        if kind:
+            self.systems_seen[placeholder] = kind
+        return placeholder
 
     def _host(self, m: re.Match) -> str:
         h = m.group(1)
@@ -202,7 +217,7 @@ class Redactor:
         if any(re.search(r"[a-z][A-Z]", lab) for lab in h.split(".")) or \
                 re.match(r"\s*(=(?!=)|\(|\[)", m.string[m.end():m.end() + 4]):
             return h
-        return self.ph("HOST", h)
+        return self._seen(self.ph("HOST", h), h.lower())
 
     def _entropy(self, m: re.Match) -> str:
         v = m.group(2)
@@ -264,6 +279,11 @@ class Redactor:
             if rx and rx.fullmatch(v) or typ.group(1) != "SecureString" and NETMASK_RE.fullmatch(v):
                 self.counts["KEPT"] += 1
                 return att
+            # the value is already redacted text here: a placeholder whose host was recognised names the system
+            name = re.match(r"""<att\b[^>]*\bname=(["'])([^"']*)\1""", att)
+            kinds = {self.systems_seen[p] for p in re.findall(r"<(?:URL|HOST)-\d{2,}>", v) if p in self.systems_seen}
+            if name and len(kinds) == 1:
+                self.systems_seen[name.group(2)] = kinds.pop()
         return self._null_values(att)
 
     def _identities(self, s: str) -> str:
@@ -495,7 +515,9 @@ def sanitize_inputs(inputs: dict[str, str], out_dir: str, vra_inputs: dict[str, 
     if os.path.isdir(out_dir):
         shutil.rmtree(out_dir)
     os.makedirs(out_dir)
-    r = Redactor(code_names(inputs))
+    from .stages import targets as T
+    T.load_plugin_map()
+    r = Redactor(code_names(inputs), classify=T.host_target)
     touched: list[str] = []
     skipped: list[str] = []
     unreadable: dict[str, str] = {}
@@ -534,6 +556,7 @@ def sanitize_inputs(inputs: dict[str, str], out_dir: str, vra_inputs: dict[str, 
             "per_file": {f: dict(c) for f, c in sorted(r.per_file.items()) if c},
             "unsure": unsure, "skipped": skipped, "kept_public": dict(r.kept_public),
             "kept_names": dict(sorted(r.kept_names.items())), "unreadable": unreadable, "signed": signed,
+            "systems_seen": dict(sorted(r.systems_seen.items())),
             "placeholders": {c: sorted(r.maps[c].values()) for c in CATEGORIES},
             "_masked": {c: {ph: _mask(v) for v, ph in r.maps[c].items()} for c in CATEGORIES}}
 
@@ -600,6 +623,9 @@ def report_md(r: dict, C) -> str:
          "because they are code: the workflows' IDs and calls are built from them. "
          + ("Kept: " + ", ".join(f"`{n}` ({k})" for n, k in r.get("kept_names", {}).items()) + "."
             if r.get("kept_names") else "None of them read like a host name in this export."), "",
+         "Systems recognised behind a replaced value, by its host (the system is recorded, never the value), so "
+         "later stages can name them: " + (", ".join(f"`{k}` ({v})" for k, v in r.get("systems_seen", {}).items())
+                                            or "none") + ".", "",
          "What stays the same: XML structure, item graphs, bindings, workflow, action, module, element and item "
          "names, IDs, types, and the scripts' logic. Markup is never edited. Every stage after this one "
          "(Preflight, Assess, Understand, Brief and the pages) reads this copy, never the export, so this copy "

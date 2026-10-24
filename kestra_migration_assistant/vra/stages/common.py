@@ -375,7 +375,10 @@ def sanitize_needed() -> bool:
     report = os.path.join(PRE, "redaction-report.json")
     if not os.path.exists(report):
         return True
-    unreadable = read_json(report).get("unreadable") or {}
+    rep = read_json(report)
+    if "systems_seen" not in rep:
+        return True                                   # written by a version that did not record them (1.0.0)
+    unreadable = rep.get("unreadable") or {}
     labelled = {**INPUTS, **VRA_INPUTS}
     if not all(os.path.exists(copy_of(p)) or k in unreadable for k, p in labelled.items()):
         return True

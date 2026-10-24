@@ -264,6 +264,28 @@ def _uses(a: dict, targets: dict, coverage: dict | None) -> list[dict]:
     return out
 
 
+HTTP_CLIENT = ("hand-written HTTP client for a REST host the export does not name: each call becomes an HTTP task "
+               "(io.kestra.plugin.core.http.Request)")
+
+
+def _client_reason(covered: list[dict], targets: dict) -> str:
+    """Why a client a Kestra plugin replaces goes. A system whose plugin does not cover the way vRO calls it
+    (`pattern_gap` in the plugin map) says so, with the two ways to go; a client of REST hosts no signature
+    names (its uses are empty) becomes HTTP tasks."""
+    if not covered:
+        return HTTP_CLIENT
+    plain = [u for u in covered if not (targets.get(u["system"]) or {}).get("pattern_gap")]
+    gap = [u for u in covered if (targets.get(u["system"]) or {}).get("pattern_gap")]
+    parts = []
+    if plain:
+        parts.append("hand-written client for " + ", ".join(u["name"] for u in plain)
+                     + ", which Kestra has a plugin for (" + ", ".join(u["replaced_by"] for u in plain) + ")")
+    for u in gap:
+        parts.append(f"hand-written client for {u['name']}, which Kestra has a plugin for, though not for the way "
+                     f"this code calls it. {targets[u['system']]['pattern_gap']}")
+    return "; ".join(parts)
+
+
 def tasks_short(tasks: list[str]) -> str:
     """One task class in full; several under their shared package: `io.kestra.plugin.ee.f5` pool.Create, ..."""
     if len(tasks) <= 1:
@@ -335,9 +357,7 @@ def triage_action(a: dict, targets: dict, first_with_same_code: str | None, over
                           "(io.kestra.plugin.core.http.Request) rather than carrying this JavaScript across"))
     elif a["library_for"]:
         if not not_covered:
-            sig.append(("Plugin-covered library",
-                        "hand-written client for " + ", ".join(u["name"] for u in covered)
-                        + ", which Kestra has a plugin for (" + ", ".join(u["replaced_by"] for u in covered) + ")"))
+            sig.append(("Plugin-covered library", _client_reason(covered, targets)))
         elif all(targets.get(u["system"], {}).get("reach") in ("plugin", "http") for u in not_covered):
             sdk = [targets[u["system"]].get("sdk_alternative") for u in not_covered
                    if targets[u["system"]].get("sdk_alternative")]

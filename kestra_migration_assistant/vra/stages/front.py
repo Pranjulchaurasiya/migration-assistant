@@ -260,16 +260,23 @@ def _say(x, assess, brief, cov, replacing, n_wf, life) -> tuple[str, str]:
     if kind == "client":
         if x.get("others"):
             names = [tname(targets[s]) for s in x["systems"] if s in targets]
-            label = f"Client actions for {word(len(names))} other systems"
+            # clients of REST hosts no signature names count as one more system: their rows name none
+            unnamed = any(not _row_systems(r, assess, brief) for r in x["rows"])
+            label = f"Client actions for {word(len(names) + unnamed)} other systems"
             return label, ("tasks of Kestra plugins, or HTTP tasks" if how == "Direct" else "new clients, designed for Kestra")
         home = x["key"][1]
         t = targets.get(home)
         sysn = tname(t) if t else "several systems"
         label = f"{sysn} client actions" if t else "Client actions for several systems"
+        if not t and not x["systems"]:
+            label = "HTTP client actions"                 # REST hosts the export does not name
         if how != "Direct":
             return label, "a new client, designed for Kestra"
         if t and t.get("reach") == "plugin":
             plugs = ((cov.get(home) or {}).get("catalog") or {}).get("plugins") or []
+            if plugs and t.get("pattern_gap"):
+                return label, (f"Kestra's {_plugin_title(plugs[0]['name'], t)} plugin, which works another way, "
+                               f"or HTTP tasks on {sysn}'s API")
             if plugs:
                 p = plugs[0]
                 return label, (f"tasks of Kestra's {_plugin_title(p['name'], t)} plugin"

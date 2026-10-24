@@ -59,6 +59,12 @@ READ_HEAD = re.compile(r"^(get|find|fetch|list|read|search|lookup|query|verify|e
 WRITE_HEAD = re.compile(r"^(create|add|delete|remove|update|edit|set|assign|attach|detach|reconfigure|execute|"
                         r"save|resync|commit|schedule|scale|change|import|connect|disconnect|run|post|put|write)", re.I)
 PLATFORM_NOT_OPS = {"log", "debug", "warn", "error", "getModule", "sleep", "getObjectId", "getDate"}
+# JavaScript's own methods, called on a property of a plugin object (`group.distinguishedName.indexOf(...)`): local
+# string and array work, not a call to the remote system.
+JS_LOCAL_METHODS = {"indexOf", "lastIndexOf", "toLowerCase", "toUpperCase", "trim", "split", "substring", "substr",
+                    "slice", "replace", "match", "search", "startsWith", "endsWith", "includes", "charAt", "concat",
+                    "join", "push", "pop", "shift", "filter", "map", "forEach", "some", "every", "sort", "toFixed",
+                    "toString", "valueOf"}
 
 
 def load_plugin_map() -> dict:
@@ -157,6 +163,9 @@ def extract_ops(script: str, var_types: dict[str, str]) -> list[dict]:
             if var == "VcPlugin":
                 ops.append({"target": "vcenter", "op": f"VcPlugin.{meth}", "kind": "sdk"})
                 continue
+            if var == "ActiveDirectory":                  # the AD plugin's singleton: searches, untyped
+                ops.append({"target": "active-directory", "op": f"ActiveDirectory.{meth}", "kind": "sdk"})
+                continue
             if meth in ("execute", "schedule") and types.get(var) == "Workflow" or \
                     (var.lower().startswith("workflow") and meth in ("execute", "schedule")):
                 ops.append({"target": "vro-platform", "op": f"Workflow.{meth}", "kind": "run another workflow"})
@@ -190,12 +199,16 @@ def extract_ops(script: str, var_types: dict[str, str]) -> list[dict]:
                 continue
 
             # typed variables. Setters, and getters with no arguments, read or build a
-            # local object; they are not calls to the remote system.
-            if re.match(r"^set[A-Z_]|^add\w*Item$", meth) or \
-                    (re.match(r"^(get|is|has)[A-Z]", meth) and re.match(r"\(\s*\)", rest)):
-                continue
+            # local object; they are not calls to the remote system. An AD object's setAttribute writes to the
+            # directory.
             t = types.get(var)
+            remote_setter = meth == "setAttribute" and (t or "").startswith("AD:")
+            if not remote_setter and (re.match(r"^set[A-Z_]|^add\w*Item$", meth) or
+                                      (re.match(r"^(get|is|has)[A-Z]", meth) and re.match(r"\(\s*\)", rest))):
+                continue
             tgt = target_for_type(t) if t and ":" in (t or "") else (target_for_ctor(t) if t else None)
+            if tgt and path and meth in JS_LOCAL_METHODS:
+                continue
             if tgt:
                 assert t is not None
                 op = f"{t}{path}.{meth}" if path else f"{t}.{meth}"
@@ -270,7 +283,10 @@ REST_CLIENT = re.compile(r"\bRESTHostManager\b|\.createTransientHostFrom\s*\(|\b
 REST_REQUEST = re.compile(r"\.createRequest\s*\(\s*([^,()]+?)\s*,\s*([^,()]+?)\s*[,)]")
 LITERAL = re.compile(r"""^\s*(["'])(.*)\1\s*$""", re.S)
 STRING_LIT = re.compile(r"""(["'])((?:\\.|(?!\1)[^\\\n])*)\1""")
-REST_SIGNATURES: dict[str, dict] = {}        # target -> {"paths": [re], "headers": [re]}, from plugin-map
+REST_SIGNATURES: dict[str, dict] = {}        # target -> {"paths", "headers", "hosts", "bodies": [re]}, from plugin-map
+# What Sanitize saw behind a value it replaced: a placeholder (`<URL-03>`) or a configuration element attribute name
+# (`slackWebhookUrl`) -> the target whose `hosts` signature the value's host matched. The system, never the value.
+SEEN_SYSTEMS: dict[str, str] = {}
 
 
 def load_rest_signatures(pm: dict) -> None:
@@ -278,7 +294,17 @@ def load_rest_signatures(pm: dict) -> None:
     for key, t in (pm.get("targets") or {}).items():
         sig = t.get("rest_signatures") or {}
         if sig:
-            REST_SIGNATURES[key] = {k: [re.compile(p) for p in sig.get(k) or []] for k in ("paths", "headers")}
+            REST_SIGNATURES[key] = {k: [re.compile(p) for p in sig.get(k) or []]
+                                    for k in ("paths", "headers", "hosts", "bodies")}
+
+
+def host_target(host: str, pm: dict | None = None) -> str | None:
+    """The one target whose `hosts` signature matches a host name, else None. Only Sanitize calls this, on the
+    raw value it is about to replace."""
+    if pm is not None:
+        load_rest_signatures(pm)
+    hits = {k for k, sig in REST_SIGNATURES.items() for rx in sig.get("hosts") or [] if rx.search(host.lower())}
+    return next(iter(hits)) if len(hits) == 1 else None
 
 
 def _literal(expr: str) -> str | None:
@@ -461,11 +487,16 @@ def rest_call_ops(script: str, helpers: dict[str, dict], builders: dict[str, dic
 
 
 def name_rest_target(evidence: list[str]) -> tuple[str, list[str]]:
-    """The one target whose REST signatures match the evidence strings, else rest-host."""
+    """The one target whose REST signatures match the evidence strings, else rest-host. Evidence is what the
+    sanitized code says: path and header literals, a body literal (`MessageCard`), and a placeholder or a
+    configuration element attribute name behind which Sanitize saw the system's host (SEEN_SYSTEMS)."""
     hits = {}
     for key, sig in REST_SIGNATURES.items():
         why = [f"path {s!r}" for s in evidence for rx in sig["paths"] if rx.search(s)] + \
-              [f"header {s!r}" for s in evidence for rx in sig["headers"] if rx.search(s)]
+              [f"header {s!r}" for s in evidence for rx in sig["headers"] if rx.search(s)] + \
+              [f"body {s!r}" for s in evidence for rx in sig.get("bodies") or [] if rx.search(s)] + \
+              [(f"host behind {s}" if s.startswith("<") else f"host in configuration attribute {s!r}")
+               for s in evidence if SEEN_SYSTEMS.get(s) == key]
         if why:
             hits[key] = sorted(set(why))[:3]
     if len(hits) == 1:

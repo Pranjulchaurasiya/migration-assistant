@@ -132,6 +132,8 @@ def _ognl_actions(m: dict) -> list[tuple[str, str]]:
 def run() -> dict:
     C.ensure(C.ASSESS)
     pm = T.load_plugin_map()
+    T.SEEN_SYSTEMS.clear()
+    T.SEEN_SYSTEMS.update(C.sanitize_report().get("systems_seen") or {})
     from . import corrections
     ov_path = C.CORRECTIONS
     ov = corrections.load()
@@ -194,8 +196,18 @@ def run() -> dict:
                 o["mode"] = T.mode_of(o["op"])
         return ops
 
+    def name_own_requests(ops, evidence):
+        """A request the script builds itself (`createRequest("POST", "")`): named from the same evidence."""
+        for o in ops:
+            if o["target"] == "rest-host" and o.get("kind") == "rest":
+                tgt, why = T.name_rest_target(evidence + [o["op"].split(" ", 1)[1]])
+                if tgt != "rest-host":
+                    o["target"], o["evidence"] = tgt, why
+        return ops
+
     for a in actions:
         a["rest_helper"] = a["name"] in helpers
+        name_own_requests(a["ops"], literals_of(a))
         a["ops"] += named_rest_ops(a["script"], literals_of(a))
     for u, m in all_models.items():
         for mod, act in _wf_action_calls(m):
@@ -254,9 +266,9 @@ def run() -> dict:
             s = i.get("script") or ""
             if not s.strip():
                 continue
-            own_ops += [dict(o, via=None, item=i["name"]) for o in T.extract_ops(s, vt)]
             ev = T.string_literals(s) + [x for mod, act in module_calls(s) if act not in helpers
                                          for t in alook.get((mod, act), []) for x in literals_of(t)]
+            own_ops += [dict(o, via=None, item=i["name"]) for o in name_own_requests(T.extract_ops(s, vt), ev)]
             own_ops += [dict(o, via=None, item=i["name"]) for o in named_rest_ops(s, ev)]
             if not AUTO_GEN.search(s):
                 logic_lines += sum(1 for l in s.splitlines()
@@ -532,6 +544,7 @@ def run() -> dict:
             "enterprise_only": t.get("enterprise_only", False),
             "kestra_tasks": t.get("kestra_tasks", []), "kestra_evidence": t.get("kestra_evidence"),
             "api": t.get("api"), "sdk_alternative": t.get("sdk_alternative"),
+            "pattern_gap": t.get("pattern_gap"),
             "unconfirmed": t.get("unconfirmed", []),
             "detected_by": sorted(cast("set[str]", detected - {None})),
             "api_auth": t.get("api_auth"),

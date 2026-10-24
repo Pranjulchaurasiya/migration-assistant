@@ -1,0 +1,7 @@
+{
+  "workflow_uid": "detection-Detect---Apply-Segment",
+  "purpose": "Detect - Apply Segment, for the detection fixture.",
+  "confidence": "high",
+  "open_questions": [],
+  "external_systems": []
+}
