@@ -153,6 +153,7 @@ Prompts are assembled from the sanitized copy. Here's how source content is hand
   - For vRA exports, owners, subscribers, principals, tenant information, network names, tags, and CIDRs are also replaced.
   - Addresses beginning with 255 are treated as netmasks rather than host addresses and are preserved (for example, `255.255.255.0`).
 - **Removed:** Text values in configuration elements and all SecureString values. Their names and types remain. The sanitizer also removes package signer and owner identities, signatures, and certificates.
+- **Recorded as a system, never as a value:** When a replaced URL or hostname belongs to a system the tool recognizes by its host, such as a Microsoft Teams or Slack incoming webhook, the sanitizer records which system it was, against the placeholder and against the configuration element attribute that held it (for example, `slackWebhookUrl: slack`). Later stages use that record to name the system. The value itself isn't kept.
 - **Preserved from configuration elements:** Numeric and boolean values when the attribute type identifies them as such, plus netmasks (`255.255.255.0` or `/24`). For example, a numeric monitoring timeout of `16` remains. A string containing `16` is removed because its type is text. SecureString values are removed regardless of their contents.
 - **Sent as written:** Workflow, action, module, category, element, attribute, and item names; export file and package names; scripts and workflow structure; vRA IDs and event topics; and specifications of workflows that share state with the workflow being analyzed. Module and category names remain intact even if they resemble hostnames (such as `com.acme.net`), because the tool uses them to resolve code identifiers and calls. **Organization-identifying names can therefore appear in model prompts.**
 
@@ -187,8 +188,8 @@ Open `kestra-assessment/index.html` to review the assessment offline. The brief 
 
 - **Status:** What needs to happen next.
 - **Estate inventory:** What's included in the export.
-- **Recommendation:** Whether to convert, use a mixed approach, or rebuild; counts of elements that can convert **Direct**, require a **Redesign**, or are waiting on a decision; and a table showing what each element type becomes in Kestra.
-- **Owner input:** Outstanding questions, grouped and counted.
+- **Recommendation:** Whether to convert, use a mixed approach, or rebuild; how many workflows need a conversion of their own once near-duplicates and wrappers are counted out; counts of elements that can convert **Direct**, require a **Redesign**, or are waiting on a decision; and a table showing what each element type becomes in Kestra.
+- **Owner input:** Outstanding questions, grouped and counted, and the workflows that nothing in the export calls or starts (retire candidates).
 - **Migration plan:** The proposed waves, with a summary of each.
 
 `report/BRIEF.md` contains the same brief with an appendix.
