@@ -656,8 +656,8 @@ def _readiness_md(r: dict) -> str:
           "dunes-meta-inf. The value is not repeated here.", ""]
 
     L += _entry_points_md(exp)
-    L += ["## Verdict per stage", "",
-          C.md_table(["Stage", "Verdict", "Why"],
+    L += ["## Readiness per stage", "",
+          C.md_table(["Stage", "Readiness", "Why"],
                      [[v["command"], v["verdict"], v["why"]] for v in r["verdicts"]]), ""]
 
     L += ["## Most important gap", ""]

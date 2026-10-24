@@ -10,7 +10,7 @@ first; the plan, one bullet per wave; and where to check. Every list is grouped 
 keeps its length as the estate grows: tests/test_front.py builds it for a 60-workflow estate.
 
 The words follow the vRA migration guide: Direct and Redesign, a wave's first of a kind, estate, targets,
-verdicts, Day 0, Day 1 and Day 2, vRA and vRO. Kestra task class names and answers.yaml keys stay off the front
+recommendations, Day 0, Day 1 and Day 2, vRA and vRO. Kestra task class names and answers.yaml keys stay off the front
 page's running text (tests/test_writing.py checks every customer-facing file).
 
 Also here: the two detail pages the front page leans on most, translation.html (every element, in its row of the
@@ -895,7 +895,7 @@ def document_no_model(assess: dict, brief: dict) -> list[tuple]:
         ("h1", f"Migration brief: {est}"),
         ("p", f"What the code found in the {est} export, read on this machine from {src} on "
               f"{_date(brief['generated'])}. This run used no model, so everything below comes from the code itself. "
-              f"It is Stage 1 of the [vRA migration guide]({GUIDE}), without the verdicts."),
+              f"It is Stage 1 of the [vRA migration guide]({GUIDE}), without the recommendations."),
         ("status", {"head": "Next step: run it again with a model.",
                     "body": f"What each of the {word(n_model)} {_s(n_model, 'workflow')} does, its possible defects, "
                             "and whether to convert or rebuild it need a model. Everything else is below.",
@@ -1012,7 +1012,7 @@ def document_no_model(assess: dict, brief: dict) -> list[tuple]:
     B += [("h2", "What a model adds"),
           ("p", "A model reads each workflow's code and writes down what it does. From that come the three things this "
                 "run leaves open: what each workflow does, its possible defects, and whether to convert or rebuild it. "
-                "The recommendation and the migration plan in waves follow from those verdicts."),
+                "The recommendation and the migration plan in waves follow from them."),
           ("p", _with_a_model(est))]
 
     nd = needs(assess, brief, st)

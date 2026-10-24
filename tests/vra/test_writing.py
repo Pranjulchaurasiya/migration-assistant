@@ -3,7 +3,8 @@ The writing rules, on every customer-facing file: the pages (index.html and ever
 reports included), BRIEF.md and the comments of your-input/answers.yaml.
 
 The words follow the vRA migration guide: a wave starts with its first of a kind, never a "pilot"; elements
-convert Direct or need a Redesign, never "mechanical" or "designed" work; no "prototype"; no em dash; and nothing
+convert Direct or need a Redesign, never "mechanical" or "designed" work; a recommendation, never a "verdict";
+no "prototype"; no em dash; and nothing
 points at Kestra's own files under internal/. On the front page, no Kestra task class name and no answers.yaml key
 appears in the running text.
 
@@ -35,6 +36,8 @@ RULES = {
     "em dash": re.compile("—"),
     "internal/": re.compile(r"\binternal/"),
     "Aria": re.compile(r"\bAria (Automation|Orchestrator)\b"),
+    # a person reads a recommendation; "verdict" stays a data key and a code name only (since 1.1.0)
+    "verdict": re.compile(r"\bverdicts?\b", re.I),
 }
 
 
@@ -45,7 +48,9 @@ def _text(path: str) -> str:
         t = re.sub(r"<[^>]+>", " ", t)
         t = html.unescape(t)
     elif path.endswith(".yaml"):
-        t = "\n".join(x for x in t.splitlines() if x.lstrip().startswith("#"))
+        # the comments, and the questions a person answers
+        t = "\n".join(x for x in t.splitlines() if x.lstrip().startswith(("#", "question:", "- id:")) or
+                      re.match(r"\s*question:", x))
     return t
 
 
