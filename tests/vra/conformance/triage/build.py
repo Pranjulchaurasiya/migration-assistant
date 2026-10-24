@@ -11,8 +11,8 @@ workflow whose only job is a vRO configuration element (Lab - Forget Controller)
 VRA in its name and whose spec names vRA as the consumer (Lab - Create Pool); OGNL form logic calling an action
 (Lab - Change Password); a low-confidence spec (Lab - Create Admin); an SSH command with SecureString inputs, a
 Path input and attribute, a `condition` item and a root that is not the first item in the file (Lab - Run
-Remote Command); and a call to an action that is not in the export (Lab - Enable Override). The specs are in
-specs/, written here too.
+Remote Command); a call to an action that is not in the export (Lab - Enable Override); and the same with a
+low-confidence spec, which stays Needs owner input (Lab - Purge Volumes). The specs are in specs/, written here too.
 """
 from __future__ import annotations
 
@@ -113,11 +113,11 @@ def workflow(name: str, n: int, items: str, *, root: str = "item1", inputs: Para
     write(base + ".element_info.xml", INFO.format(cat="Example.Lab", name=name, type="Workflow", id=wid(n)))
 
 
-def spec(name: str, purpose: str, confidence: str) -> None:
+def spec(name: str, purpose: str, confidence: str, reason: str | None = None) -> None:
     uid = "triage-" + name.replace(" ", "-")
     write(os.path.join(SPECS, uid + ".json"), json.dumps(
         {"workflow_uid": uid, "purpose": purpose, "confidence": confidence, "open_questions": [],
-         "external_systems": []}, indent=2) + "\n")
+         "external_systems": [], **({"confidence_reason": reason} if reason else {})}, indent=2) + "\n")
 
 
 TENANT = [("tenantName", "string")]
@@ -296,6 +296,17 @@ System.getModule("com.example.vendor").waitTaskEnd(task, 5);
 System.log("override enabled on " + segment);
 """, [("segment", "string")]), inputs=[("segment", "string")])
     spec("Lab - Enable Override", "Enables an override on one lab segment and waits for the task to finish.", "high")
+
+    # Needs owner input, not Manual: the spec is low because its core logic is an action the export lacks
+    workflow("Lab - Purge Volumes", 11, end() + task("item1", "item0", """
+if (!datastore) {
+    throw "no datastore";
+}
+var purged = System.getModule("com.example.vendor").purgeOrphanedVolumes(datastore, dryRun);
+System.log("purged " + purged + " volumes on " + datastore);
+""", [("datastore", "string"), ("dryRun", "boolean")]), inputs=[("datastore", "string"), ("dryRun", "boolean")])
+    spec("Lab - Purge Volumes", "Purges orphaned volumes from one datastore.", "low",
+         "What gets purged sits behind purgeOrphanedVolumes, whose source was not in the export.")
 
 
 if __name__ == "__main__":

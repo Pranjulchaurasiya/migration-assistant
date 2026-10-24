@@ -289,8 +289,8 @@ def test_script_normalization_strips_comments():
 def test_every_workflow_parsed_without_error():
     idx = index()
     assert idx["counts"]["parse_failures"] == 0
-    # canvas 23, aria-xml 1, pkgdiff 2 + 3, planted-secrets 1, events 3, helpers 2, builders 1, review 3, triage 10
-    assert idx["counts"]["workflows_parsed"] == 49
+    # canvas 23, aria-xml 1, pkgdiff 2 + 3, planted-secrets 1, events 3, helpers 2, builders 1, review 3, triage 11
+    assert idx["counts"]["workflows_parsed"] == 50
 
 
 def test_every_edge_target_exists_or_is_warned():

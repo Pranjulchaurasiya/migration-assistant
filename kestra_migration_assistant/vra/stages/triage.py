@@ -36,7 +36,11 @@ Order, and why:
    Needs owner input  Blocked only on things an owner can answer: a blocking
                  open question, or a callee that is not in the export. Once
                  answered it converts like Convert, so it goes into a wave with
-                 the answers as entry criteria.
+                 the answers as entry criteria. Missing code wins over a
+                 low-confidence spec when that is the only rewrite reason: the
+                 model rates a spec low when key behaviour sits behind code it
+                 was not given, and the owner supplying that code is what lets
+                 the spec be written again (since 1.1.0; it was Manual before).
 7. Convert       Everything left: its own logic, no hard blockers, every
                  target reachable, spec confidence high or medium. Medium
                  adds "owner reviews the spec" to its wave's entry criteria.
@@ -150,6 +154,14 @@ def _wf_signals(w: dict, spec: dict | None, first: dict | None, is_first: bool) 
     blocking_q = [q for q in sp.get("open_questions", []) if (q.get("theme") or "").lower() in BLOCKING_THEMES]
     if blocking_q:
         ask.append(f"{len(blocking_q)} open question(s) on whether the spec has the behaviour right")
+    # missing code first: a low-confidence spec whose workflow calls code the export lacks is Needs owner input
+    # (supply the code, and the spec is written again), unless something else needs a hand rewrite anyway
+    low_on_missing = conf == "low" and rewrite == ["spec confidence low"] and bool(unknown_callees or missing_actions)
+    low_reason = (sp.get("confidence_reason") or "").strip()
+    if low_on_missing:
+        rewrite = []
+        ask.append("the spec is rated low confidence" + (f" (the model says: {low_reason.rstrip('.')})" if low_reason
+                                                         else "") + "; once the missing code is in, it is written again")
     if rewrite:
         sig.append({"outcome": "Manual", "reason": "; ".join(rewrite + ask),
                     "evidence": {"blockers": rewrite, "owner_questions": ask}})
@@ -163,7 +175,8 @@ def _wf_signals(w: dict, spec: dict | None, first: dict | None, is_first: bool) 
                                  "blocking_questions": [q["question"] for q in blocking_q],
                                  "missing": sorted({n["display_name"] or n["workflow_id"] for n in unknown_callees}
                                                    | set(missing_actions)),
-                                 "spec_review": conf == "medium"}})
+                                 "spec_review": conf == "medium",
+                                 **({"low_confidence": low_reason or True} if low_on_missing else {})}})
 
     # 7. convert: spec confidence high, or medium with an owner review of the spec as a wave gate
     if not rewrite and not ask and conf is not None:
