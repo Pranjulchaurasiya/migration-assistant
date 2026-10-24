@@ -1,0 +1,160 @@
+{
+ "id": "e5000000-0000-4000-8000-000000000008",
+ "name": "Lab - Create Admin",
+ "description": "",
+ "category_path": "Example.Lab",
+ "source_path": "triage/Workflow/Example/Lab/Lab - Create Admin.xml",
+ "container_format": "raw-xml",
+ "root_item": "item1",
+ "restart_mode": "1",
+ "api_version": "6.0.0",
+ "version": "1.0.0",
+ "inputs": [
+  {
+   "name": "tenantName",
+   "type": "string"
+  }
+ ],
+ "outputs": [],
+ "attributes": [],
+ "items": [
+  {
+   "name": "item0",
+   "type": "end",
+   "display_name": null,
+   "attributes": {
+    "name": "item0",
+    "type": "end",
+    "end-mode": "0"
+   },
+   "in_bindings": [],
+   "out_bindings": [],
+   "script": null,
+   "script_lines": 0,
+   "conditions": [],
+   "references": []
+  },
+  {
+   "name": "item1",
+   "type": "task",
+   "display_name": "item1",
+   "attributes": {
+    "name": "item1",
+    "out-name": "item0",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "tenantName",
+     "type": "string",
+     "export_name": "tenantName",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [],
+   "script": "var admin = { tenant: tenantName, role: \"admin\" };\nfor (var i = 0; i < 3; i++) {\n    System.log(\"step \" + i + \" for \" + admin.tenant);\n}",
+   "script_lines": 4,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "cac37375c1bbae83"
+  }
+ ],
+ "edges": [
+  {
+   "from": "item1",
+   "to": "item0",
+   "kind": "next",
+   "label": null
+  }
+ ],
+ "item_type_counts": {
+  "end": 1,
+  "task": 1
+ },
+ "scripts": [
+  {
+   "item": "item1",
+   "lines": 4,
+   "source": "var admin = { tenant: tenantName, role: \"admin\" };\nfor (var i = 0; i < 3; i++) {\n    System.log(\"step \" + i + \" for \" + admin.tenant);\n}",
+   "norm": "var ID = { ID: ID, ID: \"ID\" }; for (var ID = ID; ID < ID; ID++) { ID.ID(\"ID\" + ID + \"ID\" + ID.ID); }"
+  }
+ ],
+ "script_shingles": {
+  "item1": [
+   "var ID = { ID:",
+   "ID = { ID: ID,",
+   "= { ID: ID, ID:",
+   "{ ID: ID, ID: \"ID\"",
+   "ID: ID, ID: \"ID\" };",
+   "ID, ID: \"ID\" }; for",
+   "ID: \"ID\" }; for (var",
+   "\"ID\" }; for (var ID",
+   "}; for (var ID =",
+   "for (var ID = ID;",
+   "(var ID = ID; ID",
+   "ID = ID; ID <",
+   "= ID; ID < ID;",
+   "ID; ID < ID; ID++)",
+   "ID < ID; ID++) {",
+   "< ID; ID++) { ID.ID(\"ID\"",
+   "ID; ID++) { ID.ID(\"ID\" +",
+   "ID++) { ID.ID(\"ID\" + ID",
+   "{ ID.ID(\"ID\" + ID +",
+   "ID.ID(\"ID\" + ID + \"ID\"",
+   "+ ID + \"ID\" +",
+   "ID + \"ID\" + ID.ID);",
+   "+ \"ID\" + ID.ID); }"
+  ]
+ },
+ "total_script_lines": 4,
+ "sdk_calls": [
+  "System.log"
+ ],
+ "plugin_types": [],
+ "nested_calls": [],
+ "action_calls": [],
+ "config_refs": [],
+ "presentation": {
+  "params": [],
+  "ognl": [],
+  "raw_present": true
+ },
+ "has_ognl": false,
+ "error_handler_items": [],
+ "default_error_handler": null,
+ "throw_end_items": [],
+ "input_form_present": false,
+ "warnings": [],
+ "wid": "triage/Lab - Create Admin",
+ "uid": "triage-Lab---Create-Admin",
+ "source": "triage",
+ "file_stem": "Lab - Create Admin",
+ "baseline_key": "triage/Lab - Create Admin",
+ "baseline_ambiguous": false,
+ "graph": {
+  "items": 2,
+  "edges": 1,
+  "branches": 0,
+  "joins": 0,
+  "cycle": false,
+  "depth": 1,
+  "reachable_from_root": 2,
+  "error_handler_path": [],
+  "unreachable_items": [],
+  "linear": true
+ },
+ "item_type_sequence": [
+  "task",
+  "end"
+ ],
+ "root_path_items": [
+  "item1",
+  "item0"
+ ],
+ "error_handler_path_items": [],
+ "first_task_on_root_path": "item1",
+ "first_task_in_doc_order": "item1",
+ "doc_order_would_mislead": false,
+ "called_by": [],
+ "is_orphan": true
+}

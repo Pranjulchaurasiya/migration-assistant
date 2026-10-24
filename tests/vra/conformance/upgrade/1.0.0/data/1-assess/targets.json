@@ -1,0 +1,194 @@
+{
+ "ssh-host": {
+  "key": "ssh-host",
+  "name": "SSH hosts",
+  "short_name": "SSH",
+  "category": null,
+  "vro_plugin": "SSH",
+  "kestra_group": null,
+  "op_tasks": [],
+  "reach": "plugin",
+  "confirmed": true,
+  "reach_overridden": false,
+  "enterprise_only": false,
+  "kestra_tasks": [
+   "io.kestra.plugin.fs.ssh.Command"
+  ],
+  "kestra_evidence": "https://kestra.io/plugins/plugin-fs/ssh/io.kestra.plugin.fs.ssh.command",
+  "api": null,
+  "sdk_alternative": null,
+  "unconfirmed": [],
+  "detected_by": [
+   "plugin"
+  ],
+  "api_auth": null,
+  "client_auth": null,
+  "tls_off": null,
+  "workflows": [
+   "triage-Lab---Run-Remote-Command"
+  ],
+  "actions": [],
+  "declared_only": [],
+  "operations": [
+   {
+    "op": "SSHSession.connectWithPassword",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "plugin"
+   },
+   {
+    "op": "SSHSession.connectWithPasswordOrIdentity",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "plugin"
+   },
+   {
+    "op": "SSHSession.disconnect",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "plugin"
+   },
+   {
+    "op": "SSHSession.executeCommand",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "plugin"
+   }
+  ],
+  "action_only_operations": [],
+  "reads": 0,
+  "writes": 4
+ },
+ "rest-host": {
+  "key": "rest-host",
+  "name": "REST hosts (vRO HTTP-REST plugin)",
+  "short_name": "REST hosts",
+  "category": null,
+  "vro_plugin": "HTTP-REST",
+  "kestra_group": null,
+  "op_tasks": [],
+  "reach": "plugin",
+  "confirmed": true,
+  "reach_overridden": false,
+  "enterprise_only": false,
+  "kestra_tasks": [
+   "io.kestra.plugin.core.http.Request"
+  ],
+  "kestra_evidence": "https://kestra.io/plugins/core/http/io.kestra.plugin.core.http.request",
+  "api": null,
+  "sdk_alternative": null,
+  "unconfirmed": [],
+  "detected_by": [
+   "REST request",
+   "REST signature (the REST helper's call site)"
+  ],
+  "api_auth": null,
+  "client_auth": null,
+  "tls_off": null,
+  "workflows": [
+   "detection-Detect---Apply-Segment",
+   "detection-Detect---Notify",
+   "detection-Detect---Patch-Linux"
+  ],
+  "actions": [
+   "detection:com.example.detect/launchJobTemplate",
+   "detection:com.example.detect/postSlackMessage",
+   "detection:com.example.detect/postTeamsMessage",
+   "detection:com.example.detect/queueRun"
+  ],
+  "declared_only": [],
+  "operations": [
+   {
+    "op": "GET /api/v2/jobs/{id}/",
+    "workflows": 1,
+    "mode": "read",
+    "reach": "plugin"
+   },
+   {
+    "op": "POST ",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "plugin"
+   },
+   {
+    "op": "POST /api/v2/job_templates/{templateId}/launch/",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "plugin"
+   },
+   {
+    "op": "POST /api/v2/runs",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "plugin"
+   }
+  ],
+  "action_only_operations": [
+   "HTTP request (method and path from the caller)"
+  ],
+  "reads": 1,
+  "writes": 3
+ },
+ "vro-platform": {
+  "key": "vro-platform",
+  "name": "vRO platform services",
+  "short_name": "vRO",
+  "category": null,
+  "vro_plugin": "(built in)",
+  "kestra_group": null,
+  "op_tasks": [],
+  "reach": "plugin",
+  "confirmed": true,
+  "reach_overridden": false,
+  "enterprise_only": false,
+  "kestra_tasks": [
+   "io.kestra.plugin.core.flow.Subflow",
+   "io.kestra.plugin.core.log.Log"
+  ],
+  "kestra_evidence": "https://kestra.io/plugins/core",
+  "api": null,
+  "sdk_alternative": null,
+  "unconfirmed": [],
+  "detected_by": [
+   "vRO platform call"
+  ],
+  "api_auth": null,
+  "client_auth": null,
+  "tls_off": null,
+  "workflows": [
+   "detection-Detect---Notify",
+   "triage-Lab---Forget-Controller"
+  ],
+  "actions": [],
+  "declared_only": [],
+  "operations": [
+   {
+    "op": "get configuration element attribute (getAttributeWithKey)",
+    "workflows": 1,
+    "mode": "read",
+    "reach": "replace"
+   },
+   {
+    "op": "read configuration element Example",
+    "workflows": 1,
+    "mode": "read",
+    "reach": "replace"
+   },
+   {
+    "op": "read configuration element Example/Lab",
+    "workflows": 1,
+    "mode": "read",
+    "reach": "replace"
+   },
+   {
+    "op": "write configuration element (removeAttributeWithKey)",
+    "workflows": 1,
+    "mode": "write",
+    "reach": "replace"
+   }
+  ],
+  "action_only_operations": [],
+  "reads": 3,
+  "writes": 1
+ }
+}

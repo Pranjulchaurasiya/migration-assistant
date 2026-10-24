@@ -1,0 +1,89 @@
+{
+ "written_by": "code (no model)",
+ "paths": [
+  {
+   "persona": "the requester",
+   "rule": "longest call chain from a workflow nothing in the estate calls",
+   "nodes": [
+    "triage-Process-Tenant-Notification",
+    "triage-Lab---Create-Tenant",
+    "triage-Lab---Find-or-Create-Tenant",
+    "triage-Lab---Delete-Tenant"
+   ]
+  },
+  {
+   "persona": "the operator",
+   "rule": "entry workflows in the operations and configuration domains of the source with the most read-only entry workflows (triage), excluding Rebuild, read-only first",
+   "nodes": [
+    "triage-Lab---Change-Password",
+    "triage-Lab---Create-Admin",
+    "triage-Lab---Enable-Override",
+    "triage-Lab---Purge-Volumes",
+    "triage-Lab---Run-Remote-Command"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "persona": "the requester",
+   "name": "Flow for the requester",
+   "description": "longest call chain from a workflow nothing in the estate calls",
+   "path_rule": "longest call chain from a workflow nothing in the estate calls",
+   "steps": [
+    {
+     "workflow": "triage-Process-Tenant-Notification",
+     "label": "Process Tenant Notification",
+     "outcome": "Rebuild"
+    },
+    {
+     "workflow": "triage-Lab---Create-Tenant",
+     "label": "Lab - Create Tenant",
+     "outcome": "Wrapper"
+    },
+    {
+     "workflow": "triage-Lab---Find-or-Create-Tenant",
+     "label": "Lab - Find or Create Tenant",
+     "outcome": "Needs a model"
+    },
+    {
+     "workflow": "triage-Lab---Delete-Tenant",
+     "label": "Lab - Delete Tenant",
+     "outcome": "Needs a model"
+    }
+   ]
+  },
+  {
+   "persona": "the operator",
+   "name": "Flow for the operator",
+   "description": "entry workflows in the operations and configuration domains of the source with the most read-only entry workflows (triage), excluding Rebuild, read-only first",
+   "path_rule": "entry workflows in the operations and configuration domains of the source with the most read-only entry workflows (triage), excluding Rebuild, read-only first",
+   "steps": [
+    {
+     "workflow": "triage-Lab---Change-Password",
+     "label": "Lab - Change Password",
+     "outcome": "Manual"
+    },
+    {
+     "workflow": "triage-Lab---Create-Admin",
+     "label": "Lab - Create Admin",
+     "outcome": "Manual"
+    },
+    {
+     "workflow": "triage-Lab---Enable-Override",
+     "label": "Lab - Enable Override",
+     "outcome": "Needs owner input"
+    },
+    {
+     "workflow": "triage-Lab---Purge-Volumes",
+     "label": "Lab - Purge Volumes",
+     "outcome": "Manual"
+    },
+    {
+     "workflow": "triage-Lab---Run-Remote-Command",
+     "label": "Lab - Run Remote Command",
+     "outcome": "Manual"
+    }
+   ]
+  }
+ ]
+}

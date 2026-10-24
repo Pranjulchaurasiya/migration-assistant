@@ -1,0 +1,1718 @@
+{
+ "label": "estate",
+ "threshold": 0.62,
+ "weights": {
+  "shape": 0.3,
+  "graph": 0.1,
+  "plugins": 0.15,
+  "sdk": 0.1,
+  "io": 0.15,
+  "scripts": 0.2
+ },
+ "method": "single-linkage agglomerative over weighted feature similarity, implemented as union-find, cut at the threshold",
+ "n_workflows": 15,
+ "n_clusters": 5,
+ "n_singletons": 4,
+ "clusters": [
+  {
+   "cluster_id": "C01",
+   "members": [
+    "detection-Detect---Apply-Segment",
+    "detection-Detect---Notify",
+    "detection-Detect---Patch-Linux",
+    "triage-Lab---Change-Password",
+    "triage-Lab---Create-Admin",
+    "triage-Lab---Create-Pool",
+    "triage-Lab---Delete-Tenant",
+    "triage-Lab---Enable-Override",
+    "triage-Lab---Find-or-Create-Tenant",
+    "triage-Lab---Forget-Controller",
+    "triage-Lab---Purge-Volumes"
+   ],
+   "size": 11,
+   "first_of_a_kind": "triage-Lab---Find-or-Create-Tenant",
+   "shape_sigs": [
+    "task>end"
+   ],
+   "sources": [
+    "detection",
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "amber": 7,
+    "red": 1,
+    "green": 3
+   },
+   "strongest_pair": {
+    "a": "triage-Lab---Create-Admin",
+    "b": "triage-Lab---Find-or-Create-Tenant",
+    "score": 0.816,
+    "per_feature": {
+     "shape": 1.0,
+     "graph": 1.0,
+     "plugins": 1.0,
+     "sdk": 1.0,
+     "io": 1.0,
+     "scripts": 0.081
+    }
+   },
+   "weakest_internal_pair": {
+    "a": "triage-Lab---Change-Password",
+    "b": "triage-Lab---Forget-Controller",
+    "score": 0.625,
+    "per_feature": {
+     "shape": 1.0,
+     "graph": 1.0,
+     "plugins": 1.0,
+     "sdk": 0.0,
+     "io": 0.5,
+     "scripts": 0.0
+    }
+   },
+   "all_internal_pairs": [
+    {
+     "a": "triage-Lab---Create-Admin",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.816,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 1.0,
+      "scripts": 0.081
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Admin",
+     "b": "triage-Lab---Delete-Tenant",
+     "score": 0.8,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 1.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Delete-Tenant",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.8,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 1.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Change-Password",
+     "b": "triage-Lab---Delete-Tenant",
+     "score": 0.705,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.273
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "triage-Lab---Delete-Tenant",
+     "score": 0.694,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.222
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "triage-Lab---Delete-Tenant",
+     "score": 0.694,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.222
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "detection-Detect---Notify",
+     "score": 0.69,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.2
+     }
+    },
+    {
+     "a": "triage-Lab---Enable-Override",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.687,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.185
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Pool",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.685,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.176
+     }
+    },
+    {
+     "a": "triage-Lab---Delete-Tenant",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.674,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.118
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.672,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.111
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.672,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.111
+     }
+    },
+    {
+     "a": "triage-Lab---Delete-Tenant",
+     "b": "triage-Lab---Enable-Override",
+     "score": 0.669,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.095
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "triage-Lab---Enable-Override",
+     "score": 0.668,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.091
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "triage-Lab---Enable-Override",
+     "score": 0.668,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.091
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Pool",
+     "b": "triage-Lab---Enable-Override",
+     "score": 0.665,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.073
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "detection-Detect---Patch-Linux",
+     "score": 0.663,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.067
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Admin",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.661,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.057
+     }
+    },
+    {
+     "a": "triage-Lab---Change-Password",
+     "b": "triage-Lab---Create-Pool",
+     "score": 0.656,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.029
+     }
+    },
+    {
+     "a": "triage-Lab---Enable-Override",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.656,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.029
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Admin",
+     "b": "triage-Lab---Enable-Override",
+     "score": 0.655,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.025
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "triage-Lab---Change-Password",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "triage-Lab---Create-Admin",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "triage-Lab---Create-Pool",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Apply-Segment",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "detection-Detect---Patch-Linux",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "triage-Lab---Change-Password",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "triage-Lab---Create-Admin",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "triage-Lab---Create-Pool",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Notify",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Patch-Linux",
+     "b": "triage-Lab---Change-Password",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Patch-Linux",
+     "b": "triage-Lab---Create-Admin",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Patch-Linux",
+     "b": "triage-Lab---Create-Pool",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Patch-Linux",
+     "b": "triage-Lab---Delete-Tenant",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Patch-Linux",
+     "b": "triage-Lab---Enable-Override",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Patch-Linux",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "detection-Detect---Patch-Linux",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Change-Password",
+     "b": "triage-Lab---Create-Admin",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Change-Password",
+     "b": "triage-Lab---Enable-Override",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Change-Password",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Change-Password",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Admin",
+     "b": "triage-Lab---Create-Pool",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Pool",
+     "b": "triage-Lab---Delete-Tenant",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Create-Pool",
+     "b": "triage-Lab---Find-or-Create-Tenant",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Find-or-Create-Tenant",
+     "b": "triage-Lab---Purge-Volumes",
+     "score": 0.65,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 1.0,
+      "io": 0.0,
+      "scripts": 0.0
+     }
+    },
+    {
+     "a": "triage-Lab---Change-Password",
+     "b": "triage-Lab---Forget-Controller",
+     "score": 0.625,
+     "per_feature": {
+      "shape": 1.0,
+      "graph": 1.0,
+      "plugins": 1.0,
+      "sdk": 0.0,
+      "io": 0.5,
+      "scripts": 0.0
+     }
+    }
+   ]
+  },
+  {
+   "cluster_id": "C02",
+   "members": [
+    "detection-Detect---Create-Group"
+   ],
+   "size": 1,
+   "first_of_a_kind": "detection-Detect---Create-Group",
+   "shape_sigs": [
+    "task>end"
+   ],
+   "sources": [
+    "detection"
+   ],
+   "plugins": [
+    "AD"
+   ],
+   "colour_mix": {
+    "red": 1
+   },
+   "strongest_pair": null,
+   "weakest_internal_pair": null,
+   "all_internal_pairs": []
+  },
+  {
+   "cluster_id": "C03",
+   "members": [
+    "triage-Lab---Create-Tenant"
+   ],
+   "size": 1,
+   "first_of_a_kind": "triage-Lab---Create-Tenant",
+   "shape_sigs": [
+    "link>end"
+   ],
+   "sources": [
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "amber": 1
+   },
+   "strongest_pair": null,
+   "weakest_internal_pair": null,
+   "all_internal_pairs": []
+  },
+  {
+   "cluster_id": "C04",
+   "members": [
+    "triage-Lab---Run-Remote-Command"
+   ],
+   "size": 1,
+   "first_of_a_kind": "triage-Lab---Run-Remote-Command",
+   "shape_sigs": [
+    "taskx2>condition>taskx3>end"
+   ],
+   "sources": [
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "red": 1
+   },
+   "strongest_pair": null,
+   "weakest_internal_pair": null,
+   "all_internal_pairs": []
+  },
+  {
+   "cluster_id": "C05",
+   "members": [
+    "triage-Process-Tenant-Notification"
+   ],
+   "size": 1,
+   "first_of_a_kind": "triage-Process-Tenant-Notification",
+   "shape_sigs": [
+    "switch>linkx2>end"
+   ],
+   "sources": [
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "amber": 1
+   },
+   "strongest_pair": null,
+   "weakest_internal_pair": null,
+   "all_internal_pairs": []
+  }
+ ],
+ "colours": {
+  "detection-Detect---Apply-Segment": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "detection-Detect---Create-Group": {
+   "band": "red",
+   "red_reasons": [
+    "plugin type with no known Kestra mapping: AD:OrganizationalUnit, AD:UserGroup"
+   ],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [
+    "AD:OrganizationalUnit",
+    "AD:UserGroup"
+   ],
+   "mapped_plugin_types": []
+  },
+  "detection-Detect---Notify": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "detection-Detect---Patch-Linux": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Change-Password": {
+   "band": "red",
+   "red_reasons": [
+    "1 OGNL presentation qualifier(s); no Kestra equivalent"
+   ],
+   "amber_reasons": [],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Create-Admin": {
+   "band": "green",
+   "red_reasons": [],
+   "amber_reasons": [],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Create-Pool": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Create-Tenant": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 nested or async workflow call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Delete-Tenant": {
+   "band": "green",
+   "red_reasons": [],
+   "amber_reasons": [],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Enable-Override": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Find-or-Create-Tenant": {
+   "band": "green",
+   "red_reasons": [],
+   "amber_reasons": [],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Forget-Controller": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Purge-Volumes": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Lab---Run-Remote-Command": {
+   "band": "red",
+   "red_reasons": [
+    "file-typed parameter with no Kestra equivalent: Path"
+   ],
+   "amber_reasons": [
+    "path depth 5",
+    "1 control-flow item(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  },
+  "triage-Process-Tenant-Notification": {
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "2 nested or async workflow call(s)",
+    "1 control-flow item(s)"
+   ],
+   "unmapped_plugin_types": [],
+   "mapped_plugin_types": []
+  }
+ },
+ "colour_totals": {
+  "amber": 9,
+  "red": 3,
+  "green": 3
+ },
+ "fingerprints": {
+  "detection-Detect---Apply-Segment": {
+   "uid": "detection-Detect---Apply-Segment",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.getModule"
+   ],
+   "io_in": [
+    "workspaceId:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "(!ID) { throw \"ID\"; }",
+    "= ID.ID(\"ID\").ID(ID); if (!ID) {",
+    "ID = ID.ID(\"ID\").ID(ID); if (!ID)",
+    "ID.ID(\"ID\").ID(ID); if (!ID) { throw",
+    "if (!ID) { throw \"ID\";",
+    "var ID = ID.ID(\"ID\").ID(ID); if"
+   ],
+   "script_lines": 4,
+   "nested_calls": 0,
+   "source": "detection",
+   "name": "Detect - Apply Segment"
+  },
+  "detection-Detect---Create-Group": {
+   "uid": "detection-Detect---Create-Group",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [
+    "AD"
+   ],
+   "plugin_types_full": [
+    "AD:OrganizationalUnit",
+    "AD:UserGroup"
+   ],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.getModule",
+    "System.log"
+   ],
+   "io_in": [
+    "group:AD:UserGroup",
+    "groupName:string",
+    "ou:AD:OrganizationalUnit"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\"; } var ID =",
+    "(!ID) { throw \"ID\"; }",
+    "= ID.ID(\"ID\").ID(ID, ID, ID); ID.ID(\"ID\"",
+    "ID = ID.ID(\"ID\").ID(ID, ID, ID);",
+    "ID, ID); ID.ID(\"ID\" + ID.ID);",
+    "ID.ID(\"ID\").ID(ID, ID, ID); ID.ID(\"ID\" +",
+    "if (!ID) { throw \"ID\";",
+    "throw \"ID\"; } var ID",
+    "var ID = ID.ID(\"ID\").ID(ID, ID,",
+    "{ throw \"ID\"; } var",
+    "} var ID = ID.ID(\"ID\").ID(ID,"
+   ],
+   "script_lines": 5,
+   "nested_calls": 0,
+   "source": "detection",
+   "name": "Detect - Create Group"
+  },
+  "detection-Detect---Notify": {
+   "uid": "detection-Detect---Notify",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.getModule"
+   ],
+   "io_in": [
+    "text:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\"; } ID.ID(\"ID\").ID(\"ID\", ID); ID.ID(\"ID\").ID(\"ID\",",
+    "(!ID) { throw \"ID\"; }",
+    "if (!ID) { throw \"ID\";",
+    "throw \"ID\"; } ID.ID(\"ID\").ID(\"ID\", ID);",
+    "{ throw \"ID\"; } ID.ID(\"ID\").ID(\"ID\",",
+    "} ID.ID(\"ID\").ID(\"ID\", ID); ID.ID(\"ID\").ID(\"ID\", ID);"
+   ],
+   "script_lines": 5,
+   "nested_calls": 0,
+   "source": "detection",
+   "name": "Detect - Notify"
+  },
+  "detection-Detect---Patch-Linux": {
+   "uid": "detection-Detect---Patch-Linux",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.getModule"
+   ],
+   "io_in": [
+    "templateId:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "!= \"ID\") { throw \"ID\"",
+    "\"ID\") { throw \"ID\" +",
+    "(ID != \"ID\") { throw",
+    "= ID.ID(\"ID\").ID(ID); if (ID !=",
+    "ID = ID.ID(\"ID\").ID(ID); if (ID",
+    "ID.ID(\"ID\").ID(ID); if (ID != \"ID\")",
+    "if (ID != \"ID\") {",
+    "throw \"ID\" + ID; }",
+    "var ID = ID.ID(\"ID\").ID(ID); if",
+    "{ throw \"ID\" + ID;"
+   ],
+   "script_lines": 4,
+   "nested_calls": 0,
+   "source": "detection",
+   "name": "Detect - Patch Linux"
+  },
+  "triage-Lab---Change-Password": {
+   "uid": "triage-Lab---Change-Password",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.log"
+   ],
+   "io_in": [
+    "controller:string",
+    "newPassword:SecureString"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\"; } ID.ID(\"ID\" + ID);",
+    "(!ID || ID.ID < ID)",
+    "< ID) { throw \"ID\";",
+    "ID) { throw \"ID\"; }",
+    "ID.ID < ID) { throw",
+    "if (!ID || ID.ID <",
+    "throw \"ID\"; } ID.ID(\"ID\" +",
+    "{ throw \"ID\"; } ID.ID(\"ID\"",
+    "|| ID.ID < ID) {"
+   ],
+   "script_lines": 4,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Change Password"
+  },
+  "triage-Lab---Create-Admin": {
+   "uid": "triage-Lab---Create-Admin",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.log"
+   ],
+   "io_in": [
+    "tenantName:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\" }; for (var ID",
+    "(var ID = ID; ID",
+    "+ \"ID\" + ID.ID); }",
+    "+ ID + \"ID\" +",
+    "< ID; ID++) { ID.ID(\"ID\"",
+    "= ID; ID < ID;",
+    "= { ID: ID, ID:",
+    "ID + \"ID\" + ID.ID);",
+    "ID < ID; ID++) {",
+    "ID = ID; ID <",
+    "ID = { ID: ID,",
+    "ID++) { ID.ID(\"ID\" + ID",
+    "ID, ID: \"ID\" }; for",
+    "ID.ID(\"ID\" + ID + \"ID\"",
+    "ID: \"ID\" }; for (var",
+    "ID: ID, ID: \"ID\" };",
+    "ID; ID < ID; ID++)",
+    "ID; ID++) { ID.ID(\"ID\" +",
+    "for (var ID = ID;",
+    "var ID = { ID:",
+    "{ ID.ID(\"ID\" + ID +",
+    "{ ID: ID, ID: \"ID\"",
+    "}; for (var ID ="
+   ],
+   "script_lines": 4,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Create Admin"
+  },
+  "triage-Lab---Create-Pool": {
+   "uid": "triage-Lab---Create-Pool",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.getModule",
+    "System.log"
+   ],
+   "io_in": [
+    "members:Array/string",
+    "poolName:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\" + ID.ID.ID + \"ID\");",
+    "\"ID\"); var ID = ID.ID(\"ID\").ID(ID,",
+    "\"ID\"; } var ID =",
+    "(!ID || ID.ID == ID)",
+    "+ \"ID\" + ID.ID.ID +",
+    "+ ID.ID + \"ID\" +",
+    "/ID, \"ID\"); var ID =",
+    "= ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\" +",
+    "= ID.ID().ID(/ /ID, \"ID\"); var",
+    "== ID) { throw \"ID\";",
+    "ID = ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\"",
+    "ID = ID.ID().ID(/ /ID, \"ID\");",
+    "ID) { throw \"ID\"; }",
+    "ID); ID.ID(\"ID\" + ID.ID +",
+    "ID.ID + \"ID\" + ID.ID.ID",
+    "ID.ID == ID) { throw",
+    "ID.ID(\"ID\" + ID.ID + \"ID\"",
+    "ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\" + ID.ID",
+    "ID.ID().ID(/ /ID, \"ID\"); var ID",
+    "if (!ID || ID.ID ==",
+    "throw \"ID\"; } var ID",
+    "var ID = ID.ID(\"ID\").ID(ID, ID);",
+    "var ID = ID.ID().ID(/ /ID,",
+    "{ throw \"ID\"; } var",
+    "|| ID.ID == ID) {",
+    "} var ID = ID.ID().ID(/"
+   ],
+   "script_lines": 6,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Create Pool"
+  },
+  "triage-Lab---Create-Tenant": {
+   "uid": "triage-Lab---Create-Tenant",
+   "shape_sig": "link>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "link",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [],
+   "sdk_full": [],
+   "io_in": [
+    "tenantName:string"
+   ],
+   "io_out": [],
+   "script_shingles": [],
+   "script_lines": 0,
+   "nested_calls": 1,
+   "source": "triage",
+   "name": "Lab - Create Tenant"
+  },
+  "triage-Lab---Delete-Tenant": {
+   "uid": "triage-Lab---Delete-Tenant",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.log"
+   ],
+   "io_in": [
+    "tenantName:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\"; } ID.ID(\"ID\" + ID);",
+    "(!ID) { throw \"ID\"; }",
+    "if (!ID) { throw \"ID\";",
+    "throw \"ID\"; } ID.ID(\"ID\" +",
+    "{ throw \"ID\"; } ID.ID(\"ID\""
+   ],
+   "script_lines": 4,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Delete Tenant"
+  },
+  "triage-Lab---Enable-Override": {
+   "uid": "triage-Lab---Enable-Override",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.getModule",
+    "System.log"
+   ],
+   "io_in": [
+    "segment:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\" + ID, ID: \"ID\"",
+    "\"ID\" }; ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\"",
+    "\"ID\"; } var ID =",
+    "(!ID) { throw \"ID\"; }",
+    "+ ID, ID: \"ID\" };",
+    "= { ID: \"ID\" +",
+    "ID = { ID: \"ID\"",
+    "ID, ID: \"ID\" }; ID.ID(\"ID\").ID(ID,",
+    "ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\" + ID);",
+    "ID: \"ID\" + ID, ID:",
+    "ID: \"ID\" }; ID.ID(\"ID\").ID(ID, ID);",
+    "if (!ID) { throw \"ID\";",
+    "throw \"ID\"; } var ID",
+    "var ID = { ID:",
+    "{ ID: \"ID\" + ID,",
+    "{ throw \"ID\"; } var",
+    "} var ID = {",
+    "}; ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\" +"
+   ],
+   "script_lines": 6,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Enable Override"
+  },
+  "triage-Lab---Find-or-Create-Tenant": {
+   "uid": "triage-Lab---Find-or-Create-Tenant",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.log"
+   ],
+   "io_in": [
+    "tenantName:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\"; } ID.ID = true;",
+    "(!ID.ID) { throw \"ID\"; }",
+    "= true; ID.ID(\"ID\" + ID.ID);",
+    "= { ID: ID, ID:",
+    "ID = { ID: ID,",
+    "ID, ID: false }; if",
+    "ID.ID = true; ID.ID(\"ID\" +",
+    "ID: ID, ID: false };",
+    "ID: false }; if (!ID.ID)",
+    "false }; if (!ID.ID) {",
+    "if (!ID.ID) { throw \"ID\";",
+    "throw \"ID\"; } ID.ID =",
+    "var ID = { ID:",
+    "{ ID: ID, ID: false",
+    "{ throw \"ID\"; } ID.ID",
+    "} ID.ID = true; ID.ID(\"ID\"",
+    "}; if (!ID.ID) { throw"
+   ],
+   "script_lines": 6,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Find or Create Tenant"
+  },
+  "triage-Lab---Forget-Controller": {
+   "uid": "triage-Lab---Forget-Controller",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "Server"
+   ],
+   "sdk_full": [
+    "Server.getConfigurationElementCategoryWithPath"
+   ],
+   "io_in": [
+    "controller:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "= ID.ID(\"ID\"); var ID =",
+    "ID = ID.ID(\"ID\"); var ID",
+    "ID.ID(\"ID\"); var ID = ID.ID[ID];",
+    "var ID = ID.ID(\"ID\"); var",
+    "var ID = ID.ID[ID]; ID.ID(ID);"
+   ],
+   "script_lines": 3,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Forget Controller"
+  },
+  "triage-Lab---Purge-Volumes": {
+   "uid": "triage-Lab---Purge-Volumes",
+   "shape_sig": "task>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.getModule",
+    "System.log"
+   ],
+   "io_in": [
+    "datastore:string",
+    "dryRun:boolean"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\"; } var ID =",
+    "(!ID) { throw \"ID\"; }",
+    "+ ID + \"ID\" +",
+    "= ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\" +",
+    "ID + \"ID\" + ID);",
+    "ID = ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\"",
+    "ID); ID.ID(\"ID\" + ID +",
+    "ID.ID(\"ID\" + ID + \"ID\"",
+    "ID.ID(\"ID\").ID(ID, ID); ID.ID(\"ID\" + ID",
+    "if (!ID) { throw \"ID\";",
+    "throw \"ID\"; } var ID",
+    "var ID = ID.ID(\"ID\").ID(ID, ID);",
+    "{ throw \"ID\"; } var",
+    "} var ID = ID.ID(\"ID\").ID(ID,"
+   ],
+   "script_lines": 5,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Purge Volumes"
+  },
+  "triage-Lab---Run-Remote-Command": {
+   "uid": "triage-Lab---Run-Remote-Command",
+   "shape_sig": "taskx2>condition>taskx3>end",
+   "shape_multiset": [
+    [
+     "condition",
+     1
+    ],
+    [
+     "end",
+     1
+    ],
+    [
+     "task",
+     5
+    ]
+   ],
+   "graph_sig": {
+    "branches": 1,
+    "joins": 1,
+    "cycle": false,
+    "depth": 5,
+    "linear": false
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [
+    "System"
+   ],
+   "sdk_full": [
+    "System.log"
+   ],
+   "io_in": [
+    "cmd:string",
+    "hostName:string",
+    "passphrase:SecureString",
+    "password:SecureString",
+    "passwordAuthentication:boolean",
+    "path:Path",
+    "port:number",
+    "username:string"
+   ],
+   "io_out": [
+    "errorText:string",
+    "outputText:string",
+    "result:number"
+   ],
+   "script_shingles": [
+    "\"ID\" + ID + \"ID\"",
+    "(!ID) { throw \"ID\"; }",
+    "+ \"ID\" + ID; ID.ID(ID);",
+    "+ ID + \"ID\" +",
+    ": ID; var ID =",
+    "= \"ID\" + ID +",
+    "= ID ? ID :",
+    "= ID.ID(); ID = ID.ID();",
+    "= ID.ID(); ID = ID.ID;",
+    "= ID; ID = ID;",
+    "= new ID(ID, ID, ID);",
+    "? ID : ID; var",
+    "ID + \"ID\" + ID;",
+    "ID : ID; var ID",
+    "ID = \"ID\" + ID",
+    "ID = ID ? ID",
+    "ID = ID.ID(); ID =",
+    "ID = ID; ID =",
+    "ID = new ID(ID, ID,",
+    "ID ? ID : ID;",
+    "ID(ID, ID, ID); ID.ID(ID); ID.ID(ID,",
+    "ID(ID, ID, ID); ID.ID(false, ID,",
+    "ID); ID.ID(ID); ID.ID(ID, true); ID",
+    "ID); ID.ID(ID, true); ID =",
+    "ID); ID.ID(false, ID, ID); ID.ID(ID,",
+    "ID, ID); ID.ID(ID); ID.ID(ID, true);",
+    "ID, ID); ID.ID(ID, true); ID",
+    "ID, ID); ID.ID(false, ID, ID);",
+    "ID.ID(); ID = ID.ID(); ID",
+    "ID.ID(); ID = ID.ID; ID.ID();",
+    "ID.ID(ID); ID.ID(ID, true); ID =",
+    "ID.ID(ID, true); ID = ID.ID();",
+    "ID.ID(false, ID, ID); ID.ID(ID, true);",
+    "ID; ID = ID; ID",
+    "ID; var ID = new",
+    "if (!ID) { throw \"ID\";",
+    "new ID(ID, ID, ID); ID.ID(ID);",
+    "new ID(ID, ID, ID); ID.ID(false,",
+    "true); ID = ID.ID(); ID",
+    "var ID = ID ?",
+    "var ID = new ID(ID,"
+   ],
+   "script_lines": 23,
+   "nested_calls": 0,
+   "source": "triage",
+   "name": "Lab - Run Remote Command"
+  },
+  "triage-Process-Tenant-Notification": {
+   "uid": "triage-Process-Tenant-Notification",
+   "shape_sig": "switch>linkx2>end",
+   "shape_multiset": [
+    [
+     "end",
+     1
+    ],
+    [
+     "link",
+     2
+    ],
+    [
+     "switch",
+     1
+    ]
+   ],
+   "graph_sig": {
+    "branches": 1,
+    "joins": 1,
+    "cycle": false,
+    "depth": 2,
+    "linear": false
+   },
+   "plugins": [],
+   "plugin_types_full": [],
+   "sdk": [],
+   "sdk_full": [],
+   "io_in": [
+    "actionType:string",
+    "tenantName:string"
+   ],
+   "io_out": [],
+   "script_shingles": [
+    "\"ID\") { return \"ID\"; }",
+    "\"ID\"; } else if (ID",
+    "(ID === \"ID\") { return",
+    "=== \"ID\") { return \"ID\";",
+    "else if (ID === \"ID\")",
+    "if (ID === \"ID\") {",
+    "return \"ID\"; } else if",
+    "{ return \"ID\"; } else",
+    "} else if (ID ==="
+   ],
+   "script_lines": 5,
+   "nested_calls": 2,
+   "source": "triage",
+   "name": "Process Tenant Notification"
+  }
+ }
+}

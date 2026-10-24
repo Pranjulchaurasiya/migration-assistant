@@ -25,6 +25,8 @@ Moved here from `corpus/sources/` on 2026-09-27. Licences of the upstream reposi
 | `helpers/` | written for this repository, 2026-09-30 | this repository | a raw XML tree (`vro/`), a vRA content tree (`vra/`) and one spec (`specs/`): shared helpers and the replacement of vRA |
 | `builders/` | written for this repository, 2026-10-01, by `builders/build.py` | this repository | a raw XML tree (`vro/`): body builders on top of a client, and REST paths their callers make concrete |
 | `triage/` | written for this repository, 2026-10-09, by `triage/build.py` | this repository | a raw XML tree (`vro/`) and eight specs (`specs/`): one workflow per triage rule no other input reaches |
+| `detection/` | written for this repository, 2026-10-24, by `detection/build.py` | this repository | a raw XML tree (`vro/`) and four specs (`specs/`): Ansible Tower, Terraform Enterprise, Teams and Slack webhooks and Active Directory, called the way vRO code calls them |
+| `upgrade/1.0.0/` | written for this repository, 2026-10-24, by `upgrade/build.py` running kestra-migrate 1.0.0 | this repository | the `your-input/` and `data/` 1.0.0 left after every item was answered, on the `detection/` and `triage/` trees |
 | `large/` | written for this repository, 2026-10-01: only `large/build.py` is committed; the tests build the estate in a temporary folder | this repository | a raw XML tree and specs of any size (60 workflows for the front page test) |
 | `security/` | written for this repository, 2026-09-27 (built by the tests at run time where a file would be hostile to keep on disk) | this repository | hostile XML and ZIP inputs |
 

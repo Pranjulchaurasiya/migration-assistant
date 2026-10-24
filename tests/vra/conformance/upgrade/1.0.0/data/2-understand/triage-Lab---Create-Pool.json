@@ -1,0 +1,27 @@
+{
+  "workflow_uid": "triage-Lab---Create-Pool",
+  "purpose": "Builds a load balancer pool object, for consumption by vRealize Automation (vRA) as a day-1 action. Written for the upgrade fixture; every name in it is invented.",
+  "confidence": "high",
+  "open_questions": [
+    {
+      "question": "What should Lab   Create Pool do when the target is unreachable?",
+      "why_it_matters": "The flow's error handling depends on it.",
+      "theme": "error semantics"
+    }
+  ],
+  "external_systems": [],
+  "confidence_reason": "The steps are all in the export.",
+  "inputs": [],
+  "outputs": [],
+  "decisions": [],
+  "side_effects": [],
+  "assumptions": [],
+  "state_records": [],
+  "suspected_defects": [
+    {
+      "what": "Lab   Create Pool does not check the input before the call",
+      "evidence": "the first script item",
+      "question": "Keep it, or fix it?"
+    }
+  ]
+}

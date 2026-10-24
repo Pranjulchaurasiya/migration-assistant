@@ -1,0 +1,27 @@
+{
+  "workflow_uid": "detection-Detect---Create-Group",
+  "purpose": "Detect - Create Group, for the detection fixture. Written for the upgrade fixture; every name in it is invented.",
+  "confidence": "high",
+  "open_questions": [
+    {
+      "question": "What should Detect   Create Group do when the target is unreachable?",
+      "why_it_matters": "The flow's error handling depends on it.",
+      "theme": "error semantics"
+    }
+  ],
+  "external_systems": [],
+  "confidence_reason": "The steps are all in the export.",
+  "inputs": [],
+  "outputs": [],
+  "decisions": [],
+  "side_effects": [],
+  "assumptions": [],
+  "state_records": [],
+  "suspected_defects": [
+    {
+      "what": "Detect   Create Group does not check the input before the call",
+      "evidence": "the first script item",
+      "question": "Keep it, or fix it?"
+    }
+  ]
+}

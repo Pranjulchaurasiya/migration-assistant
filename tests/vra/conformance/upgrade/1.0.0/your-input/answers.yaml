@@ -1,0 +1,109 @@
+# Answer what's open, then run: kestra-migrate vra run upgrade
+
+open: []
+
+answered:
+  - id: about-the-estate
+    question: 'What the export cannot say about the estate:'
+    answer: null
+    each:
+      - id: q1-scope
+        question: Is this export the whole vRO estate?
+        answer: answer for q1-scope
+      - id: q2-external-callers
+        question: No vRA export was found. What starts these workflows from outside vRO? List it in entry-points.yaml next to this file, or put the vRA export in the export folder and run again.
+        answer: answer for q2-external-callers
+      - id: q4-off-limits
+        question: Is any of it off limits (another team's, frozen, vendor supplied, or being replaced)?
+        answer: answer for q4-off-limits
+      - id: q5-prior-attempts
+        question: Has anyone tried to migrate or rewrite any of it before? What happened?
+        answer: answer for q5-prior-attempts
+      - id: q6-owners
+        question: Who owns each functional area? A person or team for each.
+        answer: answer for q6-owners
+      - id: q7-execution-history
+        question: 'Can you export twelve months of run history: workflow, start time and result?'
+        answer: answer for q7-execution-history
+  - id: endpoints
+    question: Where can a converted flow run before production?
+    answer: null
+    each:
+      - id: q3-non-production-targets
+        question: 'SSH hosts: is there a non-production instance? And name any other system the workflows reach.'
+        answer: answer for q3-non-production-targets
+      - id: endpoint.rest-host
+        question: 'REST hosts: the URL of a non-production instance, and the Kestra secrets that hold its credentials?'
+        answer: answer for endpoint.rest-host
+  - id: suggested
+    question: 'Accept every suggested answer below? (yes; to change one, add answer: under it)'
+    answer: yes
+    each:
+      - id: q8-plugin-inventory
+        question: 'The code uses these vRO plugins: HTTP-REST plugin (built in), SSH, the plugin of type AD. Is that the list?'
+        suggested: HTTP-REST plugin (built in), SSH, the plugin of type AD
+        answer: yes
+      - id: writes.rest-host
+        question: Are the read and write labels on the target inventory page right?
+        suggested: confirmed
+        answer: yes
+  - id: defect.detect-apply-segment.other
+    question: 'Possible defect in Detect - Apply Segment: detect   Apply Segment does not check the input before the call. Keep the current behavior, or fix it?'
+    answer: answer for defect.detect-apply-segment.other
+  - id: defect.detect-create-group.other
+    question: 'Possible defect in Detect - Create Group: detect   Create Group does not check the input before the call. Keep the current behavior, or fix it?'
+    answer: answer for defect.detect-create-group.other
+  - id: defect.detect-notify.other
+    question: 'Possible defect in Detect - Notify: detect   Notify does not check the input before the call. Keep the current behavior, or fix it?'
+    answer: answer for defect.detect-notify.other
+  - id: defect.detect-patch-linux.other
+    question: 'Possible defect in Detect - Patch Linux: detect   Patch Linux does not check the input before the call. Keep the current behavior, or fix it?'
+    answer: answer for defect.detect-patch-linux.other
+  - id: defect.lab-enable-override.other
+    question: 'Possible defect in Lab - Enable Override: lab   Enable Override does not check the input before the call. Keep the current behavior, or fix it?'
+    answer: answer for defect.lab-enable-override.other
+  - id: missing.waittaskend
+    question: waitTaskEnd is called by Lab - Enable Override but is not in the export. Add its export to sources/<estate>/ and re-run, or say what it does. (exported, described in the answer or not needed)
+    answer: answer for missing.waittaskend
+  - id: questions
+    question: '11 questions from reading the workflows: answer those you can.'
+    answer: null
+    each:
+      - id: question.detect-apply-segment.error-semantics
+        question: 'Detect - Apply Segment, Detect - Notify: What should Detect Apply Segment do when the target is unreachable?'
+        answer: answer for question.detect-apply-segment.error-semantics
+      - id: question.detect-patch-linux.error-semantics
+        question: 'Detect - Patch Linux: What should Detect Patch Linux do when the target is unreachable?'
+        answer: answer for question.detect-patch-linux.error-semantics
+      - id: question.lab-change-password.error-semantics
+        question: 'Lab - Change Password: What should Lab Change Password do when the target is unreachable?'
+        answer: answer for question.lab-change-password.error-semantics
+      - id: question.lab-create-admin.error-semantics
+        question: 'Lab - Create Admin, Lab - Create Pool: What should Lab Create Admin do when the target is unreachable?'
+        answer: answer for question.lab-create-admin.error-semantics
+      - id: question.lab-enable-override.error-semantics
+        question: 'Lab - Enable Override: What should Lab Enable Override do when the target is unreachable?'
+        answer: answer for question.lab-enable-override.error-semantics
+      - id: question.lab-forget-controller.error-semantics
+        question: 'Lab - Forget Controller: What should Lab Forget Controller do when the target is unreachable?'
+        answer: answer for question.lab-forget-controller.error-semantics
+      - id: question.lab-purge-volumes.error-semantics
+        question: 'Lab - Purge Volumes: What should Lab Purge Volumes do when the target is unreachable?'
+        answer: answer for question.lab-purge-volumes.error-semantics
+      - id: question.detect-create-group.error-semantics
+        question: 'Detect - Create Group: What should Detect Create Group do when the target is unreachable?'
+        answer: answer for question.detect-create-group.error-semantics
+      - id: question.lab-create-tenant.error-semantics
+        question: 'Lab - Create Tenant: What should Lab Create Tenant do when the target is unreachable?'
+        answer: answer for question.lab-create-tenant.error-semantics
+      - id: question.lab-run-remote-command.error-semantics
+        question: 'Lab - Run Remote Command: What should Lab Run Remote Command do when the target is unreachable?'
+        answer: answer for question.lab-run-remote-command.error-semantics
+      - id: question.process-tenant-notification.error-semantics
+        question: 'Process Tenant Notification: What should Process Tenant Notification do when the target is unreachable?'
+        answer: answer for question.process-tenant-notification.error-semantics
+  - id: specs
+    question: Are the specs of the 13 workflows right? Yes, or name the workflow that is wrong and say what.
+    answer: answer for specs
+
+signed_for: full plan
