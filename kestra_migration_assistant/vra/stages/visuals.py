@@ -827,6 +827,12 @@ def workflow_page(u: str, assess: dict, brief: dict) -> str:
     m = C.read_json(os.path.join(C.WORK, "model", f"{u}.json"))
     w = assess["workflows"][u]
     t = brief["triage"][u]
+    rc = next((x for x in brief.get("retire_candidates") or [] if x["uid"] == u), None)
+    retire_note = ("<p><b>Retire candidate:</b> " + C.esc(rc["why"] + (" (" + "; ".join(rc["supporting"]) + ")"
+                                                                        if rc.get("supporting") else ""))
+                   + ". If something outside vRO starts it, name it in <code>your-input/entry-points.yaml</code> or "
+                   "in the question on other entry points; to retire it, confirm it in "
+                   "<code>your-input/corrections.yaml</code>.</p>") if rc and not t.get("overridden") else ""
     sp = C.spec(u) or {}
     src = flowchart_src(m, assess, brief)
     dom = next(d for d in assess["domains"]["domains"] if d["id"] == w["domain"])
@@ -900,6 +906,7 @@ def workflow_page(u: str, assess: dict, brief: dict) -> str:
 <span class="badge">{w['items']} items, {w['script_lines']} lines of script</span></div>
 <p><b>Why {C.esc(t['outcome'])}:</b> {C.esc(t['reason'])}</p>
 {"<p class='sub'>Other rules that matched: " + C.esc(" | ".join(t['also'])) + "</p>" if t['also'] else ""}
+{retire_note}
 {doc_note}
 <div class="grid side4">
 <div>

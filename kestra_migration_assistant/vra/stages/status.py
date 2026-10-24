@@ -205,8 +205,11 @@ def collect() -> dict:
     if n_open:
         todo.append(f"Answer {n_open} preflight question(s) in {C.rel(C.ANSWERS)} ({', '.join(ans['open'])})")
     if brief:
-        if brief["retire_candidates"]:
-            todo.append(f"Confirm or reject {len(brief['retire_candidates'])} retire candidates ({C.rel(C.CORRECTIONS)})")
+        # a candidate corrections.yaml already settled (Retire, or another outcome) is not asked again
+        tri = brief.get("triage") or {}
+        unsettled = [x for x in brief["retire_candidates"] if not (tri.get(x["uid"]) or {}).get("overridden")]
+        if unsettled:
+            todo.append(f"Confirm or reject {len(unsettled)} retire candidates ({C.rel(C.CORRECTIONS)})")
         c = brief["counts"]
         if c.get("Needs owner input"):
             todo.append(f"Answer the questions holding {c['Needs owner input']} Needs owner input workflow(s) "

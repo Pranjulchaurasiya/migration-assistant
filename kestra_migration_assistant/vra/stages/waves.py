@@ -334,7 +334,7 @@ def plan(assess: dict, triage: dict[str, dict], answers: dict, reviews: dict | N
                              "source": "unexported calls",
                              "closes": G.by_decision(f"missing.{G.key_part(x)}",
                                                      f"{x} is called by {wf[u].get('name') or u} but is not in the export. "
-                                                     "Add its export to sources/<estate>/ and re-run, or say what it does.",
+                                                     "Add it to the export folder and run again, or say what it does.",
                                                      ["exported", "described in the answer", "not needed"])})
         for u in spec_review:
             crit.append({"criterion": f"Owner reviews the spec for {_nm(wf, u)} (spec confidence medium)",
@@ -425,13 +425,16 @@ def plan(assess: dict, triage: dict[str, dict], answers: dict, reviews: dict | N
             crit.append({"criterion": "Preflight Q4 answered: none of these workflows is off limits",
                          "source": "preflight Q4", "closes": G.by_answer("Q4")})
         # Pilot: the safest member to learn from. Convert with a high-confidence spec first,
-        # then the fewest writes, then nothing it calls inside the wave. In a lifecycle group the member with the
+        # then the fewest writes, then nothing it calls inside the wave. A workflow nothing calls or starts (a
+        # retire candidate) is the last choice: it may be retired. In a lifecycle group the member with the
         # fewest writes is a reader, which needs the others' records to run: the group's state writer goes
         # first (the earliest in the deployment's life), on an empty target.
         group_writers = sorted({v for u in members for v in (lifecycle_of.get(u) or {}).get("writers") or []
                                 if v in inside})
         pilot = min(group_writers or members,
-                    key=lambda u: (_life_pos(wf[u]) if group_writers else 0, triage[u]["outcome"] != "Convert",
+                    key=lambda u: (_life_pos(wf[u]) if group_writers else 0,
+                                   not (wf[u].get("called_by") or wf[u].get("entry_points")),
+                                   triage[u]["outcome"] != "Convert",
                                    bool(triage[u]["evidence"].get("spec_review")), wf[u]["writes"], depth(u), u))
         pilot_with = [v for v in group_writers if v != pilot]
         rk = tier(members)

@@ -88,6 +88,11 @@ def _date(iso: str) -> str:
     return f"{d.strftime('%B')} {d.day}, {d.year}"
 
 
+ACTION_NAME = re.compile(r"(add|apply|change|close|create|decommission|delete|deploy|deregister|destroy|extend|get|"
+                         r"grant|install|join|move|open|patch|power|provision|register|remove|request|reserve|reset|"
+                         r"resize|restart|revert|revoke|run|set|update)\b", re.I)
+
+
 def phrase_name(name: str) -> str:
     """A catalog item's name as a phrase: lower case, and a noun plus participle joined ('load-balanced')."""
     ws = name.split()
@@ -111,16 +116,6 @@ def short_names(assess: dict) -> dict:
     if m and len(vals) > 1 and all(v.startswith(m.group(1)) for v in vals):
         tag = m.group(1)
     return {u: n[len(tag):] if tag else n for u, n in names.items()}
-
-
-def _pair(a: str, b: list[str]) -> tuple[str, list[str]]:
-    """Two or more names said together, without the words they all end with ('Create', 'Delete')."""
-    allw = [a.split()] + [x.split() for x in b]
-    k = 0
-    while all(len(w) > k + 1 for w in allw) and len({tuple(w[-(k + 1):]) for w in allw}) == 1:
-        k += 1
-    cut = (lambda w: " ".join(w[:-k])) if k else (lambda w: " ".join(w))
-    return cut(allw[0]), [cut(w) for w in allw[1:]]
 
 
 def tname(t: dict) -> str:
@@ -522,9 +517,25 @@ def needs(assess: dict, brief: dict, st: dict) -> list[str]:
 
     out: list[tuple[bool, str]] = []
     defects = [x for x in shown if x["id"].startswith(("defects.", "defect."))]
+    missing = [x for x in shown if x["id"].startswith("missing.")]
+    asked = {it["key"]: (it.get("ask") or "") + " " + (it.get("question") or "") for it in Y.items()} if missing else {}
     for x in shown:
         k, ms = x["id"], x["members"]
         n = len(ms)
+        if x in missing:
+            # one line for all the code the export lacks, naming each piece and what calls it
+            if x is not missing[0]:
+                continue
+            said = []
+            for m in missing:
+                q = asked.get(m["id"], "")
+                mm = re.match(r"(.+?) is called by (.+?) but is not in the export", q.strip())
+                said.append(f"{mm.group(1)} (called by {mm.group(2)})" if mm else m["id"].split(".", 1)[1])
+            nm = len(missing)
+            out.append((any(holds(m) for m in missing),
+                        f"**{cap(word(nm))} {_s(nm, 'piece')} of code the export does not have**: {_and(said)}. "
+                        "Add it to the export folder and run again, or say what it does."))
+            continue
         if x in defects:
             if x is not defects[0]:
                 continue
@@ -568,6 +579,21 @@ def needs(assess: dict, brief: dict, st: dict) -> list[str]:
             line = f"**{cap(phrase.get(f, f.replace('-', ' ')))}.**"
         out.append((holds(x), line))
     return [line for h, line in out if h] + [line + " Nothing waits on these yet." for h, line in out if not h]
+
+
+def retire_line(assess: dict, brief: dict) -> str | None:
+    """The retire candidates corrections.yaml has not settled: workflows nothing in the export calls and no entry
+    point on record starts. They are not answers.yaml entries: an owner names what starts one, or retires it."""
+    tri = brief.get("triage") or {}
+    names = sorted(assess["workflows"][x["uid"]]["name"] for x in brief.get("retire_candidates") or []
+                   if x["uid"] in assess["workflows"] and not (tri.get(x["uid"]) or {}).get("overridden"))
+    if not names:
+        return None
+    n = len(names)
+    return (f"**{cap(word(n))} {_s(n, 'workflow')} nothing starts**, so {_s(n, 'it', 'they')} may be unused: "
+            f"{_capped(names, 5, 'more')}. Often a vRO scheduled task, an ITSM or a script starts such a workflow, "
+            "and the export cannot show it: name what does in the question on other entry points, or in "
+            "`your-input/entry-points.yaml`. To retire one, confirm it in `your-input/corrections.yaml`.")
 
 
 def _kp(t: str) -> str:
@@ -621,7 +647,13 @@ def estate_paragraph(assess: dict, brief: dict) -> str:
     created = [_short_system(r, targets) for r in cov if r.get("created_by")]
     nw, na = c["workflows"], c["actions"]
     S_ = []
-    if cats:
+    # catalog items named for what they do ("Add User to AD Group") are not things the estate provisions
+    verbal = any(ACTION_NAME.match(x["name"]) for x in cats[:3])
+    if cats and verbal:
+        names = [x["name"] for x in cats]
+        S_.append(f"Users request {word(len(cats))} Service Broker catalog {_s(len(cats), 'item')}"
+                  + (f", such as {_and(names[:3])}" if len(cats) > 3 else f": {_and(names)}") + ".")
+    elif cats:
         S_.append(f"This estate provisions {_and([article(phrase_name(x['name'])) for x in cats[:3]])}"
                   + (f" and {len(cats) - 3} more" if len(cats) > 3 else "") + ".")
     else:
@@ -630,7 +662,7 @@ def estate_paragraph(assess: dict, brief: dict) -> str:
                   + _capped(doms, CAPS["domains"], "more") + ".")
     if cats or temps or subs:
         bits = []
-        if cats:
+        if cats and not verbal:
             bits.append(f"A user requests it from {word(len(cats))} Service Broker catalog {_s(len(cats), 'item')}")
         if temps:
             bits.append(("a cloud template" if len(temps) == 1 else f"{word(len(temps))} cloud templates")
@@ -642,7 +674,8 @@ def estate_paragraph(assess: dict, brief: dict) -> str:
             bits.append(f"{word(len(subs))} event {_s(len(subs), 'subscription runs', 'subscriptions run')} {word(run)} vRO "
                         f"{_s(run, 'workflow')}" + (f" as the deployment is {_and(vs)}" if vs else ""))
         sent = _clauses(bits)
-        S_.append(cap(sent) + ".")
+        if sent:
+            S_.append(cap(sent) + ".")
     # what the workflows touch, alternatives of one category said with "or"
     sysk = [k for k in targets if k not in ("vro-platform", "rest-host", "vra")]
     sysk = _order_targets(assess, brief, sysk)
@@ -729,7 +762,8 @@ def _wave_bullet(w: dict, assess: dict, brief: dict, sn: dict) -> str:
     if groups and n > 1 and any(g.get("shared_state") for g in groups):
         parts.append("They share state, so they convert together.")
     if w.get("pilot"):
-        first, then = _pair(sn.get(w["pilot"], w["pilot"]), [sn.get(u, u) for u in w.get("pilot_with") or []])
+        # names in full: cutting the words they share left "LB - Create", and a lone name its first word
+        first, then = sn.get(w["pilot"], w["pilot"]), [sn.get(u, u) for u in w.get("pilot_with") or []]
         parts.append(f"{first} is the first of a kind" + (f", then {_and(then)}." if then else "."))
     wr = _order_targets(assess, brief, [t for t in w.get("writes_to") or [] if t in targets])
     wn = _and([tname(targets[t]) for t in wr])
@@ -986,6 +1020,9 @@ def document_no_model(assess: dict, brief: dict) -> list[tuple]:
         B += [("h2", "What we need from you"), ("ul", nd),
               ("p", "Each one is a question in `your-input/answers.yaml`. Where the code points to an answer, it's "
                     "under `suggested`: write yes to take it.")]
+    rl = retire_line(assess, brief)
+    if rl:
+        B += ([] if nd else [("h2", "What we need from you")]) + [("p", rl)]
 
     B.append(("h2", "Where to check"))
     where = ([("vra.html", "The vRA flow", "how a request reaches each workflow")] if n_vra else []) + [
@@ -1046,6 +1083,9 @@ def document(assess: dict, brief: dict) -> list[tuple]:
     else:
         B.append(("p", "Nothing is open. " + ("Sign in `your-input/answers.yaml` when the plan reads right."
                                               if not st["signed"] else "The plan is signed.")))
+    rl = retire_line(assess, brief)
+    if rl:
+        B.append(("p", rl))
     warn = (brief.get("input") or {}).get("warnings")
     if warn:
         B.append(("sub", "Problems in your-input/answers.yaml: " + "; ".join(warn)))
