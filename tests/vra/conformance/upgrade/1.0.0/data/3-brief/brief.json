@@ -1,0 +1,2442 @@
+{
+ "generated": "2026-10-24T16:02:10Z",
+ "estate": "upgrade",
+ "inputs": {
+  "assess": {
+   "path": "upgrade/kestra-assessment/data/1-assess/assess.json",
+   "mtime": 1792857730.0415926
+  },
+  "answers": {
+   "path": "upgrade/kestra-assessment/your-input/answers.yaml",
+   "mtime": 1792857729.910219
+  },
+  "corrections": {
+   "path": "upgrade/kestra-assessment/your-input/corrections.yaml",
+   "mtime": 0.0
+  },
+  "specs": {
+   "path": "upgrade/kestra-assessment/data/2-understand",
+   "mtime": 1792857729.7047942
+  }
+ },
+ "names": {
+  "detection-Detect---Apply-Segment": {
+   "name": "Detect - Apply Segment",
+   "short": "detect-apply-segment"
+  },
+  "detection-Detect---Create-Group": {
+   "name": "Detect - Create Group",
+   "short": "detect-create-group"
+  },
+  "detection-Detect---Notify": {
+   "name": "Detect - Notify",
+   "short": "detect-notify"
+  },
+  "detection-Detect---Patch-Linux": {
+   "name": "Detect - Patch Linux",
+   "short": "detect-patch-linux"
+  },
+  "triage-Lab---Change-Password": {
+   "name": "Lab - Change Password",
+   "short": "lab-change-password"
+  },
+  "triage-Lab---Create-Admin": {
+   "name": "Lab - Create Admin",
+   "short": "lab-create-admin"
+  },
+  "triage-Lab---Create-Pool": {
+   "name": "Lab - Create Pool",
+   "short": "lab-create-pool"
+  },
+  "triage-Lab---Create-Tenant": {
+   "name": "Lab - Create Tenant",
+   "short": "lab-create-tenant"
+  },
+  "triage-Lab---Delete-Tenant": {
+   "name": "Lab - Delete Tenant",
+   "short": "lab-delete-tenant"
+  },
+  "triage-Lab---Enable-Override": {
+   "name": "Lab - Enable Override",
+   "short": "lab-enable-override"
+  },
+  "triage-Lab---Find-or-Create-Tenant": {
+   "name": "Lab - Find or Create Tenant",
+   "short": "lab-find-or-create-tenant"
+  },
+  "triage-Lab---Forget-Controller": {
+   "name": "Lab - Forget Controller",
+   "short": "lab-forget-controller"
+  },
+  "triage-Lab---Purge-Volumes": {
+   "name": "Lab - Purge Volumes",
+   "short": "lab-purge-volumes"
+  },
+  "triage-Lab---Run-Remote-Command": {
+   "name": "Lab - Run Remote Command",
+   "short": "lab-run-remote-command"
+  },
+  "triage-Process-Tenant-Notification": {
+   "name": "Process Tenant Notification",
+   "short": "process-tenant-notification"
+  }
+ },
+ "counts": {
+  "Retire": 0,
+  "Near-duplicate": 0,
+  "Wrapper": 1,
+  "Plugin-covered library": 0,
+  "Convert": 4,
+  "Needs owner input": 1,
+  "Needs a model": 2,
+  "Manual": 4,
+  "Rebuild": 3
+ },
+ "action_counts": {
+  "Retire": 0,
+  "Near-duplicate": 0,
+  "Wrapper": 0,
+  "Plugin-covered library": 5,
+  "Convert": 1,
+  "Needs owner input": 0,
+  "Needs a model": 0,
+  "Manual": 1,
+  "Rebuild": 2
+ },
+ "triage": {
+  "detection-Detect---Apply-Segment": {
+   "uid": "detection-Detect---Apply-Segment",
+   "kind": "workflow",
+   "outcome": "Convert",
+   "reason": "own logic, spec confidence high, no hard blockers, every target reachable (rest-host)",
+   "also": [],
+   "evidence": {
+    "spec_review": false
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "detection-Detect---Create-Group": {
+   "uid": "detection-Detect---Create-Group",
+   "kind": "workflow",
+   "outcome": "Convert",
+   "reason": "own logic, spec confidence high, no hard blockers, every target reachable (no external target)",
+   "also": [],
+   "evidence": {
+    "spec_review": false
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "detection-Detect---Notify": {
+   "uid": "detection-Detect---Notify",
+   "kind": "workflow",
+   "outcome": "Convert",
+   "reason": "own logic, spec confidence high, no hard blockers, every target reachable (rest-host)",
+   "also": [],
+   "evidence": {
+    "spec_review": false
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "detection-Detect---Patch-Linux": {
+   "uid": "detection-Detect---Patch-Linux",
+   "kind": "workflow",
+   "outcome": "Convert",
+   "reason": "own logic, spec confidence high, no hard blockers, every target reachable (rest-host)",
+   "also": [],
+   "evidence": {
+    "spec_review": false
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Change-Password": {
+   "uid": "triage-Lab---Change-Password",
+   "kind": "workflow",
+   "outcome": "Manual",
+   "reason": "1 OGNL presentation qualifier(s): the input form's logic needs redesign",
+   "also": [],
+   "evidence": {
+    "blockers": [
+     "1 OGNL presentation qualifier(s): the input form's logic needs redesign"
+    ],
+    "owner_questions": []
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Create-Admin": {
+   "uid": "triage-Lab---Create-Admin",
+   "kind": "workflow",
+   "outcome": "Manual",
+   "reason": "spec confidence low",
+   "also": [],
+   "evidence": {
+    "blockers": [
+     "spec confidence low"
+    ],
+    "owner_questions": []
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Create-Pool": {
+   "uid": "triage-Lab---Create-Pool",
+   "kind": "workflow",
+   "outcome": "Rebuild",
+   "reason": "exists to serve vRA: calls createVRAPoolObj and the spec names vRA as the consumer",
+   "also": [
+    "Convert: own logic, spec confidence high, no hard blockers, every target reachable (no external target)"
+   ],
+   "evidence": {
+    "vra_actions": [
+     "createVRAPoolObj"
+    ],
+    "spec_mentions_vra": true,
+    "started_by_vra": false
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Create-Tenant": {
+   "uid": "triage-Lab---Create-Tenant",
+   "kind": "workflow",
+   "outcome": "Wrapper",
+   "reason": "one call (nested workflow 'Lab - Find or Create Tenant'), 0 line(s) of its own logic, no decisions",
+   "also": [
+    "Convert: own logic, spec confidence high, no hard blockers, every target reachable (no external target)"
+   ],
+   "evidence": {
+    "calls": 1,
+    "logic_lines": 0
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Delete-Tenant": {
+   "uid": "triage-Lab---Delete-Tenant",
+   "kind": "workflow",
+   "outcome": "Needs a model",
+   "reason": "what it does, its possible defects, and whether to convert or rebuild it need a model",
+   "also": [],
+   "evidence": {
+    "blockers": [],
+    "owner_questions": []
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Enable-Override": {
+   "uid": "triage-Lab---Enable-Override",
+   "kind": "workflow",
+   "outcome": "Needs owner input",
+   "reason": "calls an action that is not in the export: waitTaskEnd (the owner supplies it or names the library it comes from). Nothing else stops conversion: once answered it converts like Convert",
+   "also": [],
+   "evidence": {
+    "blockers": [],
+    "owner_questions": [
+     "calls an action that is not in the export: waitTaskEnd (the owner supplies it or names the library it comes from)"
+    ],
+    "blocking_questions": [],
+    "missing": [
+     "waitTaskEnd"
+    ],
+    "spec_review": false
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Find-or-Create-Tenant": {
+   "uid": "triage-Lab---Find-or-Create-Tenant",
+   "kind": "workflow",
+   "outcome": "Needs a model",
+   "reason": "what it does, its possible defects, and whether to convert or rebuild it need a model",
+   "also": [],
+   "evidence": {
+    "blockers": [],
+    "owner_questions": []
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Forget-Controller": {
+   "uid": "triage-Lab---Forget-Controller",
+   "kind": "workflow",
+   "outcome": "Rebuild",
+   "reason": "its job is vRO's own state (write configuration element (removeAttributeWithKey)). Kestra keeps endpoints and certificates as secrets and plugin defaults, so there is nothing to translate.",
+   "also": [
+    "Convert: own logic, spec confidence high, no hard blockers, every target reachable (no external target)"
+   ],
+   "evidence": {
+    "vro_internal_writes": [
+     "write configuration element (removeAttributeWithKey)"
+    ]
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Purge-Volumes": {
+   "uid": "triage-Lab---Purge-Volumes",
+   "kind": "workflow",
+   "outcome": "Manual",
+   "reason": "spec confidence low; calls an action that is not in the export: purgeOrphanedVolumes (the owner supplies it or names the library it comes from)",
+   "also": [],
+   "evidence": {
+    "blockers": [
+     "spec confidence low"
+    ],
+    "owner_questions": [
+     "calls an action that is not in the export: purgeOrphanedVolumes (the owner supplies it or names the library it comes from)"
+    ]
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Lab---Run-Remote-Command": {
+   "uid": "triage-Lab---Run-Remote-Command",
+   "kind": "workflow",
+   "outcome": "Manual",
+   "reason": "file-typed parameter (Path): a path on the vRO appliance",
+   "also": [],
+   "evidence": {
+    "blockers": [
+     "file-typed parameter (Path): a path on the vRO appliance"
+    ],
+    "owner_questions": []
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  },
+  "triage-Process-Tenant-Notification": {
+   "uid": "triage-Process-Tenant-Notification",
+   "kind": "workflow",
+   "outcome": "Rebuild",
+   "reason": "event subscription dispatcher: switches on an action type and calls one workflow per event. In Kestra the subscription becomes a trigger and each event a flow.",
+   "also": [
+    "Convert: own logic, spec confidence high, no hard blockers, every target reachable (no external target)"
+   ],
+   "evidence": {
+    "inputs": [
+     "actionType",
+     "tenantName"
+    ],
+    "nested": [
+     "Lab - Create Tenant",
+     "Lab - Delete Tenant"
+    ]
+   },
+   "overridden": false,
+   "notes": [],
+   "trigger_notes": [],
+   "trigger_tags": []
+  }
+ },
+ "action_triage": {
+  "detection:com.example.detect/callRest": {
+   "uid": "detection-com.example.detect-callRest",
+   "key": "detection:com.example.detect/callRest",
+   "name": "callRest",
+   "kind": "action",
+   "outcome": "Plugin-covered library",
+   "reason": "generic REST client: it sends whatever method and path its callers pass. Each call site becomes a Kestra task on its own, a plugin task where the system has a plugin, else io.kestra.plugin.core.http.Request",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": false,
+   "same_as": null,
+   "basis": "rest-helper",
+   "workflow_uids": [
+    "detection-Detect---Apply-Segment",
+    "detection-Detect---Patch-Linux"
+   ]
+  },
+  "detection:com.example.detect/createSecurityGroup": {
+   "uid": "detection-com.example.detect-createSecurityGroup",
+   "key": "detection:com.example.detect/createSecurityGroup",
+   "name": "createSecurityGroup",
+   "kind": "action",
+   "outcome": "Convert",
+   "reason": "converts with the workflows that use it, as part of their conversion: Detect - Create Group. Its logic moves into their flows; it is not a flow of its own",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": true,
+   "same_as": null,
+   "basis": "with-flows",
+   "callers": [
+    {
+     "outcome": "Convert",
+     "name": "Detect - Create Group",
+     "kind": "workflow"
+    }
+   ],
+   "workflows": [
+    "Detect - Create Group"
+   ],
+   "workflow_uids": [
+    "detection-Detect---Create-Group"
+   ]
+  },
+  "detection:com.example.detect/endpoint": {
+   "uid": "detection-com.example.detect-endpoint",
+   "key": "detection:com.example.detect/endpoint",
+   "name": "endpoint",
+   "kind": "action",
+   "outcome": "Rebuild",
+   "reason": "its job is vRO's own state (get configuration element attribute (getAttributeWithKey); read configuration element Example): in Kestra settings become namespace variables or KV entries, credentials Kestra secrets",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": false,
+   "same_as": null,
+   "basis": "vro-state",
+   "workflow_uids": [
+    "detection-Detect---Apply-Segment",
+    "detection-Detect---Notify",
+    "detection-Detect---Patch-Linux"
+   ]
+  },
+  "detection:com.example.detect/launchJobTemplate": {
+   "uid": "detection-com.example.detect-launchJobTemplate",
+   "key": "detection:com.example.detect/launchJobTemplate",
+   "name": "launchJobTemplate",
+   "kind": "action",
+   "outcome": "Plugin-covered library",
+   "reason": "hand-written client for , which Kestra has a plugin for ()",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": false,
+   "same_as": null,
+   "basis": "client",
+   "workflow_uids": [
+    "detection-Detect---Patch-Linux"
+   ]
+  },
+  "detection:com.example.detect/postSlackMessage": {
+   "uid": "detection-com.example.detect-postSlackMessage",
+   "key": "detection:com.example.detect/postSlackMessage",
+   "name": "postSlackMessage",
+   "kind": "action",
+   "outcome": "Plugin-covered library",
+   "reason": "hand-written client for , which Kestra has a plugin for ()",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": false,
+   "same_as": null,
+   "basis": "client",
+   "workflow_uids": [
+    "detection-Detect---Notify"
+   ]
+  },
+  "detection:com.example.detect/postTeamsMessage": {
+   "uid": "detection-com.example.detect-postTeamsMessage",
+   "key": "detection:com.example.detect/postTeamsMessage",
+   "name": "postTeamsMessage",
+   "kind": "action",
+   "outcome": "Plugin-covered library",
+   "reason": "hand-written client for , which Kestra has a plugin for ()",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": false,
+   "same_as": null,
+   "basis": "client",
+   "workflow_uids": [
+    "detection-Detect---Notify"
+   ]
+  },
+  "detection:com.example.detect/queueRun": {
+   "uid": "detection-com.example.detect-queueRun",
+   "key": "detection:com.example.detect/queueRun",
+   "name": "queueRun",
+   "kind": "action",
+   "outcome": "Plugin-covered library",
+   "reason": "hand-written client for , which Kestra has a plugin for ()",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": false,
+   "same_as": null,
+   "basis": "client",
+   "workflow_uids": [
+    "detection-Detect---Apply-Segment"
+   ]
+  },
+  "triage:com.example.lab/createVRAPoolObj": {
+   "uid": "triage-com.example.lab-createVRAPoolObj",
+   "key": "triage:com.example.lab/createVRAPoolObj",
+   "name": "createVRAPoolObj",
+   "kind": "action",
+   "outcome": "Rebuild",
+   "reason": "rebuilt with what uses it (Lab - Create Pool)",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": true,
+   "same_as": null,
+   "basis": "workflow",
+   "callers": [
+    {
+     "outcome": "Rebuild",
+     "name": "Lab - Create Pool",
+     "kind": "workflow"
+    }
+   ],
+   "workflows": [
+    "Lab - Create Pool"
+   ],
+   "workflow_uids": [
+    "triage-Lab---Create-Pool"
+   ]
+  },
+  "triage:com.example.lab/listControllers": {
+   "uid": "triage-com.example.lab-listControllers",
+   "key": "triage:com.example.lab/listControllers",
+   "name": "listControllers",
+   "kind": "action",
+   "outcome": "Manual",
+   "reason": "its only callers are rewritten by hand, and it is rewritten with them: Lab - Change Password (1 OGNL presentation qualifier(s): the input form's logic needs redesign)",
+   "also": [],
+   "overridden": false,
+   "uses": [],
+   "by_caller": true,
+   "same_as": null,
+   "basis": null,
+   "callers": [
+    {
+     "outcome": "Manual",
+     "name": "Lab - Change Password",
+     "kind": "workflow"
+    }
+   ],
+   "workflows": [
+    "Lab - Change Password"
+   ],
+   "workflow_uids": [
+    "triage-Lab---Change-Password"
+   ]
+  }
+ },
+ "retire_candidates": [
+  {
+   "uid": "detection-Detect---Apply-Segment",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "detection-Detect---Create-Group",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "detection-Detect---Notify",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "detection-Detect---Patch-Linux",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Lab---Change-Password",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Lab---Create-Admin",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Lab---Create-Pool",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Lab---Enable-Override",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Lab---Forget-Controller",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Lab---Purge-Volumes",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Lab---Run-Remote-Command",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  },
+  {
+   "uid": "triage-Process-Tenant-Notification",
+   "why": "nothing in the export calls it, and no entry point on record starts it",
+   "supporting": [
+    "spec calls it a test fixture or demo"
+   ]
+  }
+ ],
+ "retire_candidate_actions": [],
+ "plan": {
+  "waves": [
+   {
+    "wave": 1,
+    "clusters": [
+     "C01",
+     "C02"
+    ],
+    "workflows": [
+     "detection-Detect---Apply-Segment",
+     "detection-Detect---Notify",
+     "detection-Detect---Patch-Linux",
+     "triage-Lab---Enable-Override",
+     "detection-Detect---Create-Group"
+    ],
+    "n": 5,
+    "name": "writes: REST hosts (vRO HTTP-REST plugin)",
+    "primary_target": "rest-host",
+    "owner_input": [
+     "triage-Lab---Enable-Override"
+    ],
+    "spec_review": [],
+    "targets": [
+     "rest-host"
+    ],
+    "writes_to": [
+     "rest-host"
+    ],
+    "reads_from": [],
+    "risk": "writes",
+    "depends_on": [],
+    "scale": "L",
+    "script_lines": 24,
+    "entry_criteria": [
+     {
+      "criterion": "The signature covers this wave",
+      "source": "signature",
+      "closes": {
+       "kind": "approval",
+       "file": "your-input/answers.yaml",
+       "field": "signed_for",
+       "key": "approval"
+      },
+      "status": "done",
+      "note": "signed for the full plan"
+     },
+     {
+      "criterion": "A non-production REST hosts (vRO HTTP-REST plugin) is named for this wave to write to",
+      "source": "preflight Q3",
+      "closes": {
+       "kind": "answer",
+       "file": "your-input/answers.yaml",
+       "field": "q3-non-production-targets",
+       "key": "Q3"
+      },
+      "status": "done",
+      "note": "answered: \"answer for q3-non-production-targets\""
+     },
+     {
+      "criterion": "REST hosts (vRO HTTP-REST plugin): the instance this wave's flows call is named (base URL or host) and its credentials are stored as Kestra secrets",
+      "source": "target inventory",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "endpoint.rest-host",
+       "key": "endpoint.rest-host",
+       "question": "Which REST hosts (vRO HTTP-REST plugin) do the flows call: its base URL or host, and the names of the Kestra secrets that hold its credentials? Write them in the answer.",
+       "options": [],
+       "recommended": null,
+       "why": "the vRO side kept them in its own settings; a Kestra flow names them (the plugin's tasks take host, username and password)",
+       "blocks": [],
+       "plain": "REST hosts: the URL of a non-production instance, and the Kestra secrets that hold its credentials?"
+      },
+      "status": "done",
+      "note": "answered: answer for endpoint.rest-host"
+     },
+     {
+      "criterion": "Owner confirms the write classification for REST hosts (vRO HTTP-REST plugin)",
+      "source": "target inventory",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "writes.rest-host",
+       "key": "writes.rest-host",
+       "question": "Is the read and write classification of each operation right for REST hosts (vRO HTTP-REST plugin)? (per operation on the target inventory page, judged from operation names)",
+       "options": [
+        "confirmed",
+        "corrected"
+       ],
+       "recommended": null,
+       "why": "'corrected' holds the wave until the correction is in your-input/corrections.yaml and the brief is re-run; then set it to confirmed",
+       "blocks": [
+        "corrected"
+       ],
+       "plain": "Are the read and write labels on the target inventory page right?"
+      },
+      "status": "done",
+      "note": "confirmed: confirmed"
+     },
+     {
+      "criterion": "Owner supplies waitTaskEnd, called by Lab - Enable Override, or says what it does (not in the export)",
+      "source": "unexported calls",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "missing.waittaskend",
+       "key": "missing.waittaskend",
+       "question": "waitTaskEnd is called by Lab - Enable Override but is not in the export. Add its export to sources/<estate>/ and re-run, or say what it does.",
+       "options": [
+        "exported",
+        "described in the answer",
+        "not needed"
+       ],
+       "recommended": null,
+       "why": null,
+       "blocks": [],
+       "plain": null
+      },
+      "status": "done",
+      "note": "answered: answer for missing.waittaskend"
+     },
+     {
+      "criterion": "Suspected defect in Detect - Apply Segment: Detect   Apply Segment does not check the input before the call. Preserve it or fix it in the conversion",
+      "source": "spec",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "defect.detect-apply-segment.other",
+       "key": "defect.detect-apply-segment.other",
+       "question": "Detect - Apply Segment: Detect   Apply Segment does not check the input before the call (the first script item). Keep it, or fix it?",
+       "options": [
+        "keep",
+        "fix"
+       ],
+       "recommended": null,
+       "why": "the converter builds one or the other; the spec found it in the code",
+       "blocks": [],
+       "plain": "Possible defect in Detect - Apply Segment: detect   Apply Segment does not check the input before the call. Keep the current behavior, or fix it?"
+      },
+      "status": "done",
+      "note": "answered: answer for defect.detect-apply-segment.other"
+     },
+     {
+      "criterion": "Suspected defect in Detect - Notify: Detect   Notify does not check the input before the call. Preserve it or fix it in the conversion",
+      "source": "spec",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "defect.detect-notify.other",
+       "key": "defect.detect-notify.other",
+       "question": "Detect - Notify: Detect   Notify does not check the input before the call (the first script item). Keep it, or fix it?",
+       "options": [
+        "keep",
+        "fix"
+       ],
+       "recommended": null,
+       "why": "the converter builds one or the other; the spec found it in the code",
+       "blocks": [],
+       "plain": "Possible defect in Detect - Notify: detect   Notify does not check the input before the call. Keep the current behavior, or fix it?"
+      },
+      "status": "done",
+      "note": "answered: answer for defect.detect-notify.other"
+     },
+     {
+      "criterion": "Suspected defect in Detect - Patch Linux: Detect   Patch Linux does not check the input before the call. Preserve it or fix it in the conversion",
+      "source": "spec",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "defect.detect-patch-linux.other",
+       "key": "defect.detect-patch-linux.other",
+       "question": "Detect - Patch Linux: Detect   Patch Linux does not check the input before the call (the first script item). Keep it, or fix it?",
+       "options": [
+        "keep",
+        "fix"
+       ],
+       "recommended": null,
+       "why": "the converter builds one or the other; the spec found it in the code",
+       "blocks": [],
+       "plain": "Possible defect in Detect - Patch Linux: detect   Patch Linux does not check the input before the call. Keep the current behavior, or fix it?"
+      },
+      "status": "done",
+      "note": "answered: answer for defect.detect-patch-linux.other"
+     },
+     {
+      "criterion": "Suspected defect in Lab - Enable Override: Lab   Enable Override does not check the input before the call. Preserve it or fix it in the conversion",
+      "source": "spec",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "defect.lab-enable-override.other",
+       "key": "defect.lab-enable-override.other",
+       "question": "Lab - Enable Override: Lab   Enable Override does not check the input before the call (the first script item). Keep it, or fix it?",
+       "options": [
+        "keep",
+        "fix"
+       ],
+       "recommended": null,
+       "why": "the converter builds one or the other; the spec found it in the code",
+       "blocks": [],
+       "plain": "Possible defect in Lab - Enable Override: lab   Enable Override does not check the input before the call. Keep the current behavior, or fix it?"
+      },
+      "status": "done",
+      "note": "answered: answer for defect.lab-enable-override.other"
+     },
+     {
+      "criterion": "Suspected defect in Detect - Create Group: Detect   Create Group does not check the input before the call. Preserve it or fix it in the conversion",
+      "source": "spec",
+      "closes": {
+       "kind": "decision",
+       "file": "your-input/answers.yaml",
+       "field": "defect.detect-create-group.other",
+       "key": "defect.detect-create-group.other",
+       "question": "Detect - Create Group: Detect   Create Group does not check the input before the call (the first script item). Keep it, or fix it?",
+       "options": [
+        "keep",
+        "fix"
+       ],
+       "recommended": null,
+       "why": "the converter builds one or the other; the spec found it in the code",
+       "blocks": [],
+       "plain": "Possible defect in Detect - Create Group: detect   Create Group does not check the input before the call. Keep the current behavior, or fix it?"
+      },
+      "status": "done",
+      "note": "answered: answer for defect.detect-create-group.other"
+     }
+    ],
+    "exit_criteria": [
+     "Every member has a Kestra flow that runs to the same end state as the vRO workflow, against the non-production target where it has one",
+     "Tests generated from each spec pass; near-duplicates pass their first of a kind's tests with their own values",
+     "Callers outside this wave still reach it (a Subflow, or vRO calling Kestra's webhook while both run)"
+    ],
+    "pilot": "detection-Detect---Create-Group",
+    "pilot_with": [],
+    "actions": {
+     "Plugin-covered library": [
+      "callRest",
+      "launchJobTemplate",
+      "postSlackMessage",
+      "postTeamsMessage",
+      "queueRun"
+     ],
+     "Convert": [
+      "createSecurityGroup"
+     ],
+     "Rebuild": [
+      "endpoint"
+     ]
+    }
+   }
+  ],
+  "blocked": [],
+  "grouping": {
+   "waved": 5,
+   "budget": 1,
+   "clusters": 2,
+   "natural_groups": 2,
+   "merges": [
+    {
+     "merged": [
+      "C02"
+     ],
+     "into": [
+      "C01"
+     ]
+    }
+   ]
+  },
+  "not_waved": {
+   "Wrapper": [
+    "triage-Lab---Create-Tenant"
+   ],
+   "Manual": [
+    "triage-Lab---Change-Password",
+    "triage-Lab---Create-Admin",
+    "triage-Lab---Purge-Volumes",
+    "triage-Lab---Run-Remote-Command"
+   ],
+   "Needs a model": [
+    "triage-Lab---Delete-Tenant",
+    "triage-Lab---Find-or-Create-Tenant"
+   ],
+   "Rebuild": [
+    "triage-Lab---Create-Pool",
+    "triage-Lab---Forget-Controller",
+    "triage-Process-Tenant-Notification"
+   ],
+   "Retire": []
+  },
+  "rules": "Wave plan: which workflows convert together, in which order, and what must be\ntrue first.\n\nWhat goes into waves\n- Convert, Near-duplicate and Needs owner input work. Wrappers, plugin-covered\n  libraries and rebuilds are not converted; Manual work is rewritten by hand;\n  retire candidates wait for an owner.\n- Anything that calls Manual work, directly or through a wrapper, is blocked\n  until that work is rewritten, and so is a near-duplicate whose first of a kind\n  is Manual or blocked. Blocked work is listed with what it waits for.\n\nHow workflows are grouped (the rule, in four steps)\n1. Unit. A cluster is the unit: its members share a pattern, so the first of a\n   kind pilots the rest. Clusters that call each other in a loop form one unit,\n   and so do the clusters of one deployment lifecycle group (workflows started by\n   one deployment's lifecycle events that share state one of them writes). A\n   lifecycle group moves together: if one member is Manual, Rebuild or blocked,\n   the others wait for it.\n2. Key. Each unit gets a risk tier (no external target, read-only, writes; judged\n   from operation names) and a primary target (the system its operations call\n   most). Units with the same tier and primary target form one group: shared\n   pattern inside, shared target across.\n3. Budget. The number of waves is capped at ceil(log2(n / 4)) for n waved\n   workflows, at least 1 and at most 12: 4 waves for 33 to 64 workflows, 9 for\n   1,025 to 2,048, 10 for 2,049 to 4,096. Waves grow with the estate, but slowly,\n   because each wave needs its own owner sign-off and pilot. While there are more\n   groups than the budget, the smallest group is merged into the group that is\n   closest: same tier first, then the most shared targets, then the most shared\n   domains (the same pattern family), then the smallest.\n4. Order. Callees before callers, then lower risk first. Groups that end up\n   depending on each other in a loop are merged. Inside a wave, callees come\n   first, then by cluster, near-duplicates after their first of a kind.\n\nA wave only exists when every target it touches is reachable (plugin, http, or\nreplaced by design).\n\nWhen preflight Q9 says vRA is replaced, what vRA did is work too: the Apps, the flows the cloud templates\nbecome and their lifecycle steps are planned in replacement waves after the workflow waves they depend on\n(stages/replace_vra.py), and each blocking subscription's timeout and failure policy is a gate there."
+ },
+ "recommendation": {
+  "verdict": "mix",
+  "produced_by": "A mix. Part of this estate converts and part is better rebuilt: 6 workflows convert, 7 are rebuilt from scratch, mostly the code alone does not say enough to convert them. 13 of the 25 elements convert Direct. Of the other 12, 9 need a Redesign, mostly workflows rebuilt from their specs, and 3 depend on a model, which this run did not have.",
+  "signals": [
+   {
+    "signal": "Share of the estate with a known path (the number: Direct plus Redesign)",
+    "value": "52% of elements, 44% of lines of script",
+    "reads_as": "Direct (a plugin, HTTP or core task, a direct conversion, a wrapper or a duplicate) or Redesign (the tool maps it, a person shapes it); the rest waits on a rebuild, a hand rewrite or an answer.",
+    "decides": true
+   },
+   {
+    "signal": "Share of all script that is plugin-covered library",
+    "value": "25 of 128 lines (20%)",
+    "reads_as": "Material. This client code is dropped: a Kestra plugin replaces it.",
+    "decides": false
+   },
+   {
+    "signal": "Share of all script that is a hand-written client for a target with no Kestra plugin",
+    "value": "0 of 128 lines (0%)",
+    "reads_as": "None. No hand-written client for a target without a Kestra plugin.",
+    "decides": false
+   },
+   {
+    "signal": "Share of workflows that are Manual or Rebuild (hand rewrite or new design)",
+    "value": "7 of 15 (47%)",
+    "reads_as": "A minority cannot be converted by the tool; the rest can, once gated.",
+    "decides": true
+   },
+   {
+    "signal": "Workflows waiting only on owner answers (Needs owner input)",
+    "value": "1 of 15",
+    "reads_as": "Convertible once answered. Each question is an entry criterion of the workflow's wave.",
+    "decides": false
+   },
+   {
+    "signal": "Convert workflows whose spec an owner must review first (medium confidence)",
+    "value": "0 of 4",
+    "reads_as": "Converted by the tool, gated on the review in their wave's entry criteria.",
+    "decides": false
+   },
+   {
+    "signal": "Workflows that need no conversion (wrappers, near-duplicates)",
+    "value": "1 of 15",
+    "reads_as": "Removed from the work before any conversion starts.",
+    "decides": false
+   },
+   {
+    "signal": "How many patterns cover how many workflows",
+    "value": "5 clusters for 15 workflows; the largest 5 hold 15 (100%); 4 are one of a kind",
+    "reads_as": "Real reuse. Converting a first of a kind unlocks the rest of its cluster.",
+    "decides": true
+   },
+   {
+    "signal": "Open preflight items",
+    "value": "0 of 9",
+    "reads_as": "Every wave that writes to a target is gated on Q3; the retire pass on Q2 and Q7.",
+    "decides": false
+   }
+  ],
+  "thresholds": "convert when at least 70% of the elements and of the lines have a Direct or Redesign path and at most 30% of the workflows are Manual or Rebuild; rebuild when under 40% of the lines have one, or Manual plus Rebuild is at least 60% with the five largest clusters under 40%; otherwise a mix",
+  "convert_part": {
+   "fixtures": 1,
+   "external": [
+    "detection-Detect---Apply-Segment",
+    "detection-Detect---Notify",
+    "detection-Detect---Patch-Linux"
+   ]
+  },
+  "client_targets": [],
+  "client_share": 0.0,
+  "manual_rebuild_share": 0.467,
+  "top5_share": 1.0
+ },
+ "walkthroughs": {
+  "written_by": "code (no model)",
+  "paths": [
+   {
+    "persona": "the requester",
+    "rule": "longest call chain from a workflow nothing in the estate calls",
+    "nodes": [
+     "triage-Process-Tenant-Notification",
+     "triage-Lab---Create-Tenant",
+     "triage-Lab---Find-or-Create-Tenant",
+     "triage-Lab---Delete-Tenant"
+    ]
+   },
+   {
+    "persona": "the operator",
+    "rule": "entry workflows in the operations and configuration domains of the source with the most read-only entry workflows (triage), excluding Rebuild, read-only first",
+    "nodes": [
+     "triage-Lab---Change-Password",
+     "triage-Lab---Create-Admin",
+     "triage-Lab---Enable-Override",
+     "triage-Lab---Purge-Volumes",
+     "triage-Lab---Run-Remote-Command"
+    ]
+   }
+  ],
+  "flows": [
+   {
+    "persona": "the requester",
+    "name": "Flow for the requester",
+    "description": "longest call chain from a workflow nothing in the estate calls",
+    "path_rule": "longest call chain from a workflow nothing in the estate calls",
+    "steps": [
+     {
+      "workflow": "triage-Process-Tenant-Notification",
+      "label": "Process Tenant Notification",
+      "outcome": "Rebuild"
+     },
+     {
+      "workflow": "triage-Lab---Create-Tenant",
+      "label": "Lab - Create Tenant",
+      "outcome": "Wrapper"
+     },
+     {
+      "workflow": "triage-Lab---Find-or-Create-Tenant",
+      "label": "Lab - Find or Create Tenant",
+      "outcome": "Needs a model"
+     },
+     {
+      "workflow": "triage-Lab---Delete-Tenant",
+      "label": "Lab - Delete Tenant",
+      "outcome": "Needs a model"
+     }
+    ]
+   },
+   {
+    "persona": "the operator",
+    "name": "Flow for the operator",
+    "description": "entry workflows in the operations and configuration domains of the source with the most read-only entry workflows (triage), excluding Rebuild, read-only first",
+    "path_rule": "entry workflows in the operations and configuration domains of the source with the most read-only entry workflows (triage), excluding Rebuild, read-only first",
+    "steps": [
+     {
+      "workflow": "triage-Lab---Change-Password",
+      "label": "Lab - Change Password",
+      "outcome": "Manual"
+     },
+     {
+      "workflow": "triage-Lab---Create-Admin",
+      "label": "Lab - Create Admin",
+      "outcome": "Manual"
+     },
+     {
+      "workflow": "triage-Lab---Enable-Override",
+      "label": "Lab - Enable Override",
+      "outcome": "Needs owner input"
+     },
+     {
+      "workflow": "triage-Lab---Purge-Volumes",
+      "label": "Lab - Purge Volumes",
+      "outcome": "Manual"
+     },
+     {
+      "workflow": "triage-Lab---Run-Remote-Command",
+      "label": "Lab - Run Remote Command",
+      "outcome": "Manual"
+     }
+    ]
+   }
+  ]
+ },
+ "trigger_plan": {
+  "front_end": "both",
+  "rows": [],
+  "has_vra": false
+ },
+ "open_preflight_items": [],
+ "stale_specs": {},
+ "open_questions": {
+  "asked": 13,
+  "grouped": 11,
+  "groups": [
+   {
+    "scope": "C01",
+    "theme": "error semantics",
+    "question": "What should Detect   Apply Segment do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "detection-Detect---Apply-Segment",
+     "detection-Detect---Notify"
+    ],
+    "wordings": [
+     {
+      "workflow": "detection-Detect---Apply-Segment",
+      "question": "What should Detect   Apply Segment do when the target is unreachable?"
+     },
+     {
+      "workflow": "detection-Detect---Notify",
+      "question": "What should Detect   Notify do when the target is unreachable?"
+     }
+    ],
+    "key": "question.detect-apply-segment.error-semantics"
+   },
+   {
+    "scope": "C01",
+    "theme": "error semantics",
+    "question": "What should Detect   Patch Linux do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "detection-Detect---Patch-Linux"
+    ],
+    "wordings": [
+     {
+      "workflow": "detection-Detect---Patch-Linux",
+      "question": "What should Detect   Patch Linux do when the target is unreachable?"
+     }
+    ],
+    "key": "question.detect-patch-linux.error-semantics"
+   },
+   {
+    "scope": "C01",
+    "theme": "error semantics",
+    "question": "What should Lab   Change Password do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Lab---Change-Password"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Lab---Change-Password",
+      "question": "What should Lab   Change Password do when the target is unreachable?"
+     }
+    ],
+    "key": "question.lab-change-password.error-semantics"
+   },
+   {
+    "scope": "C01",
+    "theme": "error semantics",
+    "question": "What should Lab   Create Admin do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Lab---Create-Admin",
+     "triage-Lab---Create-Pool"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Lab---Create-Admin",
+      "question": "What should Lab   Create Admin do when the target is unreachable?"
+     },
+     {
+      "workflow": "triage-Lab---Create-Pool",
+      "question": "What should Lab   Create Pool do when the target is unreachable?"
+     }
+    ],
+    "key": "question.lab-create-admin.error-semantics"
+   },
+   {
+    "scope": "C01",
+    "theme": "error semantics",
+    "question": "What should Lab   Enable Override do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Lab---Enable-Override"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Lab---Enable-Override",
+      "question": "What should Lab   Enable Override do when the target is unreachable?"
+     }
+    ],
+    "key": "question.lab-enable-override.error-semantics"
+   },
+   {
+    "scope": "C01",
+    "theme": "error semantics",
+    "question": "What should Lab   Forget Controller do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Lab---Forget-Controller"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Lab---Forget-Controller",
+      "question": "What should Lab   Forget Controller do when the target is unreachable?"
+     }
+    ],
+    "key": "question.lab-forget-controller.error-semantics"
+   },
+   {
+    "scope": "C01",
+    "theme": "error semantics",
+    "question": "What should Lab   Purge Volumes do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Lab---Purge-Volumes"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Lab---Purge-Volumes",
+      "question": "What should Lab   Purge Volumes do when the target is unreachable?"
+     }
+    ],
+    "key": "question.lab-purge-volumes.error-semantics"
+   },
+   {
+    "scope": "C02",
+    "theme": "error semantics",
+    "question": "What should Detect   Create Group do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "detection-Detect---Create-Group"
+    ],
+    "wordings": [
+     {
+      "workflow": "detection-Detect---Create-Group",
+      "question": "What should Detect   Create Group do when the target is unreachable?"
+     }
+    ],
+    "key": "question.detect-create-group.error-semantics"
+   },
+   {
+    "scope": "C03",
+    "theme": "error semantics",
+    "question": "What should Lab   Create Tenant do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Lab---Create-Tenant"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Lab---Create-Tenant",
+      "question": "What should Lab   Create Tenant do when the target is unreachable?"
+     }
+    ],
+    "key": "question.lab-create-tenant.error-semantics"
+   },
+   {
+    "scope": "C04",
+    "theme": "error semantics",
+    "question": "What should Lab   Run Remote Command do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Lab---Run-Remote-Command"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Lab---Run-Remote-Command",
+      "question": "What should Lab   Run Remote Command do when the target is unreachable?"
+     }
+    ],
+    "key": "question.lab-run-remote-command.error-semantics"
+   },
+   {
+    "scope": "C05",
+    "theme": "error semantics",
+    "question": "What should Process Tenant Notification do when the target is unreachable?",
+    "why_it_matters": "The flow's error handling depends on it.",
+    "blocking": false,
+    "workflows": [
+     "triage-Process-Tenant-Notification"
+    ],
+    "wordings": [
+     {
+      "workflow": "triage-Process-Tenant-Notification",
+      "question": "What should Process Tenant Notification do when the target is unreachable?"
+     }
+    ],
+    "key": "question.process-tenant-notification.error-semantics"
+   }
+  ],
+  "covered": {}
+ },
+ "suspected_defects": [
+  {
+   "workflow": "detection-Detect---Apply-Segment",
+   "name": "Detect - Apply Segment",
+   "short": "detect-apply-segment",
+   "n": 1,
+   "what": "Detect   Apply Segment does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.detect-apply-segment.other"
+  },
+  {
+   "workflow": "detection-Detect---Create-Group",
+   "name": "Detect - Create Group",
+   "short": "detect-create-group",
+   "n": 1,
+   "what": "Detect   Create Group does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.detect-create-group.other"
+  },
+  {
+   "workflow": "detection-Detect---Notify",
+   "name": "Detect - Notify",
+   "short": "detect-notify",
+   "n": 1,
+   "what": "Detect   Notify does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.detect-notify.other"
+  },
+  {
+   "workflow": "detection-Detect---Patch-Linux",
+   "name": "Detect - Patch Linux",
+   "short": "detect-patch-linux",
+   "n": 1,
+   "what": "Detect   Patch Linux does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.detect-patch-linux.other"
+  },
+  {
+   "workflow": "triage-Lab---Change-Password",
+   "name": "Lab - Change Password",
+   "short": "lab-change-password",
+   "n": 1,
+   "what": "Lab   Change Password does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-change-password.other"
+  },
+  {
+   "workflow": "triage-Lab---Create-Admin",
+   "name": "Lab - Create Admin",
+   "short": "lab-create-admin",
+   "n": 1,
+   "what": "Lab   Create Admin does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-create-admin.other"
+  },
+  {
+   "workflow": "triage-Lab---Create-Pool",
+   "name": "Lab - Create Pool",
+   "short": "lab-create-pool",
+   "n": 1,
+   "what": "Lab   Create Pool does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-create-pool.other"
+  },
+  {
+   "workflow": "triage-Lab---Create-Tenant",
+   "name": "Lab - Create Tenant",
+   "short": "lab-create-tenant",
+   "n": 1,
+   "what": "Lab   Create Tenant does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-create-tenant.other"
+  },
+  {
+   "workflow": "triage-Lab---Enable-Override",
+   "name": "Lab - Enable Override",
+   "short": "lab-enable-override",
+   "n": 1,
+   "what": "Lab   Enable Override does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-enable-override.other"
+  },
+  {
+   "workflow": "triage-Lab---Forget-Controller",
+   "name": "Lab - Forget Controller",
+   "short": "lab-forget-controller",
+   "n": 1,
+   "what": "Lab   Forget Controller does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-forget-controller.other"
+  },
+  {
+   "workflow": "triage-Lab---Purge-Volumes",
+   "name": "Lab - Purge Volumes",
+   "short": "lab-purge-volumes",
+   "n": 1,
+   "what": "Lab   Purge Volumes does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-purge-volumes.other"
+  },
+  {
+   "workflow": "triage-Lab---Run-Remote-Command",
+   "name": "Lab - Run Remote Command",
+   "short": "lab-run-remote-command",
+   "n": 1,
+   "what": "Lab   Run Remote Command does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.lab-run-remote-command.check-order"
+  },
+  {
+   "workflow": "triage-Process-Tenant-Notification",
+   "name": "Process Tenant Notification",
+   "short": "process-tenant-notification",
+   "n": 1,
+   "what": "Process Tenant Notification does not check the input before the call",
+   "evidence": "the first script item",
+   "question": "Keep it, or fix it?",
+   "decision": "defect.process-tenant-notification.other"
+  }
+ ],
+ "reviews": {
+  "path": "upgrade/kestra-assessment/your-input/answers.yaml",
+  "warnings": [],
+  "by_uid": {
+   "detection-Detect---Apply-Segment": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "detection-Detect---Create-Group": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "detection-Detect---Notify": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "detection-Detect---Patch-Linux": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Change-Password": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Create-Admin": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Create-Pool": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Create-Tenant": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Enable-Override": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Forget-Controller": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Purge-Volumes": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Lab---Run-Remote-Command": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   },
+   "triage-Process-Tenant-Notification": {
+    "state": "reviewed",
+    "reviewed_by": null,
+    "date": null,
+    "comment": "answer for specs",
+    "why": "reviewed: answer for specs"
+   }
+  },
+  "reviewed": [
+   "detection-Detect---Apply-Segment",
+   "detection-Detect---Create-Group",
+   "detection-Detect---Notify",
+   "detection-Detect---Patch-Linux",
+   "triage-Lab---Change-Password",
+   "triage-Lab---Create-Admin",
+   "triage-Lab---Create-Pool",
+   "triage-Lab---Create-Tenant",
+   "triage-Lab---Enable-Override",
+   "triage-Lab---Forget-Controller",
+   "triage-Lab---Purge-Volumes",
+   "triage-Lab---Run-Remote-Command",
+   "triage-Process-Tenant-Notification"
+  ]
+ },
+ "approval": {
+  "present": true,
+  "signed": true,
+  "approved_by": null,
+  "date": null,
+  "scope": "full",
+  "block": "signed_for: full plan"
+ },
+ "decisions": {
+  "path": "upgrade/kestra-assessment/your-input/answers.yaml",
+  "asked": {
+   "endpoint.rest-host": {
+    "question": "Which REST hosts (vRO HTTP-REST plugin) do the flows call: its base URL or host, and the names of the Kestra secrets that hold its credentials? Write them in the answer.",
+    "options": [],
+    "recommended": null,
+    "why": "the vRO side kept them in its own settings; a Kestra flow names them (the plugin's tasks take host, username and password)",
+    "plain": "REST hosts: the URL of a non-production instance, and the Kestra secrets that hold its credentials?",
+    "blocks": [],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: REST hosts (vRO HTTP-REST plugin): the instance this wave's flows call is named (base URL or host) and its credentials are stored as Kestra secrets"
+    ],
+    "also_answers": []
+   },
+   "writes.rest-host": {
+    "question": "Is the read and write classification of each operation right for REST hosts (vRO HTTP-REST plugin)? (per operation on the target inventory page, judged from operation names)",
+    "options": [
+     "confirmed",
+     "corrected"
+    ],
+    "recommended": null,
+    "why": "'corrected' holds the wave until the correction is in your-input/corrections.yaml and the brief is re-run; then set it to confirmed",
+    "plain": "Are the read and write labels on the target inventory page right?",
+    "blocks": [
+     "corrected"
+    ],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: Owner confirms the write classification for REST hosts (vRO HTTP-REST plugin)"
+    ],
+    "also_answers": []
+   },
+   "missing.waittaskend": {
+    "question": "waitTaskEnd is called by Lab - Enable Override but is not in the export. Add its export to sources/<estate>/ and re-run, or say what it does.",
+    "options": [
+     "exported",
+     "described in the answer",
+     "not needed"
+    ],
+    "recommended": null,
+    "why": null,
+    "plain": null,
+    "blocks": [],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: Owner supplies waitTaskEnd, called by Lab - Enable Override, or says what it does (not in the export)"
+    ],
+    "also_answers": []
+   },
+   "defect.detect-apply-segment.other": {
+    "question": "Detect - Apply Segment: Detect   Apply Segment does not check the input before the call (the first script item). Keep it, or fix it?",
+    "options": [
+     "keep",
+     "fix"
+    ],
+    "recommended": null,
+    "why": "the converter builds one or the other; the spec found it in the code",
+    "plain": "Possible defect in Detect - Apply Segment: detect   Apply Segment does not check the input before the call. Keep the current behavior, or fix it?",
+    "blocks": [],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: Suspected defect in Detect - Apply Segment: Detect   Apply Segment does not check the input before the call. Preserve it or fix it in the conversion"
+    ],
+    "also_answers": []
+   },
+   "defect.detect-notify.other": {
+    "question": "Detect - Notify: Detect   Notify does not check the input before the call (the first script item). Keep it, or fix it?",
+    "options": [
+     "keep",
+     "fix"
+    ],
+    "recommended": null,
+    "why": "the converter builds one or the other; the spec found it in the code",
+    "plain": "Possible defect in Detect - Notify: detect   Notify does not check the input before the call. Keep the current behavior, or fix it?",
+    "blocks": [],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: Suspected defect in Detect - Notify: Detect   Notify does not check the input before the call. Preserve it or fix it in the conversion"
+    ],
+    "also_answers": []
+   },
+   "defect.detect-patch-linux.other": {
+    "question": "Detect - Patch Linux: Detect   Patch Linux does not check the input before the call (the first script item). Keep it, or fix it?",
+    "options": [
+     "keep",
+     "fix"
+    ],
+    "recommended": null,
+    "why": "the converter builds one or the other; the spec found it in the code",
+    "plain": "Possible defect in Detect - Patch Linux: detect   Patch Linux does not check the input before the call. Keep the current behavior, or fix it?",
+    "blocks": [],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: Suspected defect in Detect - Patch Linux: Detect   Patch Linux does not check the input before the call. Preserve it or fix it in the conversion"
+    ],
+    "also_answers": []
+   },
+   "defect.lab-enable-override.other": {
+    "question": "Lab - Enable Override: Lab   Enable Override does not check the input before the call (the first script item). Keep it, or fix it?",
+    "options": [
+     "keep",
+     "fix"
+    ],
+    "recommended": null,
+    "why": "the converter builds one or the other; the spec found it in the code",
+    "plain": "Possible defect in Lab - Enable Override: lab   Enable Override does not check the input before the call. Keep the current behavior, or fix it?",
+    "blocks": [],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: Suspected defect in Lab - Enable Override: Lab   Enable Override does not check the input before the call. Preserve it or fix it in the conversion"
+    ],
+    "also_answers": []
+   },
+   "defect.detect-create-group.other": {
+    "question": "Detect - Create Group: Detect   Create Group does not check the input before the call (the first script item). Keep it, or fix it?",
+    "options": [
+     "keep",
+     "fix"
+    ],
+    "recommended": null,
+    "why": "the converter builds one or the other; the spec found it in the code",
+    "plain": "Possible defect in Detect - Create Group: detect   Create Group does not check the input before the call. Keep the current behavior, or fix it?",
+    "blocks": [],
+    "waves": [
+     1
+    ],
+    "closes": [
+     "Wave 1: Suspected defect in Detect - Create Group: Detect   Create Group does not check the input before the call. Preserve it or fix it in the conversion"
+    ],
+    "also_answers": []
+   }
+  },
+  "by_key": {
+   "endpoint.rest-host": {
+    "decision": "answer for endpoint.rest-host",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "answered: answer for endpoint.rest-host"
+   },
+   "writes.rest-host": {
+    "decision": "confirmed",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "confirmed: confirmed"
+   },
+   "missing.waittaskend": {
+    "decision": "answer for missing.waittaskend",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "answered: answer for missing.waittaskend"
+   },
+   "defect.detect-apply-segment.other": {
+    "decision": "answer for defect.detect-apply-segment.other",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "answered: answer for defect.detect-apply-segment.other"
+   },
+   "defect.detect-notify.other": {
+    "decision": "answer for defect.detect-notify.other",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "answered: answer for defect.detect-notify.other"
+   },
+   "defect.detect-patch-linux.other": {
+    "decision": "answer for defect.detect-patch-linux.other",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "answered: answer for defect.detect-patch-linux.other"
+   },
+   "defect.lab-enable-override.other": {
+    "decision": "answer for defect.lab-enable-override.other",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "answered: answer for defect.lab-enable-override.other"
+   },
+   "defect.detect-create-group.other": {
+    "decision": "answer for defect.detect-create-group.other",
+    "decided_by": null,
+    "date": null,
+    "comment": null,
+    "state": "decided",
+    "why": "answered: answer for defect.detect-create-group.other"
+   }
+  },
+  "warnings": []
+ },
+ "input": {
+  "path": "upgrade/kestra-assessment/your-input/answers.yaml",
+  "warnings": [],
+  "sign": {
+   "present": true,
+   "signed": true,
+   "approved_by": null,
+   "date": null,
+   "scope": "full",
+   "block": "signed_for: full plan"
+  },
+  "stand_in": false,
+  "shown": [],
+  "confirm": {
+   "open": 0,
+   "done": 2,
+   "families": {
+    "Preflight: what the export cannot say": {
+     "open": [],
+     "done": 1,
+     "stale": 0,
+     "family": "preflight"
+    },
+    "Read and write classification": {
+     "open": [],
+     "done": 1,
+     "stale": 0,
+     "family": "writes"
+    }
+   }
+  },
+  "answer": {
+   "open": 0,
+   "done": 25,
+   "families": {
+    "Preflight: what the export cannot say": {
+     "open": [],
+     "done": 7,
+     "stale": 0,
+     "family": "preflight"
+    },
+    "Endpoints and credentials": {
+     "open": [],
+     "done": 1,
+     "stale": 0,
+     "family": "endpoint"
+    },
+    "Suspected defects": {
+     "open": [],
+     "done": 5,
+     "stale": 0,
+     "family": "defect"
+    },
+    "Missing from the export": {
+     "open": [],
+     "done": 1,
+     "stale": 0,
+     "family": "missing"
+    },
+    "Spec questions": {
+     "open": [],
+     "done": 11,
+     "stale": 0,
+     "family": "question"
+    }
+   }
+  },
+  "review": {
+   "open": 0,
+   "done": 13,
+   "families": {
+    "Specs": {
+     "open": [],
+     "done": 13,
+     "stale": 0,
+     "family": "spec"
+    }
+   }
+  }
+ },
+ "gates": {
+  "waves": [
+   {
+    "wave": 1,
+    "status": {
+     "open": 0,
+     "done": 10,
+     "blocked": 0
+    },
+    "open_by_file": {}
+   }
+  ]
+ },
+ "translation": {
+  "rows": [
+   {
+    "id": "wf-workflows-direct-conversion",
+    "kind": "Workflows",
+    "becomes": "a Kestra flow",
+    "how": "direct conversion",
+    "mechanical": true,
+    "path": "mechanical",
+    "count": 4,
+    "lines": 18,
+    "items": [
+     {
+      "name": "Detect - Apply Segment",
+      "link": "workflows/detect-apply-segment.html",
+      "why": "own logic, spec confidence high, no hard blockers, every target reachable (rest-host)",
+      "eid": "wf:detection-Detect---Apply-Segment",
+      "lines": 4,
+      "ready": true,
+      "waits_on": []
+     },
+     {
+      "name": "Detect - Create Group",
+      "link": "workflows/detect-create-group.html",
+      "why": "own logic, spec confidence high, no hard blockers, every target reachable (no external target)",
+      "eid": "wf:detection-Detect---Create-Group",
+      "lines": 5,
+      "ready": true,
+      "waits_on": []
+     },
+     {
+      "name": "Detect - Notify",
+      "link": "workflows/detect-notify.html",
+      "why": "own logic, spec confidence high, no hard blockers, every target reachable (rest-host)",
+      "eid": "wf:detection-Detect---Notify",
+      "lines": 5,
+      "ready": true,
+      "waits_on": []
+     },
+     {
+      "name": "Detect - Patch Linux",
+      "link": "workflows/detect-patch-linux.html",
+      "why": "own logic, spec confidence high, no hard blockers, every target reachable (rest-host)",
+      "eid": "wf:detection-Detect---Patch-Linux",
+      "lines": 4,
+      "ready": true,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the specs",
+      "href": "workflows/index.html"
+     },
+     {
+      "label": "the 4 items",
+      "href": "translation.html#wf-workflows-direct-conversion"
+     }
+    ],
+    "ready": 4
+   },
+   {
+    "id": "wf-workflows-wrapper",
+    "kind": "Workflows",
+    "becomes": "nothing: its callers call what it wraps",
+    "how": "wrapper",
+    "mechanical": true,
+    "path": "mechanical",
+    "count": 1,
+    "lines": 0,
+    "items": [
+     {
+      "name": "Lab - Create Tenant",
+      "link": "workflows/lab-create-tenant.html",
+      "why": "one call (nested workflow 'Lab - Find or Create Tenant'), 0 line(s) of its own logic, no decisions",
+      "eid": "wf:triage-Lab---Create-Tenant",
+      "lines": 0,
+      "ready": false,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the specs",
+      "href": "workflows/index.html"
+     },
+     {
+      "label": "the 1 item",
+      "href": "translation.html#wf-workflows-wrapper"
+     }
+    ],
+    "ready": 0
+   },
+   {
+    "id": "wf-workflows-manual",
+    "kind": "Workflows",
+    "becomes": "a flow written by hand",
+    "how": "manual",
+    "mechanical": false,
+    "path": "open",
+    "count": 4,
+    "lines": 36,
+    "items": [
+     {
+      "name": "Lab - Change Password",
+      "link": "workflows/lab-change-password.html",
+      "why": "1 OGNL presentation qualifier(s): the input form's logic needs redesign",
+      "eid": "wf:triage-Lab---Change-Password",
+      "lines": 4,
+      "ready": false,
+      "waits_on": []
+     },
+     {
+      "name": "Lab - Create Admin",
+      "link": "workflows/lab-create-admin.html",
+      "why": "spec confidence low",
+      "eid": "wf:triage-Lab---Create-Admin",
+      "lines": 4,
+      "ready": false,
+      "waits_on": []
+     },
+     {
+      "name": "Lab - Purge Volumes",
+      "link": "workflows/lab-purge-volumes.html",
+      "why": "spec confidence low; calls an action that is not in the export: purgeOrphanedVolumes (the owner supplies it or names the library it comes from)",
+      "eid": "wf:triage-Lab---Purge-Volumes",
+      "lines": 5,
+      "ready": false,
+      "waits_on": []
+     },
+     {
+      "name": "Lab - Run Remote Command",
+      "link": "workflows/lab-run-remote-command.html",
+      "why": "file-typed parameter (Path): a path on the vRO appliance",
+      "eid": "wf:triage-Lab---Run-Remote-Command",
+      "lines": 23,
+      "ready": false,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the specs",
+      "href": "workflows/index.html"
+     },
+     {
+      "label": "the 4 items",
+      "href": "translation.html#wf-workflows-manual"
+     }
+    ],
+    "ready": 0
+   },
+   {
+    "id": "wf-workflows-redesign",
+    "kind": "Workflows",
+    "becomes": "rebuilt for Kestra",
+    "how": "redesign",
+    "mechanical": false,
+    "path": "open",
+    "count": 3,
+    "lines": 14,
+    "items": [
+     {
+      "name": "Lab - Create Pool",
+      "link": "workflows/lab-create-pool.html",
+      "why": "exists to serve vRA: calls createVRAPoolObj and the spec names vRA as the consumer",
+      "eid": "wf:triage-Lab---Create-Pool",
+      "lines": 6,
+      "ready": false,
+      "waits_on": []
+     },
+     {
+      "name": "Lab - Forget Controller",
+      "link": "workflows/lab-forget-controller.html",
+      "why": "its job is vRO's own state (write configuration element (removeAttributeWithKey)). Kestra keeps endpoints and certificates as secrets and plugin defaults, so there is nothing to translate.",
+      "eid": "wf:triage-Lab---Forget-Controller",
+      "lines": 3,
+      "ready": false,
+      "waits_on": []
+     },
+     {
+      "name": "Process Tenant Notification",
+      "link": "workflows/process-tenant-notification.html",
+      "why": "event subscription dispatcher: switches on an action type and calls one workflow per event. In Kestra the subscription becomes a trigger and each event a flow.",
+      "eid": "wf:triage-Process-Tenant-Notification",
+      "lines": 5,
+      "ready": false,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the specs",
+      "href": "workflows/index.html"
+     },
+     {
+      "label": "the 3 items",
+      "href": "translation.html#wf-workflows-redesign"
+     }
+    ],
+    "ready": 0
+   },
+   {
+    "id": "wf-workflows-needs-a-model",
+    "kind": "Workflows",
+    "becomes": "decided once a model has read it",
+    "how": "needs a model",
+    "mechanical": false,
+    "path": "open",
+    "count": 2,
+    "lines": 10,
+    "items": [
+     {
+      "name": "Lab - Delete Tenant",
+      "link": "workflows/lab-delete-tenant.html",
+      "why": "what it does, its possible defects, and whether to convert or rebuild it need a model",
+      "eid": "wf:triage-Lab---Delete-Tenant",
+      "lines": 4,
+      "ready": false,
+      "waits_on": []
+     },
+     {
+      "name": "Lab - Find or Create Tenant",
+      "link": "workflows/lab-find-or-create-tenant.html",
+      "why": "what it does, its possible defects, and whether to convert or rebuild it need a model",
+      "eid": "wf:triage-Lab---Find-or-Create-Tenant",
+      "lines": 6,
+      "ready": false,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the specs",
+      "href": "workflows/index.html"
+     },
+     {
+      "label": "the 2 items",
+      "href": "translation.html#wf-workflows-needs-a-model"
+     }
+    ],
+    "ready": 0
+   },
+   {
+    "id": "wf-workflows-needs-an-answer",
+    "kind": "Workflows",
+    "becomes": "a Kestra flow, once its question is answered",
+    "how": "needs an answer",
+    "mechanical": false,
+    "path": "open",
+    "count": 1,
+    "lines": 6,
+    "items": [
+     {
+      "name": "Lab - Enable Override",
+      "link": "workflows/lab-enable-override.html",
+      "why": "calls an action that is not in the export: waitTaskEnd (the owner supplies it or names the library it comes from). Nothing else stops conversion: once answered it converts like Convert",
+      "eid": "wf:triage-Lab---Enable-Override",
+      "lines": 6,
+      "ready": false,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the specs",
+      "href": "workflows/index.html"
+     },
+     {
+      "label": "the 1 item",
+      "href": "translation.html#wf-workflows-needs-an-answer"
+     }
+    ],
+    "ready": 0
+   },
+   {
+    "id": "a-client--plugin",
+    "kind": "Plugin client actions",
+    "becomes": "tasks of a Kestra plugin",
+    "how": "plugin",
+    "mechanical": true,
+    "path": "mechanical",
+    "count": 4,
+    "lines": 19,
+    "items": [
+     {
+      "name": "launchJobTemplate",
+      "link": null,
+      "why": "hand-written client for , which Kestra has a plugin for ()",
+      "eid": "a:detection:com.example.detect/launchJobTemplate",
+      "lines": 3,
+      "ready": true,
+      "waits_on": []
+     },
+     {
+      "name": "postSlackMessage",
+      "link": null,
+      "why": "hand-written client for , which Kestra has a plugin for ()",
+      "eid": "a:detection:com.example.detect/postSlackMessage",
+      "lines": 6,
+      "ready": true,
+      "waits_on": []
+     },
+     {
+      "name": "postTeamsMessage",
+      "link": null,
+      "why": "hand-written client for , which Kestra has a plugin for ()",
+      "eid": "a:detection:com.example.detect/postTeamsMessage",
+      "lines": 7,
+      "ready": true,
+      "waits_on": []
+     },
+     {
+      "name": "queueRun",
+      "link": null,
+      "why": "hand-written client for , which Kestra has a plugin for ()",
+      "eid": "a:detection:com.example.detect/queueRun",
+      "lines": 3,
+      "ready": true,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "plugin coverage",
+      "href": "plugins.html"
+     },
+     {
+      "label": "the 4 items",
+      "href": "translation.html#a-client--plugin"
+     }
+    ],
+    "systems": [],
+    "ready": 4
+   },
+   {
+    "id": "a-rebuild",
+    "kind": "Actions rebuilt with their callers",
+    "becomes": "rebuilt for Kestra",
+    "how": "redesign",
+    "mechanical": false,
+    "path": "open",
+    "count": 1,
+    "lines": 5,
+    "items": [
+     {
+      "name": "createVRAPoolObj",
+      "link": null,
+      "why": "rebuilt with what uses it (Lab - Create Pool)",
+      "eid": "a:triage:com.example.lab/createVRAPoolObj",
+      "lines": 5,
+      "ready": false,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the 1 item",
+      "href": "translation.html#a-rebuild"
+     }
+    ],
+    "systems": [],
+    "ready": 0
+   },
+   {
+    "id": "a-manual",
+    "kind": "Actions rewritten by hand",
+    "becomes": "a flow written by hand",
+    "how": "manual",
+    "mechanical": false,
+    "path": "open",
+    "count": 1,
+    "lines": 1,
+    "items": [
+     {
+      "name": "listControllers",
+      "link": null,
+      "why": "its only callers are rewritten by hand, and it is rewritten with them: Lab - Change Password (1 OGNL presentation qualifier(s): the input form's logic needs redesign)",
+      "eid": "a:triage:com.example.lab/listControllers",
+      "lines": 1,
+      "ready": false,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the 1 item",
+      "href": "translation.html#a-manual"
+     }
+    ],
+    "systems": [],
+    "ready": 0
+   },
+   {
+    "id": "a-vro-state",
+    "kind": "Actions that read or write vRO's own state",
+    "becomes": "Kestra's KV store, namespace variables, namespace files and secrets (core tasks)",
+    "how": "core task",
+    "mechanical": true,
+    "path": "mechanical",
+    "count": 1,
+    "lines": 3,
+    "items": [
+     {
+      "name": "endpoint",
+      "link": null,
+      "why": "its job is vRO's own state (get configuration element attribute (getAttributeWithKey); read configuration element Example): in Kestra settings become namespace variables or KV entries, credentials Kestra secrets",
+      "eid": "a:detection:com.example.detect/endpoint",
+      "lines": 3,
+      "ready": true,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "KV store documentation",
+      "href": "https://kestra.io/docs/concepts/kv-store",
+      "external": true
+     },
+     {
+      "label": "the 1 item",
+      "href": "translation.html#a-vro-state"
+     }
+    ],
+    "systems": [],
+    "ready": 1
+   },
+   {
+    "id": "a-rest-helper-pc",
+    "kind": "Generic REST helpers",
+    "becomes": "one plugin task per call site",
+    "how": "plugin",
+    "mechanical": true,
+    "path": "mechanical",
+    "count": 1,
+    "lines": 6,
+    "items": [
+     {
+      "name": "callRest",
+      "link": null,
+      "why": "generic REST client: it sends whatever method and path its callers pass. Each call site becomes a Kestra task on its own, a plugin task where the system has a plugin, else io.kestra.plugin.core.http.Request",
+      "eid": "a:detection:com.example.detect/callRest",
+      "lines": 6,
+      "ready": true,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "plugin coverage",
+      "href": "plugins.html"
+     },
+     {
+      "label": "the 1 item",
+      "href": "translation.html#a-rest-helper-pc"
+     }
+    ],
+    "systems": [],
+    "ready": 1
+   },
+   {
+    "id": "a-with-flows",
+    "kind": "Helper actions",
+    "becomes": "logic inside the flows that use them",
+    "how": "direct conversion",
+    "mechanical": true,
+    "path": "mechanical",
+    "count": 1,
+    "lines": 10,
+    "items": [
+     {
+      "name": "createSecurityGroup",
+      "link": null,
+      "why": "converts with the workflows that use it, as part of their conversion: Detect - Create Group. Its logic moves into their flows; it is not a flow of its own",
+      "eid": "a:detection:com.example.detect/createSecurityGroup",
+      "lines": 10,
+      "ready": true,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the 1 item",
+      "href": "translation.html#a-with-flows"
+     }
+    ],
+    "systems": [],
+    "ready": 1
+   },
+   {
+    "id": "el-settings",
+    "kind": "Settings in configuration elements",
+    "becomes": "namespace variables, KV entries and secrets",
+    "how": "core task",
+    "mechanical": true,
+    "path": "mechanical",
+    "count": 1,
+    "lines": null,
+    "items": [
+     {
+      "name": "Example/Endpoints",
+      "link": null,
+      "why": null,
+      "eid": "el:Example/Endpoints",
+      "lines": 0,
+      "ready": true,
+      "waits_on": []
+     }
+    ],
+    "evidence": [
+     {
+      "label": "the 1 item",
+      "href": "translation.html#el-settings"
+     }
+    ],
+    "ready": 1
+   }
+  ],
+  "number": {
+   "elements": 25,
+   "lines": 128,
+   "elements_mechanical": 13,
+   "lines_mechanical": 56,
+   "elements_designed": 0,
+   "lines_designed": 0,
+   "elements_open": 12,
+   "lines_open": 72,
+   "elements_known": 13,
+   "lines_known": 56,
+   "share_mechanical_elements": 0.52,
+   "share_mechanical_lines": 0.438,
+   "share_designed_elements": 0.0,
+   "share_designed_lines": 0.0,
+   "share_known_elements": 0.52,
+   "share_known_lines": 0.438,
+   "share_elements": 0.52,
+   "share_lines": 0.438,
+   "by_how": {
+    "direct conversion": {
+     "elements": 5,
+     "lines": 28
+    },
+    "wrapper": {
+     "elements": 1,
+     "lines": 0
+    },
+    "manual": {
+     "elements": 5,
+     "lines": 37
+    },
+    "redesign": {
+     "elements": 4,
+     "lines": 19
+    },
+    "needs a model": {
+     "elements": 2,
+     "lines": 10
+    },
+    "needs an answer": {
+     "elements": 1,
+     "lines": 6
+    },
+    "plugin": {
+     "elements": 5,
+     "lines": 25
+    },
+    "core task": {
+     "elements": 2,
+     "lines": 3
+    }
+   },
+   "label": "an estimate from reading the export, not a measured conversion rate (nothing has been converted)",
+   "elements_ready": 12,
+   "lines_ready": 56,
+   "share_ready_elements": 0.48,
+   "share_ready_lines": 0.438
+  }
+ }
+}

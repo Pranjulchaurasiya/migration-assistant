@@ -1,0 +1,333 @@
+{
+ "generated": "2026-10-24T16:02:10Z",
+ "export": {
+  "sources": [
+   {
+    "source": "detection",
+    "path": "upgrade/detection",
+    "format": "raw-xml",
+    "experimental": false,
+    "signed": null,
+    "element_counts": {
+     "ConfigurationElement": 1,
+     "ScriptModule": 7,
+     "Workflow": 4
+    },
+    "dunes_meta_inf": "dunes-meta-inf.xml",
+    "package_name": "com.example.detect",
+    "package_name_is_template": false,
+    "vro_version": null,
+    "vro_build": null,
+    "used_plugins": [],
+    "build_host_recorded": false
+   },
+   {
+    "source": "triage",
+    "path": "upgrade/triage",
+    "format": "raw-xml",
+    "experimental": false,
+    "signed": null,
+    "element_counts": {
+     "ScriptModule": 2,
+     "Workflow": 11
+    },
+    "dunes_meta_inf": "dunes-meta-inf.xml",
+    "package_name": "com.example.lab",
+    "package_name_is_template": false,
+    "vro_version": null,
+    "vro_build": null,
+    "used_plugins": [],
+    "build_host_recorded": false
+   }
+  ],
+  "failures": [],
+  "ignored_files": [],
+  "totals": {
+   "ConfigurationElement": 1,
+   "ScriptModule": 9,
+   "Workflow": 15
+  },
+  "input_forms": 0,
+  "vro_versions": [],
+  "sources_without_version": [
+   "detection",
+   "triage"
+  ],
+  "execution_history": {
+   "present": false,
+   "files": []
+  },
+  "entry_point_elements": {},
+  "catalog_items_present": false,
+  "subscriptions_present": false,
+  "schedules_present": false,
+  "vra_exports": [],
+  "vra_exports_read": 0,
+  "workflow_ids": 15,
+  "entry_points": {
+   "model": {
+    "subscriptions": [],
+    "catalog_items": [],
+    "cloud_templates": [],
+    "day2_actions": [],
+    "other_triggers": [],
+    "complete": false
+   },
+   "conflicts": [],
+   "resolution": {
+    "resolved": 0,
+    "unresolved": [],
+    "no_workflow": 0
+   },
+   "exports": [],
+   "manual": {
+    "path": "upgrade/kestra-assessment/your-input/entry-points.yaml",
+    "exists": true,
+    "filled": false,
+    "entries": 0,
+    "complete": false,
+    "warnings": []
+   }
+  }
+ },
+ "estate": "upgrade",
+ "source_dir": "upgrade",
+ "scope": {
+  "workflows_in_export": 15,
+  "note": "Assess and Brief work on every workflow and action in this estate."
+ },
+ "checks": [
+  {
+   "check": "Formats",
+   "status": "ready",
+   "found": "2 raw-xml across 2 input(s); all read with 0 failures",
+   "fix": ""
+  },
+  {
+   "check": "Element counts",
+   "status": "ready",
+   "found": "1 ConfigurationElement, 9 ScriptModule, 15 Workflow",
+   "fix": ""
+  },
+  {
+   "check": "Execution history",
+   "status": "missing",
+   "found": "none in the export",
+   "fix": "Export run history (Q7). Until then the retire rule is untestable."
+  },
+  {
+   "check": "Source vRO version",
+   "status": "gap",
+   "found": "none (from dunes-meta-inf); no version recorded for detection, triage",
+   "fix": "Confirm the version per node (Q1, Q8). Sources built from source control carry no version."
+  },
+  {
+   "check": "Plugins declared",
+   "status": "gap",
+   "found": "none declared in dunes-meta-inf; other plugins are only visible from object types in the XML",
+   "fix": "Confirm installed plugins (Q8)."
+  },
+  {
+   "check": "Entry points",
+   "status": "missing",
+   "found": "no vRA export and nothing in entry-points.yaml: no catalog items, subscriptions, scheduled tasks or policies",
+   "fix": "Add the .vra-ng to the estate folder, or fill in entry-points.yaml (Q2). Until then, entry points are guessed from the call graph."
+  },
+  {
+   "check": "Input forms",
+   "status": "gap",
+   "found": "0 workflow(s) ship a separate input form; presentation is otherwise read from the workflow XML",
+   "fix": ""
+  },
+  {
+   "check": "Sanitized copy for sharing",
+   "status": "ready",
+   "found": "3 values redacted, 3 secret or configuration values dropped, 0 left in place as unsure; copy in data/0-preflight/sanitized/",
+   "fix": "Review redaction-report.md before anything leaves the network."
+  },
+  {
+   "check": "Customer answers",
+   "status": "ready",
+   "found": "9 of 9 answered in your-input/answers.yaml",
+   "fix": "Fill in upgrade/kestra-assessment/your-input/answers.yaml."
+  }
+ ],
+ "verdicts": [
+  {
+   "command": "/vro-assess",
+   "verdict": "Ready",
+   "why": "Needs only the export. Target reach for plugins not listed in dunes-meta-inf is read from object types."
+  },
+  {
+   "command": "/vro-brief",
+   "verdict": "Ready",
+   "why": "0 preflight question(s) open. The retire pass is untestable without history, and wave entry criteria keep the open items as gates."
+  },
+  {
+   "command": "convert (not built yet)",
+   "verdict": "Not ready",
+   "why": "Needs an approved brief, and a non-production instance for every target a wave writes to (Q3)."
+  }
+ ],
+ "answers": {
+  "path": "upgrade/kestra-assessment/your-input/answers.yaml",
+  "exists": true,
+  "items": [
+   {
+    "id": "Q1",
+    "topic": "scope",
+    "question": "Is this export the whole vRO estate? If not, what is missing, and how many vRO nodes or clusters does the estate run on?",
+    "why": "Every count in Assess and Brief is only as complete as the export. A partial export hides callers and callees.",
+    "read_by": [
+     "assess: unexported calls",
+     "brief: retire candidates, waves"
+    ],
+    "key": "q1-scope",
+    "answer": "answer for q1-scope",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q2",
+    "topic": "external callers",
+    "question": "What starts these workflows from outside vRO? Two ways to answer, and they can be combined: put the vRA content export (a .vra-ng from Build Tools) in the export folder, and the tool reads its catalog items, cloud templates and event broker subscriptions; and list in your-input/entry-points.yaml whatever that export does not hold, or everything if there is no export: vRO scheduled tasks and policies, the ITSM (for example ServiceNow), and scripts calling the vRO REST API. Set complete: true there once the list is whole.",
+    "why": "None of these are in a vRO package. Without them every workflow nobody calls in the export looks like an entry point or dead code, and the two cannot be told apart.",
+    "read_by": [
+     "brief: retire pass, entry points, rebuild outcome"
+    ],
+    "plain": "No vRA export was found. What starts these workflows from outside vRO? List it in entry-points.yaml next to this file, or put the vRA export in the export folder and run again.",
+    "key": "q2-external-callers",
+    "answer": "answer for q2-external-callers",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q3",
+    "topic": "non-production targets",
+    "question": "For each system the tool found (SSH hosts), is there a non-production instance a converted flow can run against? Name any other system the workflows reach.",
+    "why": "A wave that writes to a target cannot be verified without somewhere safe to write. Read-only waves can go first either way.",
+    "read_by": [
+     "brief: wave entry criteria"
+    ],
+    "found": "SSH hosts (from the workflows' code).",
+    "systems": [
+     {
+      "key": "ssh-host",
+      "name": "SSH hosts"
+     }
+    ],
+    "key": "q3-non-production-targets",
+    "answer": "answer for q3-non-production-targets",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q4",
+    "topic": "off limits",
+    "question": "Is anything in this export off limits for this migration (owned by another team, frozen, vendor supplied, or due to be replaced)?",
+    "why": "Off-limits workflows are dropped from the waves, and whatever calls them keeps a dependency on vRO.",
+    "read_by": [
+     "brief: waves, blocked list"
+    ],
+    "plain": "Is any of it off limits (another team's, frozen, vendor supplied, or being replaced)?",
+    "key": "q4-off-limits",
+    "answer": "answer for q4-off-limits",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q5",
+    "topic": "prior attempts",
+    "question": "Has anyone tried to migrate or rewrite any of this before? What happened?",
+    "why": "A previous attempt usually found the hard part already. It belongs in the brief's risks.",
+    "read_by": [
+     "brief: risks"
+    ],
+    "plain": "Has anyone tried to migrate or rewrite any of it before? What happened?",
+    "key": "q5-prior-attempts",
+    "answer": "answer for q5-prior-attempts",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q6",
+    "topic": "owners",
+    "question": "Who owns each functional area (for example load balancing, network provisioning, tenant onboarding)? Name a person or team per area.",
+    "why": "Open questions, retire candidates and wave approvals need someone to answer them. The brief lists open questions by area.",
+    "read_by": [
+     "brief: open questions, approval"
+    ],
+    "plain": "Who owns each functional area? A person or team for each.",
+    "key": "q6-owners",
+    "answer": "answer for q6-owners",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q7",
+    "topic": "execution history",
+    "question": "Can you export twelve months of workflow run history (vRO workflow tokens, or the vRA deployment history), with workflow ID, start time and result?",
+    "why": "The retire rule is 'no executions in twelve months'. Without history it cannot be tested, only guessed from the call graph.",
+    "read_by": [
+     "brief: retire pass"
+    ],
+    "plain": "Can you export twelve months of run history: workflow, start time and result?",
+    "key": "q7-execution-history",
+    "answer": "answer for q7-execution-history",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q8",
+    "topic": "plugin inventory",
+    "question": "The code uses these vRO plugins: HTTP-REST plugin (built in), SSH, the plugin of type AD. Is that the list? Correct it if not, and add the installed version per node and any custom or in-house plugin.",
+    "why": "A plugin object type Kestra cannot reach blocks every workflow that uses it. The export only records plugins by name where dunes-meta-inf lists them.",
+    "read_by": [
+     "assess: target inventory"
+    ],
+    "suggested": "HTTP-REST plugin (built in), SSH, the plugin of type AD",
+    "found": "HTTP-REST plugin (built in) (REST requests built in callRest, launchJobTemplate, postSlackMessage, postTeamsMessage and 1 more); SSH (calls such as SSHSession.connectWithPassword, calls such as SSHSession.connectWithPasswordOrIdentity, calls such as SSHSession.disconnect, calls such as SSHSession.executeCommand); the plugin of type AD (object type AD:OrganizationalUnit, object type AD:UserGroup).",
+    "key": "q8-plugin-inventory",
+    "answer": "HTTP-REST plugin (built in), SSH, the plugin of type AD",
+    "status": "answered",
+    "by": null,
+    "date": null,
+    "open": false
+   },
+   {
+    "id": "Q9",
+    "topic": "vRA front end",
+    "question": "If vRA starts any of these workflows: will it stay as the front end, with its catalog items and subscriptions calling Kestra, or be replaced, with Kestra Apps and flows taking over its catalog items, cloud templates and subscriptions? Answer keep, replace, or replace with a bridge until then (vRA's subscriptions call Kestra through webhooks while the Apps and flows are built, then vRA is switched off).",
+    "why": "The trigger plan differs: kept, every subscription calls a Kestra webhook (and a blocking one waits for the result); replaced, each catalog item becomes a Kestra App and each cloud template a flow whose steps are the old lifecycle events; replaced with a bridge, the converted flows run behind webhooks first and vRA goes once the replacement is ready. Unanswered, the brief shows both.",
+    "read_by": [
+     "brief: trigger plan, wave entry criteria"
+    ],
+    "plain": "Will vRA stay as the front end and call Kestra, or will Kestra replace it? (keep, replace, or replace with a bridge until then)",
+    "key": "q9-vra-front-end",
+    "answer": "",
+    "status": "not applicable",
+    "by": null,
+    "date": null,
+    "open": false
+   }
+  ],
+  "open": []
+ },
+ "question_contradictions": [],
+ "answers_created_this_run": false,
+ "entry_points_template_written_this_run": false
+}

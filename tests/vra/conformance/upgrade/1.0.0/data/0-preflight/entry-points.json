@@ -1,0 +1,26 @@
+{
+ "generated": "2026-10-24T16:02:10Z",
+ "model": {
+  "subscriptions": [],
+  "catalog_items": [],
+  "cloud_templates": [],
+  "day2_actions": [],
+  "other_triggers": [],
+  "complete": false
+ },
+ "conflicts": [],
+ "resolution": {
+  "resolved": 0,
+  "unresolved": [],
+  "no_workflow": 0
+ },
+ "exports": [],
+ "manual": {
+  "path": "upgrade/kestra-assessment/your-input/entry-points.yaml",
+  "exists": true,
+  "filled": false,
+  "entries": 0,
+  "complete": false,
+  "warnings": []
+ }
+}

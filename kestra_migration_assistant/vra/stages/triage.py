@@ -36,7 +36,11 @@ Order, and why:
    Needs owner input  Blocked only on things an owner can answer: a blocking
                  open question, or a callee that is not in the export. Once
                  answered it converts like Convert, so it goes into a wave with
-                 the answers as entry criteria.
+                 the answers as entry criteria. Missing code wins over a
+                 low-confidence spec when that is the only rewrite reason: the
+                 model rates a spec low when key behaviour sits behind code it
+                 was not given, and the owner supplying that code is what lets
+                 the spec be written again (since 1.1.0; it was Manual before).
 7. Convert       Everything left: its own logic, no hard blockers, every
                  target reachable, spec confidence high or medium. Medium
                  adds "owner reviews the spec" to its wave's entry criteria.
@@ -150,6 +154,14 @@ def _wf_signals(w: dict, spec: dict | None, first: dict | None, is_first: bool) 
     blocking_q = [q for q in sp.get("open_questions", []) if (q.get("theme") or "").lower() in BLOCKING_THEMES]
     if blocking_q:
         ask.append(f"{len(blocking_q)} open question(s) on whether the spec has the behaviour right")
+    # missing code first: a low-confidence spec whose workflow calls code the export lacks is Needs owner input
+    # (supply the code, and the spec is written again), unless something else needs a hand rewrite anyway
+    low_on_missing = conf == "low" and rewrite == ["spec confidence low"] and bool(unknown_callees or missing_actions)
+    low_reason = (sp.get("confidence_reason") or "").strip()
+    if low_on_missing:
+        rewrite = []
+        ask.append("the spec is rated low confidence" + (f" (the model says: {low_reason.rstrip('.')})" if low_reason
+                                                         else "") + "; once the missing code is in, it is written again")
     if rewrite:
         sig.append({"outcome": "Manual", "reason": "; ".join(rewrite + ask),
                     "evidence": {"blockers": rewrite, "owner_questions": ask}})
@@ -163,7 +175,8 @@ def _wf_signals(w: dict, spec: dict | None, first: dict | None, is_first: bool) 
                                  "blocking_questions": [q["question"] for q in blocking_q],
                                  "missing": sorted({n["display_name"] or n["workflow_id"] for n in unknown_callees}
                                                    | set(missing_actions)),
-                                 "spec_review": conf == "medium"}})
+                                 "spec_review": conf == "medium",
+                                 **({"low_confidence": low_reason or True} if low_on_missing else {})}})
 
     # 7. convert: spec confidence high, or medium with an owner review of the spec as a wave gate
     if not rewrite and not ask and conf is not None:
@@ -264,6 +277,28 @@ def _uses(a: dict, targets: dict, coverage: dict | None) -> list[dict]:
     return out
 
 
+HTTP_CLIENT = ("hand-written HTTP client for a REST host the export does not name: each call becomes an HTTP task "
+               "(io.kestra.plugin.core.http.Request)")
+
+
+def _client_reason(covered: list[dict], targets: dict) -> str:
+    """Why a client a Kestra plugin replaces goes. A system whose plugin does not cover the way vRO calls it
+    (`pattern_gap` in the plugin map) says so, with the two ways to go; a client of REST hosts no signature
+    names (its uses are empty) becomes HTTP tasks."""
+    if not covered:
+        return HTTP_CLIENT
+    plain = [u for u in covered if not (targets.get(u["system"]) or {}).get("pattern_gap")]
+    gap = [u for u in covered if (targets.get(u["system"]) or {}).get("pattern_gap")]
+    parts = []
+    if plain:
+        parts.append("hand-written client for " + ", ".join(u["name"] for u in plain)
+                     + ", which Kestra has a plugin for (" + ", ".join(u["replaced_by"] for u in plain) + ")")
+    for u in gap:
+        parts.append(f"hand-written client for {u['name']}, which Kestra has a plugin for, though not for the way "
+                     f"this code calls it. {targets[u['system']]['pattern_gap']}")
+    return "; ".join(parts)
+
+
 def tasks_short(tasks: list[str]) -> str:
     """One task class in full; several under their shared package: `io.kestra.plugin.ee.f5` pool.Create, ..."""
     if len(tasks) <= 1:
@@ -335,9 +370,7 @@ def triage_action(a: dict, targets: dict, first_with_same_code: str | None, over
                           "(io.kestra.plugin.core.http.Request) rather than carrying this JavaScript across"))
     elif a["library_for"]:
         if not not_covered:
-            sig.append(("Plugin-covered library",
-                        "hand-written client for " + ", ".join(u["name"] for u in covered)
-                        + ", which Kestra has a plugin for (" + ", ".join(u["replaced_by"] for u in covered) + ")"))
+            sig.append(("Plugin-covered library", _client_reason(covered, targets)))
         elif all(targets.get(u["system"], {}).get("reach") in ("plugin", "http") for u in not_covered):
             sdk = [targets[u["system"]].get("sdk_alternative") for u in not_covered
                    if targets[u["system"]].get("sdk_alternative")]

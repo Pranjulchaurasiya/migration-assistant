@@ -10,7 +10,7 @@ first; the plan, one bullet per wave; and where to check. Every list is grouped 
 keeps its length as the estate grows: tests/test_front.py builds it for a 60-workflow estate.
 
 The words follow the vRA migration guide: Direct and Redesign, a wave's first of a kind, estate, targets,
-verdicts, Day 0, Day 1 and Day 2, vRA and vRO. Kestra task class names and answers.yaml keys stay off the front
+recommendations, Day 0, Day 1 and Day 2, vRA and vRO. Kestra task class names and answers.yaml keys stay off the front
 page's running text (tests/test_writing.py checks every customer-facing file).
 
 Also here: the two detail pages the front page leans on most, translation.html (every element, in its row of the
@@ -88,6 +88,11 @@ def _date(iso: str) -> str:
     return f"{d.strftime('%B')} {d.day}, {d.year}"
 
 
+ACTION_NAME = re.compile(r"(add|apply|change|close|create|decommission|delete|deploy|deregister|destroy|extend|get|"
+                         r"grant|install|join|move|open|patch|power|provision|register|remove|request|reserve|reset|"
+                         r"resize|restart|revert|revoke|run|set|update)\b", re.I)
+
+
 def phrase_name(name: str) -> str:
     """A catalog item's name as a phrase: lower case, and a noun plus participle joined ('load-balanced')."""
     ws = name.split()
@@ -111,16 +116,6 @@ def short_names(assess: dict) -> dict:
     if m and len(vals) > 1 and all(v.startswith(m.group(1)) for v in vals):
         tag = m.group(1)
     return {u: n[len(tag):] if tag else n for u, n in names.items()}
-
-
-def _pair(a: str, b: list[str]) -> tuple[str, list[str]]:
-    """Two or more names said together, without the words they all end with ('Create', 'Delete')."""
-    allw = [a.split()] + [x.split() for x in b]
-    k = 0
-    while all(len(w) > k + 1 for w in allw) and len({tuple(w[-(k + 1):]) for w in allw}) == 1:
-        k += 1
-    cut = (lambda w: " ".join(w[:-k])) if k else (lambda w: " ".join(w))
-    return cut(allw[0]), [cut(w) for w in allw[1:]]
 
 
 def tname(t: dict) -> str:
@@ -260,16 +255,23 @@ def _say(x, assess, brief, cov, replacing, n_wf, life) -> tuple[str, str]:
     if kind == "client":
         if x.get("others"):
             names = [tname(targets[s]) for s in x["systems"] if s in targets]
-            label = f"Client actions for {word(len(names))} other systems"
+            # clients of REST hosts no signature names count as one more system: their rows name none
+            unnamed = any(not _row_systems(r, assess, brief) for r in x["rows"])
+            label = f"Client actions for {word(len(names) + unnamed)} other systems"
             return label, ("tasks of Kestra plugins, or HTTP tasks" if how == "Direct" else "new clients, designed for Kestra")
         home = x["key"][1]
         t = targets.get(home)
         sysn = tname(t) if t else "several systems"
         label = f"{sysn} client actions" if t else "Client actions for several systems"
+        if not t and not x["systems"]:
+            label = "HTTP client actions"                 # REST hosts the export does not name
         if how != "Direct":
             return label, "a new client, designed for Kestra"
         if t and t.get("reach") == "plugin":
             plugs = ((cov.get(home) or {}).get("catalog") or {}).get("plugins") or []
+            if plugs and t.get("pattern_gap"):
+                return label, (f"Kestra's {_plugin_title(plugs[0]['name'], t)} plugin, which works another way, "
+                               f"or HTTP tasks on {sysn}'s API")
             if plugs:
                 p = plugs[0]
                 return label, (f"tasks of Kestra's {_plugin_title(p['name'], t)} plugin"
@@ -383,6 +385,21 @@ def _rebuild_reason(brief: dict) -> str:
             "hand": "the code alone does not say enough to convert them"}[top]
 
 
+def _own_conversions(brief: dict, converting: int) -> str:
+    """The conversion work itself, when the count of workflows that convert says more: a near-duplicate follows its
+    first of a kind, and a wrapper goes, its callers calling what it calls. Empty when the two are the same."""
+    outs = [t["outcome"] for t in brief["triage"].values()]
+    own = sum(1 for o in outs if o in ("Convert", "Needs owner input"))
+    nd, wr = outs.count("Near-duplicate"), outs.count("Wrapper")
+    if not (nd or wr) or own >= converting:
+        return ""
+    parts = ([f"{word(nd)} {_s(nd, 'is a near-duplicate that follows its', 'are near-duplicates that follow their')} "
+              "first of a kind"] if nd else []) + \
+            ([f"{word(wr)} {_s(wr, 'is a wrapper', 'are wrappers')}, whose callers call what "
+              f"{_s(wr, 'it calls', 'they call')} directly"] if wr else [])
+    return (f" {cap(word(own))} of the {word(converting)} need a conversion of their own: {_and(parts)}.")
+
+
 def recommendation(assess: dict, brief: dict, rows: list[dict]) -> tuple[str, list[str]]:
     """The heading's word, and the opening sentences: what happens to the workflows, then the split."""
     rec = brief["recommendation"]
@@ -423,6 +440,8 @@ def recommendation(assess: dict, brief: dict, rows: list[dict]) -> tuple[str, li
         first = (f"Most of this estate can be converted: {c['convert']} {_s(c['convert'], 'workflow')} convert, "
                  f"and {c['rebuilt']} {_s(c['rebuilt'], 'is', 'are')} rebuilt from scratch because {why}{retire}.")
         head = "convert"
+    if v != "rebuild":
+        first += _own_conversions(brief, c["convert"])
     sp = split(rows)
     red = [x for x in rows if x["how"] == "Redesign"]
     vra_red = sum(x["count"] for x in red if x["key"][0].startswith("vra"))
@@ -515,9 +534,25 @@ def needs(assess: dict, brief: dict, st: dict) -> list[str]:
 
     out: list[tuple[bool, str]] = []
     defects = [x for x in shown if x["id"].startswith(("defects.", "defect."))]
+    missing = [x for x in shown if x["id"].startswith("missing.")]
+    asked = {it["key"]: (it.get("ask") or "") + " " + (it.get("question") or "") for it in Y.items()} if missing else {}
     for x in shown:
         k, ms = x["id"], x["members"]
         n = len(ms)
+        if x in missing:
+            # one line for all the code the export lacks, naming each piece and what calls it
+            if x is not missing[0]:
+                continue
+            said = []
+            for m in missing:
+                q = asked.get(m["id"], "")
+                mm = re.match(r"(.+?) is called by (.+?) but is not in the export", q.strip())
+                said.append(f"{mm.group(1)} (called by {mm.group(2)})" if mm else m["id"].split(".", 1)[1])
+            nm = len(missing)
+            out.append((any(holds(m) for m in missing),
+                        f"**{cap(word(nm))} {_s(nm, 'piece')} of code the export does not have**: {_and(said)}. "
+                        "Add it to the export folder and run again, or say what it does."))
+            continue
         if x in defects:
             if x is not defects[0]:
                 continue
@@ -561,6 +596,21 @@ def needs(assess: dict, brief: dict, st: dict) -> list[str]:
             line = f"**{cap(phrase.get(f, f.replace('-', ' ')))}.**"
         out.append((holds(x), line))
     return [line for h, line in out if h] + [line + " Nothing waits on these yet." for h, line in out if not h]
+
+
+def retire_line(assess: dict, brief: dict) -> str | None:
+    """The retire candidates corrections.yaml has not settled: workflows nothing in the export calls and no entry
+    point on record starts. They are not answers.yaml entries: an owner names what starts one, or retires it."""
+    tri = brief.get("triage") or {}
+    names = sorted(assess["workflows"][x["uid"]]["name"] for x in brief.get("retire_candidates") or []
+                   if x["uid"] in assess["workflows"] and not (tri.get(x["uid"]) or {}).get("overridden"))
+    if not names:
+        return None
+    n = len(names)
+    return (f"**{cap(word(n))} {_s(n, 'workflow')} nothing starts**, so {_s(n, 'it', 'they')} may be unused: "
+            f"{_capped(names, 5, 'more')}. Often a vRO scheduled task, an ITSM or a script starts such a workflow, "
+            "and the export cannot show it: name what does in the question on other entry points, or in "
+            "`your-input/entry-points.yaml`. To retire one, confirm it in `your-input/corrections.yaml`.")
 
 
 def _kp(t: str) -> str:
@@ -614,7 +664,13 @@ def estate_paragraph(assess: dict, brief: dict) -> str:
     created = [_short_system(r, targets) for r in cov if r.get("created_by")]
     nw, na = c["workflows"], c["actions"]
     S_ = []
-    if cats:
+    # catalog items named for what they do ("Add User to AD Group") are not things the estate provisions
+    verbal = any(ACTION_NAME.match(x["name"]) for x in cats[:3])
+    if cats and verbal:
+        names = [x["name"] for x in cats]
+        S_.append(f"Users request {word(len(cats))} Service Broker catalog {_s(len(cats), 'item')}"
+                  + (f", such as {_and(names[:3])}" if len(cats) > 3 else f": {_and(names)}") + ".")
+    elif cats:
         S_.append(f"This estate provisions {_and([article(phrase_name(x['name'])) for x in cats[:3]])}"
                   + (f" and {len(cats) - 3} more" if len(cats) > 3 else "") + ".")
     else:
@@ -623,7 +679,7 @@ def estate_paragraph(assess: dict, brief: dict) -> str:
                   + _capped(doms, CAPS["domains"], "more") + ".")
     if cats or temps or subs:
         bits = []
-        if cats:
+        if cats and not verbal:
             bits.append(f"A user requests it from {word(len(cats))} Service Broker catalog {_s(len(cats), 'item')}")
         if temps:
             bits.append(("a cloud template" if len(temps) == 1 else f"{word(len(temps))} cloud templates")
@@ -635,7 +691,8 @@ def estate_paragraph(assess: dict, brief: dict) -> str:
             bits.append(f"{word(len(subs))} event {_s(len(subs), 'subscription runs', 'subscriptions run')} {word(run)} vRO "
                         f"{_s(run, 'workflow')}" + (f" as the deployment is {_and(vs)}" if vs else ""))
         sent = _clauses(bits)
-        S_.append(cap(sent) + ".")
+        if sent:
+            S_.append(cap(sent) + ".")
     # what the workflows touch, alternatives of one category said with "or"
     sysk = [k for k in targets if k not in ("vro-platform", "rest-host", "vra")]
     sysk = _order_targets(assess, brief, sysk)
@@ -722,7 +779,8 @@ def _wave_bullet(w: dict, assess: dict, brief: dict, sn: dict) -> str:
     if groups and n > 1 and any(g.get("shared_state") for g in groups):
         parts.append("They share state, so they convert together.")
     if w.get("pilot"):
-        first, then = _pair(sn.get(w["pilot"], w["pilot"]), [sn.get(u, u) for u in w.get("pilot_with") or []])
+        # names in full: cutting the words they share left "LB - Create", and a lone name its first word
+        first, then = sn.get(w["pilot"], w["pilot"]), [sn.get(u, u) for u in w.get("pilot_with") or []]
         parts.append(f"{first} is the first of a kind" + (f", then {_and(then)}." if then else "."))
     wr = _order_targets(assess, brief, [t for t in w.get("writes_to") or [] if t in targets])
     wn = _and([tname(targets[t]) for t in wr])
@@ -854,7 +912,7 @@ def document_no_model(assess: dict, brief: dict) -> list[tuple]:
         ("h1", f"Migration brief: {est}"),
         ("p", f"What the code found in the {est} export, read on this machine from {src} on "
               f"{_date(brief['generated'])}. This run used no model, so everything below comes from the code itself. "
-              f"It is Stage 1 of the [vRA migration guide]({GUIDE}), without the verdicts."),
+              f"It is Stage 1 of the [vRA migration guide]({GUIDE}), without the recommendations."),
         ("status", {"head": "Next step: run it again with a model.",
                     "body": f"What each of the {word(n_model)} {_s(n_model, 'workflow')} does, its possible defects, "
                             "and whether to convert or rebuild it need a model. Everything else is below.",
@@ -971,7 +1029,7 @@ def document_no_model(assess: dict, brief: dict) -> list[tuple]:
     B += [("h2", "What a model adds"),
           ("p", "A model reads each workflow's code and writes down what it does. From that come the three things this "
                 "run leaves open: what each workflow does, its possible defects, and whether to convert or rebuild it. "
-                "The recommendation and the migration plan in waves follow from those verdicts."),
+                "The recommendation and the migration plan in waves follow from them."),
           ("p", _with_a_model(est))]
 
     nd = needs(assess, brief, st)
@@ -979,6 +1037,9 @@ def document_no_model(assess: dict, brief: dict) -> list[tuple]:
         B += [("h2", "What we need from you"), ("ul", nd),
               ("p", "Each one is a question in `your-input/answers.yaml`. Where the code points to an answer, it's "
                     "under `suggested`: write yes to take it.")]
+    rl = retire_line(assess, brief)
+    if rl:
+        B += ([] if nd else [("h2", "What we need from you")]) + [("p", rl)]
 
     B.append(("h2", "Where to check"))
     where = ([("vra.html", "The vRA flow", "how a request reaches each workflow")] if n_vra else []) + [
@@ -1039,6 +1100,9 @@ def document(assess: dict, brief: dict) -> list[tuple]:
     else:
         B.append(("p", "Nothing is open. " + ("Sign in `your-input/answers.yaml` when the plan reads right."
                                               if not st["signed"] else "The plan is signed.")))
+    rl = retire_line(assess, brief)
+    if rl:
+        B.append(("p", rl))
     warn = (brief.get("input") or {}).get("warnings")
     if warn:
         B.append(("sub", "Problems in your-input/answers.yaml: " + "; ".join(warn)))

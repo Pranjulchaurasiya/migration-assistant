@@ -1,0 +1,8 @@
+{
+  "workflow_uid": "triage-Lab---Purge-Volumes",
+  "purpose": "Purges orphaned volumes from one datastore.",
+  "confidence": "low",
+  "open_questions": [],
+  "external_systems": [],
+  "confidence_reason": "What gets purged sits behind purgeOrphanedVolumes, whose source was not in the export."
+}

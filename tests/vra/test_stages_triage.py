@@ -112,6 +112,11 @@ HAND_CHECKED = {
         "Needs owner input",
         "XML: calls action com.example.vendor/waitTaskEnd, which is not in the export, with five lines of its "
         "own logic. Spec confidence high; no form logic, no user interaction, no cycle."),
+    "triage-Lab---Purge-Volumes": (
+        "Needs owner input",
+        "XML: its purge is com.example.vendor/purgeOrphanedVolumes, which is not in the export, so the spec is "
+        "low. Missing code wins over low confidence (1.1.0): the owner supplies the action, then the spec is "
+        "written again. No form logic, no user interaction, no cycle."),
     "review-Dns---Delete-Zone": (
         "Convert",
         "Spec confidence medium, no hard blockers, Infoblox and Nuage VSD reachable. Medium counts as Convert "
@@ -236,6 +241,30 @@ def test_medium_confidence_without_blockers_is_convert_with_spec_review():
 
 def test_low_confidence_stays_manual():
     t = TR.triage_workflow(_base(), {"confidence": "low"}, None, is_first=True)
+    assert t["outcome"] == "Manual" and "spec confidence low" in t["reason"]
+
+
+MISSING_ACTION = [{"action": "purgeOrphanedVolumes", "module": "com.example.vendor", "in_export": False}]
+
+
+def test_low_confidence_on_missing_code_needs_owner_input_and_keeps_the_models_reason():
+    """1.1.0: a low-confidence spec whose workflow calls code the export lacks is Needs owner input, not Manual.
+    The model's reason for the low rating stays on the page (the triage reason) and in the evidence."""
+    spec = {"confidence": "low", "confidence_reason": "The purge sits behind purgeOrphanedVolumes, which was not given."}
+    t = TR.triage_workflow(_base(called_actions=MISSING_ACTION), spec, None, True)
+    assert t["outcome"] == "Needs owner input"
+    assert "purgeOrphanedVolumes" in t["reason"] and "The purge sits behind purgeOrphanedVolumes" in t["reason"]
+    assert t["evidence"]["low_confidence"].startswith("The purge sits behind")
+    assert t["evidence"]["missing"] == ["purgeOrphanedVolumes"] and t["evidence"]["spec_review"] is False
+    assert not any(a.startswith("Manual") for a in t["also"])
+    # an unknown nested workflow counts the same way
+    w = _base(nested=[{"in_export": False, "kind": "unknown workflow", "display_name": "Sync CMDB Hostnames",
+                       "workflow_id": "x"}])
+    assert TR.triage_workflow(w, {"confidence": "low"}, None, True)["outcome"] == "Needs owner input"
+
+
+def test_low_confidence_with_missing_code_and_a_hand_rewrite_blocker_stays_manual():
+    t = TR.triage_workflow(_base(called_actions=MISSING_ACTION, ognl=1), {"confidence": "low"}, None, True)
     assert t["outcome"] == "Manual" and "spec confidence low" in t["reason"]
 
 

@@ -298,11 +298,13 @@ def check_export() -> dict:
                     rel = os.path.relpath(os.path.join(dp, fn), path)
                     if HISTORY_HINTS.search(rel) and not rel.endswith(".xml"):
                         history_files.append(f"{label}/{rel}")
-        else:
+        elif safety.is_zip(path):
             meta, meta_file = _meta_from_package(path), "dunes-meta-inf"
             with safety.open_zip(path) as z:
                 history_files += [f"{label}!{n}" for n in z.namelist()
                                   if HISTORY_HINTS.search(n) and not n.startswith(("elements/", "signatures/"))]
+        else:
+            meta, meta_file = {}, None                      # one exported element (.xml): no package metadata
 
         version = meta.get("vso-version") or None
         plugins = [p for p in (meta.get("used-plugins") or "").split(",") if p.strip()]
@@ -654,8 +656,8 @@ def _readiness_md(r: dict) -> str:
           "dunes-meta-inf. The value is not repeated here.", ""]
 
     L += _entry_points_md(exp)
-    L += ["## Verdict per stage", "",
-          C.md_table(["Stage", "Verdict", "Why"],
+    L += ["## Readiness per stage", "",
+          C.md_table(["Stage", "Readiness", "Why"],
                      [[v["command"], v["verdict"], v["why"]] for v in r["verdicts"]]), ""]
 
     L += ["## Most important gap", ""]

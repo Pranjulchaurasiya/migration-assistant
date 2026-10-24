@@ -1,0 +1,147 @@
+{
+ "id": "e5000000-0000-4000-8000-000000000005",
+ "name": "Lab - Forget Controller",
+ "description": "",
+ "category_path": "Example.Lab",
+ "source_path": "triage/Workflow/Example/Lab/Lab - Forget Controller.xml",
+ "container_format": "raw-xml",
+ "root_item": "item1",
+ "restart_mode": "1",
+ "api_version": "6.0.0",
+ "version": "1.0.0",
+ "inputs": [
+  {
+   "name": "controller",
+   "type": "string"
+  }
+ ],
+ "outputs": [],
+ "attributes": [],
+ "items": [
+  {
+   "name": "item0",
+   "type": "end",
+   "display_name": null,
+   "attributes": {
+    "name": "item0",
+    "type": "end",
+    "end-mode": "0"
+   },
+   "in_bindings": [],
+   "out_bindings": [],
+   "script": null,
+   "script_lines": 0,
+   "conditions": [],
+   "references": []
+  },
+  {
+   "name": "item1",
+   "type": "task",
+   "display_name": "item1",
+   "attributes": {
+    "name": "item1",
+    "out-name": "item0",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "controller",
+     "type": "string",
+     "export_name": "controller",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [],
+   "script": "var category = Server.getConfigurationElementCategoryWithPath(\"Example/Lab\");\nvar registry = category.configurationElements[0];\nregistry.removeAttributeWithKey(controller);",
+   "script_lines": 3,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "5a1ef8c67c52b937"
+  }
+ ],
+ "edges": [
+  {
+   "from": "item1",
+   "to": "item0",
+   "kind": "next",
+   "label": null
+  }
+ ],
+ "item_type_counts": {
+  "end": 1,
+  "task": 1
+ },
+ "scripts": [
+  {
+   "item": "item1",
+   "lines": 3,
+   "source": "var category = Server.getConfigurationElementCategoryWithPath(\"Example/Lab\");\nvar registry = category.configurationElements[0];\nregistry.removeAttributeWithKey(controller);",
+   "norm": "var ID = ID.ID(\"ID\"); var ID = ID.ID[ID]; ID.ID(ID);"
+  }
+ ],
+ "script_shingles": {
+  "item1": [
+   "var ID = ID.ID(\"ID\"); var",
+   "ID = ID.ID(\"ID\"); var ID",
+   "= ID.ID(\"ID\"); var ID =",
+   "ID.ID(\"ID\"); var ID = ID.ID[ID];",
+   "var ID = ID.ID[ID]; ID.ID(ID);"
+  ]
+ },
+ "total_script_lines": 3,
+ "sdk_calls": [
+  "Server.getConfigurationElementCategoryWithPath"
+ ],
+ "plugin_types": [],
+ "nested_calls": [],
+ "action_calls": [],
+ "config_refs": [
+  {
+   "item": "item1",
+   "path": "Example/Lab"
+  }
+ ],
+ "presentation": {
+  "params": [],
+  "ognl": [],
+  "raw_present": true
+ },
+ "has_ognl": false,
+ "error_handler_items": [],
+ "default_error_handler": null,
+ "throw_end_items": [],
+ "input_form_present": false,
+ "warnings": [],
+ "wid": "triage/Lab - Forget Controller",
+ "uid": "triage-Lab---Forget-Controller",
+ "source": "triage",
+ "file_stem": "Lab - Forget Controller",
+ "baseline_key": "triage/Lab - Forget Controller",
+ "baseline_ambiguous": false,
+ "graph": {
+  "items": 2,
+  "edges": 1,
+  "branches": 0,
+  "joins": 0,
+  "cycle": false,
+  "depth": 1,
+  "reachable_from_root": 2,
+  "error_handler_path": [],
+  "unreachable_items": [],
+  "linear": true
+ },
+ "item_type_sequence": [
+  "task",
+  "end"
+ ],
+ "root_path_items": [
+  "item1",
+  "item0"
+ ],
+ "error_handler_path_items": [],
+ "first_task_on_root_path": "item1",
+ "first_task_in_doc_order": "item1",
+ "doc_order_would_mislead": false,
+ "called_by": [],
+ "is_orphan": true
+}

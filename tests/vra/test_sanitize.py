@@ -26,7 +26,11 @@ PLANTED_VALUES = {
     "HOST": ["vc01.acme-internal.corp", "vro01.acme-internal.corp", "avi-ctrl.lab.example.net"],
     "IP": ["10.20.30.40", "192.168.100.7"],
     "EMAIL": ["ops-team@acme.example.com"],
-    "URL": ["https://avi-ctrl.lab.example.net/api/pool"],
+    "URL": ["https://avi-ctrl.lab.example.net/api/pool",
+            # webhooks, shaped so they cannot pass for real ones; Sanitize records the system, never the value
+            "https://hooks.slack.com/services/PLANTED/FAKE/not-a-real-hook",
+            "https://acme.webhook.office.com/webhookb2/planted-not-a-real-hook",
+            "hooks.slack.com", "webhook.office.com", "not-a-real-hook"],
     "USER": ["svc-vro-deploy", "jane.doe"],
     "SECRET": ["Hunter2!Winter", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2cm8ifQ.c2lnbmF0dXJlc2lnbmF0dXJl",
                "AbCdEf0123456789XyZabcdEF0123"],
@@ -58,7 +62,7 @@ def test_counts_per_category(planted):
     rep, _, _ = planted
     for cat in ("HOST", "IP", "URL", "EMAIL", "USER", "SECRET", "IDENTITY"):
         assert rep["counts"][cat] >= 1, cat
-    assert rep["dropped_values"] == 4          # 2 SecureString (1 attrib, 1 config) + 2 other config values
+    assert rep["dropped_values"] == 5          # 2 SecureString (1 attrib, 1 config) + 3 other config values
     assert rep["files_touched"] == 4
 
 
@@ -79,7 +83,7 @@ def test_secure_and_config_values_dropped_names_and_types_kept(planted):
     cfg = files["planted-secrets/ConfigurationElement/Planted/Settings.xml"]
     for name, typ in (("endpoint", "string"), ("serviceUser", "string"), ("servicePassword", "SecureString")):
         assert f'<att name="{name}" type="{typ}"' in cfg
-    assert cfg.count("<![CDATA[__NULL__]]>") == 4
+    assert cfg.count("<![CDATA[__NULL__]]>") == 5
     wf = files["planted-secrets/Workflow/Planted/Deploy Things.xml"]
     assert '<attrib name="apiSecret" type="SecureString" read-only="false">\n\t\t<value encoded="n"><![CDATA[__NULL__]]>' in wf
 
@@ -219,3 +223,19 @@ def test_a_netmask_in_text_is_kept_and_an_address_is_not():
     out = r.text('{"mask": "255.255.255.255", "address": "10.20.30.40", "broadcast": "255.255.255.0"}')
     assert '"mask": "255.255.255.255"' in out and '"broadcast": "255.255.255.0"' in out
     assert "10.20.30.40" not in out and "<IP-01>" in out
+
+
+def test_webhook_systems_recorded_never_their_values(planted, tmp_path):
+    """A Teams or Slack webhook is known only by its host, which the copy replaces. Sanitize records the system
+    against the placeholder and against the configuration attribute whose value it dropped; no value is written."""
+    import json
+    rep, files, _ = planted
+    seen = rep["systems_seen"]
+    assert seen.get("slackWebhookUrl") == "slack"
+    assert sorted(v for k, v in seen.items() if k.startswith("<URL-")) == ["ms-teams", "slack"]
+    wf = files["planted-secrets/Workflow/Planted/Deploy Things.xml"]
+    teams_ph = next(k for k, v in seen.items() if v == "ms-teams")
+    assert f'var teams = "{teams_ph}";' in wf
+    out = json.dumps({k: v for k, v in rep.items() if k != "_masked"})
+    for value in ("hooks.slack.com", "webhook.office.com", "not-a-real-hook", "PLANTED/FAKE"):
+        assert value not in out

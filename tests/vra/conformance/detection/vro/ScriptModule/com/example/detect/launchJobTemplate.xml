@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dunes-script-module name="launchJobTemplate" result-type="string" api-version="6.0.0" id="a6000000-0000-4000-8000-000000000003" version="1.0.0" allowed-operations="vef"><description/><param n="templateId" t="string"/><script encoded="false"><![CDATA[var job = JSON.parse(System.getModule("com.example.detect").callRest("POST", "/api/v2/job_templates/" + templateId + "/launch/", "{}"));
+var state = JSON.parse(System.getModule("com.example.detect").callRest("GET", "/api/v2/jobs/" + job.id + "/", ""));
+return state.status;]]></script></dunes-script-module>

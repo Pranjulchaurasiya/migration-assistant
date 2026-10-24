@@ -1,0 +1,178 @@
+{
+ "id": "e6000000-0000-4000-8000-000000000004",
+ "name": "Detect - Create Group",
+ "description": "",
+ "category_path": "Example.Detect",
+ "source_path": "detection/Workflow/Example/Detect/Detect - Create Group.xml",
+ "container_format": "raw-xml",
+ "root_item": "item1",
+ "restart_mode": "1",
+ "api_version": "6.0.0",
+ "version": "1.0.0",
+ "inputs": [
+  {
+   "name": "ou",
+   "type": "AD:OrganizationalUnit"
+  },
+  {
+   "name": "group",
+   "type": "AD:UserGroup"
+  },
+  {
+   "name": "groupName",
+   "type": "string"
+  }
+ ],
+ "outputs": [],
+ "attributes": [],
+ "items": [
+  {
+   "name": "item0",
+   "type": "end",
+   "display_name": null,
+   "attributes": {
+    "name": "item0",
+    "type": "end",
+    "end-mode": "0"
+   },
+   "in_bindings": [],
+   "out_bindings": [],
+   "script": null,
+   "script_lines": 0,
+   "conditions": [],
+   "references": []
+  },
+  {
+   "name": "item1",
+   "type": "task",
+   "display_name": "Run",
+   "attributes": {
+    "name": "item1",
+    "out-name": "item0",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "ou",
+     "type": "AD:OrganizationalUnit",
+     "export_name": "ou",
+     "explanation": ""
+    },
+    {
+     "name": "group",
+     "type": "AD:UserGroup",
+     "export_name": "group",
+     "explanation": ""
+    },
+    {
+     "name": "groupName",
+     "type": "string",
+     "export_name": "groupName",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [],
+   "script": "if (!groupName) {\n    throw \"no group name\";\n}\nvar g = System.getModule(\"com.example.detect\").createSecurityGroup(ou, group, groupName);\nSystem.log(\"group \" + g.distinguishedName);",
+   "script_lines": 5,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "ef7ec01c352abcf9"
+  }
+ ],
+ "edges": [
+  {
+   "from": "item1",
+   "to": "item0",
+   "kind": "next",
+   "label": null
+  }
+ ],
+ "item_type_counts": {
+  "end": 1,
+  "task": 1
+ },
+ "scripts": [
+  {
+   "item": "item1",
+   "lines": 5,
+   "source": "if (!groupName) {\n    throw \"no group name\";\n}\nvar g = System.getModule(\"com.example.detect\").createSecurityGroup(ou, group, groupName);\nSystem.log(\"group \" + g.distinguishedName);",
+   "norm": "if (!ID) { throw \"ID\"; } var ID = ID.ID(\"ID\").ID(ID, ID, ID); ID.ID(\"ID\" + ID.ID);"
+  }
+ ],
+ "script_shingles": {
+  "item1": [
+   "if (!ID) { throw \"ID\";",
+   "(!ID) { throw \"ID\"; }",
+   "{ throw \"ID\"; } var",
+   "throw \"ID\"; } var ID",
+   "\"ID\"; } var ID =",
+   "} var ID = ID.ID(\"ID\").ID(ID,",
+   "var ID = ID.ID(\"ID\").ID(ID, ID,",
+   "ID = ID.ID(\"ID\").ID(ID, ID, ID);",
+   "= ID.ID(\"ID\").ID(ID, ID, ID); ID.ID(\"ID\"",
+   "ID.ID(\"ID\").ID(ID, ID, ID); ID.ID(\"ID\" +",
+   "ID, ID); ID.ID(\"ID\" + ID.ID);"
+  ]
+ },
+ "total_script_lines": 5,
+ "sdk_calls": [
+  "System.getModule",
+  "System.log"
+ ],
+ "plugin_types": [
+  "AD:OrganizationalUnit",
+  "AD:UserGroup"
+ ],
+ "nested_calls": [],
+ "action_calls": [
+  {
+   "item": "item1",
+   "module": "com.example.detect",
+   "action": "createSecurityGroup"
+  }
+ ],
+ "config_refs": [],
+ "presentation": {
+  "params": [],
+  "ognl": [],
+  "raw_present": true
+ },
+ "has_ognl": false,
+ "error_handler_items": [],
+ "default_error_handler": null,
+ "throw_end_items": [],
+ "input_form_present": false,
+ "warnings": [],
+ "wid": "detection/Detect - Create Group",
+ "uid": "detection-Detect---Create-Group",
+ "source": "detection",
+ "file_stem": "Detect - Create Group",
+ "baseline_key": "detection/Detect - Create Group",
+ "baseline_ambiguous": false,
+ "graph": {
+  "items": 2,
+  "edges": 1,
+  "branches": 0,
+  "joins": 0,
+  "cycle": false,
+  "depth": 1,
+  "reachable_from_root": 2,
+  "error_handler_path": [],
+  "unreachable_items": [],
+  "linear": true
+ },
+ "item_type_sequence": [
+  "task",
+  "end"
+ ],
+ "root_path_items": [
+  "item1",
+  "item0"
+ ],
+ "error_handler_path_items": [],
+ "first_task_on_root_path": "item1",
+ "first_task_in_doc_order": "item1",
+ "doc_order_would_mislead": false,
+ "called_by": [],
+ "is_orphan": true
+}

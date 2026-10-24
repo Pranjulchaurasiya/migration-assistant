@@ -1,0 +1,3264 @@
+{
+ "generated": "2026-10-24T16:02:10Z",
+ "estate": "upgrade",
+ "inputs": {
+  "export": "upgrade",
+  "export_inputs": {
+   "detection": "upgrade/detection",
+   "triage": "upgrade/triage"
+  },
+  "plugin_map": "kestra_migration_assistant/vra/data/plugin-map.yaml",
+  "specs": "upgrade/kestra-assessment/data/2-understand",
+  "cluster_summaries": "upgrade/kestra-assessment/data/2-understand/cluster-summaries.json",
+  "answers": "upgrade/kestra-assessment/your-input/answers.yaml",
+  "corrections": "upgrade/kestra-assessment/your-input/corrections.yaml"
+ },
+ "open_preflight_items": [],
+ "elements": [
+  {
+   "kind": "ConfigurationElement",
+   "name": "Endpoints",
+   "category": "Example"
+  }
+ ],
+ "counts": {
+  "workflows": 15,
+  "workflows_in_export": 15,
+  "actions": 9,
+  "config_elements": 1,
+  "resource_elements": 0,
+  "targets": 2,
+  "clusters": 5,
+  "singletons": 4,
+  "domains": 2,
+  "tests": 0,
+  "script_lines_workflows": 84,
+  "script_lines_actions": 44,
+  "parse_failures": 0,
+  "bands": {
+   "amber": 9,
+   "red": 3,
+   "green": 3
+  },
+  "readiness": {
+   "amber": 9,
+   "red": 3,
+   "green": 3
+  },
+  "wrappers": 1,
+  "libraries": 5,
+  "unexported_calls": 2,
+  "doc_order_would_mislead": 1,
+  "entry_points": 0,
+  "entry_point_workflows": 0,
+  "entry_points_unresolved": 0
+ },
+ "clusters": [
+  {
+   "cluster_id": "C01",
+   "members": [
+    "detection-Detect---Apply-Segment",
+    "detection-Detect---Notify",
+    "detection-Detect---Patch-Linux",
+    "triage-Lab---Change-Password",
+    "triage-Lab---Create-Admin",
+    "triage-Lab---Create-Pool",
+    "triage-Lab---Delete-Tenant",
+    "triage-Lab---Enable-Override",
+    "triage-Lab---Find-or-Create-Tenant",
+    "triage-Lab---Forget-Controller",
+    "triage-Lab---Purge-Volumes"
+   ],
+   "size": 11,
+   "first_of_a_kind": "triage-Lab---Find-or-Create-Tenant",
+   "shape_sigs": [
+    "task>end"
+   ],
+   "sources": [
+    "detection",
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "amber": 7,
+    "red": 1,
+    "green": 3
+   },
+   "summary_name": null,
+   "summary": null,
+   "domain": "D1",
+   "strongest_pair": {
+    "a": "triage-Lab---Create-Admin",
+    "b": "triage-Lab---Find-or-Create-Tenant",
+    "score": 0.816,
+    "per_feature": {
+     "shape": 1.0,
+     "graph": 1.0,
+     "plugins": 1.0,
+     "sdk": 1.0,
+     "io": 1.0,
+     "scripts": 0.081
+    }
+   }
+  },
+  {
+   "cluster_id": "C02",
+   "members": [
+    "detection-Detect---Create-Group"
+   ],
+   "size": 1,
+   "first_of_a_kind": "detection-Detect---Create-Group",
+   "shape_sigs": [
+    "task>end"
+   ],
+   "sources": [
+    "detection"
+   ],
+   "plugins": [
+    "AD"
+   ],
+   "colour_mix": {
+    "red": 1
+   },
+   "summary_name": null,
+   "summary": null,
+   "domain": "D2",
+   "strongest_pair": null
+  },
+  {
+   "cluster_id": "C03",
+   "members": [
+    "triage-Lab---Create-Tenant"
+   ],
+   "size": 1,
+   "first_of_a_kind": "triage-Lab---Create-Tenant",
+   "shape_sigs": [
+    "link>end"
+   ],
+   "sources": [
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "amber": 1
+   },
+   "summary_name": null,
+   "summary": null,
+   "domain": "D2",
+   "strongest_pair": null
+  },
+  {
+   "cluster_id": "C04",
+   "members": [
+    "triage-Lab---Run-Remote-Command"
+   ],
+   "size": 1,
+   "first_of_a_kind": "triage-Lab---Run-Remote-Command",
+   "shape_sigs": [
+    "taskx2>condition>taskx3>end"
+   ],
+   "sources": [
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "red": 1
+   },
+   "summary_name": null,
+   "summary": null,
+   "domain": "D1",
+   "strongest_pair": null
+  },
+  {
+   "cluster_id": "C05",
+   "members": [
+    "triage-Process-Tenant-Notification"
+   ],
+   "size": 1,
+   "first_of_a_kind": "triage-Process-Tenant-Notification",
+   "shape_sigs": [
+    "switch>linkx2>end"
+   ],
+   "sources": [
+    "triage"
+   ],
+   "plugins": [],
+   "colour_mix": {
+    "amber": 1
+   },
+   "summary_name": null,
+   "summary": null,
+   "domain": "D2",
+   "strongest_pair": null
+  }
+ ],
+ "cluster_method": {
+  "method": "single-linkage agglomerative over weighted feature similarity, implemented as union-find, cut at the threshold",
+  "threshold": 0.62,
+  "weights": {
+   "shape": 0.3,
+   "graph": 0.1,
+   "plugins": 0.15,
+   "sdk": 0.1,
+   "io": 0.15,
+   "scripts": 0.2
+  }
+ },
+ "workflows": {
+  "detection-Detect---Apply-Segment": {
+   "uid": "detection-Detect---Apply-Segment",
+   "wid": "detection/Detect - Apply Segment",
+   "name": "Detect - Apply Segment",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "file": "upgrade/detection/Workflow/Example/Detect/Detect - Apply Segment.xml",
+   "cluster": "C01",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 4,
+   "logic_lines": 4,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [
+    "rest-host"
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "POST /api/v2/runs",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "write",
+     "via": "queueRun",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    }
+   ],
+   "called_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "queueRun",
+     "in_export": true,
+     "boilerplate": false,
+     "keys": [
+      "detection:com.example.detect/queueRun"
+     ]
+    }
+   ],
+   "nested": [],
+   "n_calls": 1,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "18451bf016f3d6ba"
+   ],
+   "plugin_types": [],
+   "io": [
+    "workspaceId:string"
+   ],
+   "inputs": [
+    "workspaceId"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "detect-apply-segment",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 1,
+   "domain": "D1"
+  },
+  "detection-Detect---Create-Group": {
+   "uid": "detection-Detect---Create-Group",
+   "wid": "detection/Detect - Create Group",
+   "name": "Detect - Create Group",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "file": "upgrade/detection/Workflow/Example/Detect/Detect - Create Group.xml",
+   "cluster": "C02",
+   "band": "red",
+   "red_reasons": [
+    "plugin type with no known Kestra mapping: AD:OrganizationalUnit, AD:UserGroup"
+   ],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 5,
+   "logic_lines": 4,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "createSecurityGroup",
+     "in_export": true,
+     "boilerplate": false,
+     "keys": [
+      "detection:com.example.detect/createSecurityGroup"
+     ]
+    }
+   ],
+   "nested": [],
+   "n_calls": 1,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "ef7ec01c352abcf9"
+   ],
+   "plugin_types": [
+    "AD:OrganizationalUnit",
+    "AD:UserGroup"
+   ],
+   "io": [
+    "group:AD:UserGroup",
+    "groupName:string",
+    "ou:AD:OrganizationalUnit"
+   ],
+   "inputs": [
+    "ou",
+    "group",
+    "groupName"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "detect-create-group",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "plugin type with no Kestra route: AD:OrganizationalUnit, AD:UserGroup"
+   ],
+   "readiness": "red",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D2"
+  },
+  "detection-Detect---Notify": {
+   "uid": "detection-Detect---Notify",
+   "wid": "detection/Detect - Notify",
+   "name": "Detect - Notify",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "file": "upgrade/detection/Workflow/Example/Detect/Detect - Notify.xml",
+   "cluster": "C01",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 5,
+   "logic_lines": 5,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [
+    "rest-host",
+    "vro-platform"
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "POST ",
+     "kind": "rest",
+     "mode": "write",
+     "via": "postTeamsMessage",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "vro-platform",
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "rest-host",
+     "op": "POST ",
+     "kind": "rest",
+     "mode": "write",
+     "via": "postSlackMessage",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "vro-platform",
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    }
+   ],
+   "called_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "postTeamsMessage",
+     "in_export": true,
+     "boilerplate": false,
+     "keys": [
+      "detection:com.example.detect/postTeamsMessage"
+     ]
+    },
+    {
+     "module": "com.example.detect",
+     "action": "postSlackMessage",
+     "in_export": true,
+     "boilerplate": false,
+     "keys": [
+      "detection:com.example.detect/postSlackMessage"
+     ]
+    }
+   ],
+   "nested": [],
+   "n_calls": 2,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "29d8da0110f9ee7a"
+   ],
+   "plugin_types": [],
+   "io": [
+    "text:string"
+   ],
+   "inputs": [
+    "text"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [
+     "Example"
+    ],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "detect-notify",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 2,
+   "domain": "D1"
+  },
+  "detection-Detect---Patch-Linux": {
+   "uid": "detection-Detect---Patch-Linux",
+   "wid": "detection/Detect - Patch Linux",
+   "name": "Detect - Patch Linux",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "file": "upgrade/detection/Workflow/Example/Detect/Detect - Patch Linux.xml",
+   "cluster": "C01",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 4,
+   "logic_lines": 4,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [
+    "rest-host"
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "POST /api/v2/job_templates/{templateId}/launch/",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "write",
+     "via": "launchJobTemplate",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "rest-host",
+     "op": "GET /api/v2/jobs/{id}/",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "read",
+     "via": "launchJobTemplate",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    }
+   ],
+   "called_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "launchJobTemplate",
+     "in_export": true,
+     "boilerplate": false,
+     "keys": [
+      "detection:com.example.detect/launchJobTemplate"
+     ]
+    }
+   ],
+   "nested": [],
+   "n_calls": 1,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "2b71831251c40d54"
+   ],
+   "plugin_types": [],
+   "io": [
+    "templateId:string"
+   ],
+   "inputs": [
+    "templateId"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "detect-patch-linux",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 1,
+   "writes": 1,
+   "domain": "D1"
+  },
+  "triage-Lab---Change-Password": {
+   "uid": "triage-Lab---Change-Password",
+   "wid": "triage/Lab - Change Password",
+   "name": "Lab - Change Password",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Change Password.xml",
+   "cluster": "C01",
+   "band": "red",
+   "red_reasons": [
+    "1 OGNL presentation qualifier(s); no Kestra equivalent"
+   ],
+   "amber_reasons": [],
+   "items": 2,
+   "script_lines": 4,
+   "logic_lines": 3,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 1,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [],
+   "nested": [],
+   "n_calls": 0,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "9a80b99feb4ffe0b"
+   ],
+   "plugin_types": [],
+   "io": [
+    "controller:string",
+    "newPassword:SecureString"
+   ],
+   "inputs": [
+    "controller",
+    "newPassword"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "lab-change-password",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 OGNL presentation qualifier(s); no Kestra equivalent"
+   ],
+   "readiness": "red",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Create-Admin": {
+   "uid": "triage-Lab---Create-Admin",
+   "wid": "triage/Lab - Create Admin",
+   "name": "Lab - Create Admin",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Create Admin.xml",
+   "cluster": "C01",
+   "band": "green",
+   "red_reasons": [],
+   "amber_reasons": [],
+   "items": 2,
+   "script_lines": 4,
+   "logic_lines": 3,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [],
+   "nested": [],
+   "n_calls": 0,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "cac37375c1bbae83"
+   ],
+   "plugin_types": [],
+   "io": [
+    "tenantName:string"
+   ],
+   "inputs": [
+    "tenantName"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "low",
+   "spec_systems": [],
+   "short": "lab-create-admin",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [],
+   "readiness": "green",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Create-Pool": {
+   "uid": "triage-Lab---Create-Pool",
+   "wid": "triage/Lab - Create Pool",
+   "name": "Lab - Create Pool",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Create Pool.xml",
+   "cluster": "C01",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 6,
+   "logic_lines": 5,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [
+    {
+     "module": "com.example.lab",
+     "action": "createVRAPoolObj",
+     "in_export": true,
+     "boilerplate": false,
+     "keys": [
+      "triage:com.example.lab/createVRAPoolObj"
+     ]
+    }
+   ],
+   "nested": [],
+   "n_calls": 1,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "b52778f0e4817224"
+   ],
+   "plugin_types": [],
+   "io": [
+    "members:Array/string",
+    "poolName:string"
+   ],
+   "inputs": [
+    "poolName",
+    "members"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "lab-create-pool",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Create-Tenant": {
+   "uid": "triage-Lab---Create-Tenant",
+   "wid": "triage/Lab - Create Tenant",
+   "name": "Lab - Create Tenant",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Create Tenant.xml",
+   "cluster": "C03",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 nested or async workflow call(s)"
+   ],
+   "items": 2,
+   "script_lines": 0,
+   "logic_lines": 0,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "link": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": null,
+   "first_task_on_root_path": null,
+   "doc_order_would_mislead": false,
+   "called_by": [
+    "triage-Process-Tenant-Notification"
+   ],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [],
+   "nested": [
+    {
+     "item": "item1",
+     "mode": "sync",
+     "workflow_id": "e5000000-0000-4000-8000-000000000001",
+     "display_name": "Lab - Find or Create Tenant",
+     "in_export": true,
+     "target_uid": "triage-Lab---Find-or-Create-Tenant",
+     "in_scope": true
+    }
+   ],
+   "n_calls": 1,
+   "shape_sig": "link>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [],
+   "plugin_types": [],
+   "io": [
+    "tenantName:string"
+   ],
+   "inputs": [
+    "tenantName"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "lab-create-tenant",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": true,
+   "wrapper_reason": "one call (nested workflow 'Lab - Find or Create Tenant'), 0 line(s) of its own logic, no decisions",
+   "readiness_reasons": [
+    "1 nested or async workflow call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D2"
+  },
+  "triage-Lab---Delete-Tenant": {
+   "uid": "triage-Lab---Delete-Tenant",
+   "wid": "triage/Lab - Delete Tenant",
+   "name": "Lab - Delete Tenant",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Delete Tenant.xml",
+   "cluster": "C01",
+   "band": "green",
+   "red_reasons": [],
+   "amber_reasons": [],
+   "items": 2,
+   "script_lines": 4,
+   "logic_lines": 3,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [
+    "triage-Process-Tenant-Notification"
+   ],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [],
+   "nested": [],
+   "n_calls": 0,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "90790959fcfc8898"
+   ],
+   "plugin_types": [],
+   "io": [
+    "tenantName:string"
+   ],
+   "inputs": [
+    "tenantName"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": null,
+   "spec_systems": [],
+   "short": "lab-delete-tenant",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [],
+   "readiness": "green",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Enable-Override": {
+   "uid": "triage-Lab---Enable-Override",
+   "wid": "triage/Lab - Enable Override",
+   "name": "Lab - Enable Override",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Enable Override.xml",
+   "cluster": "C01",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 6,
+   "logic_lines": 5,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [
+    {
+     "module": "com.example.vendor",
+     "action": "waitTaskEnd",
+     "in_export": false,
+     "boilerplate": false,
+     "keys": []
+    }
+   ],
+   "nested": [],
+   "n_calls": 1,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "c0eb77d372f7a4b5"
+   ],
+   "plugin_types": [],
+   "io": [
+    "segment:string"
+   ],
+   "inputs": [
+    "segment"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "lab-enable-override",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Find-or-Create-Tenant": {
+   "uid": "triage-Lab---Find-or-Create-Tenant",
+   "wid": "triage/Lab - Find or Create Tenant",
+   "name": "Lab - Find or Create Tenant",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Find or Create Tenant.xml",
+   "cluster": "C01",
+   "band": "green",
+   "red_reasons": [],
+   "amber_reasons": [],
+   "items": 2,
+   "script_lines": 6,
+   "logic_lines": 5,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [
+    "triage-Lab---Create-Tenant"
+   ],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [],
+   "nested": [],
+   "n_calls": 0,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "54364af28d411db6"
+   ],
+   "plugin_types": [],
+   "io": [
+    "tenantName:string"
+   ],
+   "inputs": [
+    "tenantName"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": null,
+   "spec_systems": [],
+   "short": "lab-find-or-create-tenant",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [],
+   "readiness": "green",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Forget-Controller": {
+   "uid": "triage-Lab---Forget-Controller",
+   "wid": "triage/Lab - Forget Controller",
+   "name": "Lab - Forget Controller",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Forget Controller.xml",
+   "cluster": "C01",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 3,
+   "logic_lines": 3,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [
+    "vro-platform"
+   ],
+   "ops": [
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example/Lab",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": null,
+     "item": "item1",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "vro-platform",
+     "op": "write configuration element (removeAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "write",
+     "via": null,
+     "item": "item1",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    }
+   ],
+   "called_actions": [],
+   "nested": [],
+   "n_calls": 0,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "5a1ef8c67c52b937"
+   ],
+   "plugin_types": [],
+   "io": [
+    "controller:string"
+   ],
+   "inputs": [
+    "controller"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [
+     "Example/Lab"
+    ],
+    "writes": [
+     "Example/Lab"
+    ]
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "lab-forget-controller",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Purge-Volumes": {
+   "uid": "triage-Lab---Purge-Volumes",
+   "wid": "triage/Lab - Purge Volumes",
+   "name": "Lab - Purge Volumes",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Purge Volumes.xml",
+   "cluster": "C01",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "items": 2,
+   "script_lines": 5,
+   "logic_lines": 4,
+   "control_items": 0,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": "item1",
+   "first_task_on_root_path": "item1",
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [
+    {
+     "module": "com.example.vendor",
+     "action": "purgeOrphanedVolumes",
+     "in_export": false,
+     "boilerplate": false,
+     "keys": []
+    }
+   ],
+   "nested": [],
+   "n_calls": 1,
+   "shape_sig": "task>end",
+   "graph_sig": {
+    "branches": 0,
+    "joins": 0,
+    "cycle": false,
+    "depth": 1,
+    "linear": true
+   },
+   "script_hashes": [
+    "9ca8f5936ea4da1e"
+   ],
+   "plugin_types": [],
+   "io": [
+    "datastore:string",
+    "dryRun:boolean"
+   ],
+   "inputs": [
+    "datastore",
+    "dryRun"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "low",
+   "spec_systems": [],
+   "short": "lab-purge-volumes",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "1 non-logging SDK call(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D1"
+  },
+  "triage-Lab---Run-Remote-Command": {
+   "uid": "triage-Lab---Run-Remote-Command",
+   "wid": "triage/Lab - Run Remote Command",
+   "name": "Lab - Run Remote Command",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Lab - Run Remote Command.xml",
+   "cluster": "C04",
+   "band": "red",
+   "red_reasons": [
+    "file-typed parameter with no Kestra equivalent: Path"
+   ],
+   "amber_reasons": [
+    "path depth 5",
+    "1 control-flow item(s)"
+   ],
+   "items": 7,
+   "script_lines": 23,
+   "logic_lines": 22,
+   "control_items": 1,
+   "item_type_counts": {
+    "task": 5,
+    "condition": 1,
+    "end": 1
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item6",
+   "first_task_in_doc_order": "item2",
+   "first_task_on_root_path": "item6",
+   "doc_order_would_mislead": true,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [
+    "ssh-host"
+   ],
+   "ops": [
+    {
+     "target": "ssh-host",
+     "op": "SSHSession.connectWithPassword",
+     "kind": "sdk",
+     "mode": "write",
+     "via": null,
+     "item": "item2",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "ssh-host",
+     "op": "SSHSession.executeCommand",
+     "kind": "sdk",
+     "mode": "write",
+     "via": null,
+     "item": "item2",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "ssh-host",
+     "op": "SSHSession.disconnect",
+     "kind": "sdk",
+     "mode": "write",
+     "via": null,
+     "item": "item2",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "ssh-host",
+     "op": "SSHSession.connectWithPasswordOrIdentity",
+     "kind": "sdk",
+     "mode": "write",
+     "via": null,
+     "item": "item4",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "ssh-host",
+     "op": "SSHSession.executeCommand",
+     "kind": "sdk",
+     "mode": "write",
+     "via": null,
+     "item": "item4",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "ssh-host",
+     "op": "SSHSession.disconnect",
+     "kind": "sdk",
+     "mode": "write",
+     "via": null,
+     "item": "item4",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    }
+   ],
+   "called_actions": [],
+   "nested": [],
+   "n_calls": 6,
+   "shape_sig": "taskx2>condition>taskx3>end",
+   "graph_sig": {
+    "branches": 1,
+    "joins": 1,
+    "cycle": false,
+    "depth": 5,
+    "linear": false
+   },
+   "script_hashes": [
+    "06f3133d84bbbc6a",
+    "5047b00db08c349d",
+    "7bbc00d9bcfd38d4",
+    "c01b2f573c70fe9b",
+    "d5f4950c2074746f"
+   ],
+   "plugin_types": [],
+   "io": [
+    "cmd:string",
+    "errorText:string",
+    "hostName:string",
+    "outputText:string",
+    "passphrase:SecureString",
+    "password:SecureString",
+    "passwordAuthentication:boolean",
+    "path:Path",
+    "port:number",
+    "result:number",
+    "username:string"
+   ],
+   "inputs": [
+    "hostName",
+    "port",
+    "cmd",
+    "username",
+    "passwordAuthentication",
+    "password",
+    "path",
+    "passphrase"
+   ],
+   "file_typed_params": [
+    "Path"
+   ],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "lab-run-remote-command",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "file-typed parameter with no Kestra equivalent: Path"
+   ],
+   "readiness": "red",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 6,
+   "domain": "D1"
+  },
+  "triage-Process-Tenant-Notification": {
+   "uid": "triage-Process-Tenant-Notification",
+   "wid": "triage/Process Tenant Notification",
+   "name": "Process Tenant Notification",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "file": "upgrade/triage/Workflow/Example/Lab/Process Tenant Notification.xml",
+   "cluster": "C05",
+   "band": "amber",
+   "red_reasons": [],
+   "amber_reasons": [
+    "2 nested or async workflow call(s)",
+    "1 control-flow item(s)"
+   ],
+   "items": 4,
+   "script_lines": 5,
+   "logic_lines": 0,
+   "control_items": 1,
+   "item_type_counts": {
+    "end": 1,
+    "switch": 1,
+    "link": 2
+   },
+   "user_interaction": 0,
+   "ognl": 0,
+   "ognl_null": 0,
+   "cycle": false,
+   "default_error_handler": null,
+   "error_handler_path": [],
+   "root_item": "item1",
+   "first_task_in_doc_order": null,
+   "first_task_on_root_path": null,
+   "doc_order_would_mislead": false,
+   "called_by": [],
+   "declared_targets": [],
+   "targets": [],
+   "ops": [],
+   "called_actions": [],
+   "nested": [
+    {
+     "item": "item2",
+     "mode": "sync",
+     "workflow_id": "e5000000-0000-4000-8000-000000000003",
+     "display_name": "Lab - Create Tenant",
+     "in_export": true,
+     "target_uid": "triage-Lab---Create-Tenant",
+     "in_scope": true
+    },
+    {
+     "item": "item3",
+     "mode": "sync",
+     "workflow_id": "e5000000-0000-4000-8000-000000000002",
+     "display_name": "Lab - Delete Tenant",
+     "in_export": true,
+     "target_uid": "triage-Lab---Delete-Tenant",
+     "in_scope": true
+    }
+   ],
+   "n_calls": 2,
+   "shape_sig": "switch>linkx2>end",
+   "graph_sig": {
+    "branches": 1,
+    "joins": 1,
+    "cycle": false,
+    "depth": 2,
+    "linear": false
+   },
+   "script_hashes": [
+    "721fdc584f5f2b33"
+   ],
+   "plugin_types": [],
+   "io": [
+    "actionType:string",
+    "tenantName:string"
+   ],
+   "inputs": [
+    "actionType",
+    "tenantName"
+   ],
+   "file_typed_params": [],
+   "event_branches": [],
+   "event_payload_keys": [],
+   "state": {
+    "reads": [],
+    "writes": []
+   },
+   "spec_confidence": "high",
+   "spec_systems": [],
+   "short": "process-tenant-notification",
+   "entry_points": [],
+   "caller_outside_scope": [],
+   "wrapper": false,
+   "wrapper_reason": null,
+   "readiness_reasons": [
+    "2 nested or async workflow call(s)",
+    "1 control-flow item(s)"
+   ],
+   "readiness": "amber",
+   "unreachable_ops": [],
+   "reads": 0,
+   "writes": 0,
+   "domain": "D2"
+  }
+ },
+ "actions": [
+  {
+   "key": "detection:com.example.detect/callRest",
+   "uid": "detection-com.example.detect-callRest",
+   "source": "detection",
+   "module": "com.example.detect",
+   "name": "callRest",
+   "file": "upgrade/detection/ScriptModule/com/example/detect/callRest.xml",
+   "params": {
+    "method": "string",
+    "path": "string",
+    "body": "string"
+   },
+   "lines": 6,
+   "norm_hash": "338d48e46404471b",
+   "calls_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "endpoint"
+    }
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "HTTP request (method and path from the caller)",
+     "kind": "rest client",
+     "generic": true,
+     "mode": "unknown"
+    }
+   ],
+   "called_by_workflows": [],
+   "called_by_actions": [
+    "detection:com.example.detect/launchJobTemplate",
+    "detection:com.example.detect/queueRun"
+   ],
+   "referenced_by_forms": [],
+   "rest_helper": true,
+   "all_ops": [
+    {
+     "target": "rest-host",
+     "op": "HTTP request (method and path from the caller)",
+     "kind": "rest client",
+     "generic": true,
+     "mode": "unknown",
+     "via": "callRest",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "vro-platform",
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    }
+   ],
+   "targets": [],
+   "library_for": [
+    "rest-host"
+   ],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": [],
+   "uses": [
+    {
+     "system": "rest-host",
+     "op": "POST /api/v2/job_templates/{templateId}/launch/",
+     "caller": "detection:com.example.detect/launchJobTemplate",
+     "caller_name": "launchJobTemplate",
+     "caller_kind": "action",
+     "reach": "plugin"
+    },
+    {
+     "system": "rest-host",
+     "op": "GET /api/v2/jobs/{id}/",
+     "caller": "detection:com.example.detect/launchJobTemplate",
+     "caller_name": "launchJobTemplate",
+     "caller_kind": "action",
+     "reach": "plugin"
+    },
+    {
+     "system": "rest-host",
+     "op": "POST /api/v2/runs",
+     "caller": "detection:com.example.detect/queueRun",
+     "caller_name": "queueRun",
+     "caller_kind": "action",
+     "reach": "plugin"
+    }
+   ]
+  },
+  {
+   "key": "detection:com.example.detect/createSecurityGroup",
+   "uid": "detection-com.example.detect-createSecurityGroup",
+   "source": "detection",
+   "module": "com.example.detect",
+   "name": "createSecurityGroup",
+   "file": "upgrade/detection/ScriptModule/com/example/detect/createSecurityGroup.xml",
+   "params": {
+    "ou": "AD:OrganizationalUnit",
+    "group": "AD:UserGroup",
+    "groupName": "string"
+   },
+   "lines": 10,
+   "norm_hash": "711fde5f60cdf414",
+   "calls_actions": [],
+   "ops": [],
+   "called_by_workflows": [
+    "detection-Detect---Create-Group"
+   ],
+   "called_by_actions": [],
+   "referenced_by_forms": [],
+   "rest_helper": false,
+   "all_ops": [],
+   "targets": [],
+   "library_for": [],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": []
+  },
+  {
+   "key": "detection:com.example.detect/endpoint",
+   "uid": "detection-com.example.detect-endpoint",
+   "source": "detection",
+   "module": "com.example.detect",
+   "name": "endpoint",
+   "file": "upgrade/detection/ScriptModule/com/example/detect/endpoint.xml",
+   "params": {
+    "key": "string"
+   },
+   "lines": 3,
+   "norm_hash": "38a1ccf1d1e122ec",
+   "calls_actions": [],
+   "ops": [
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example",
+     "kind": "configuration element",
+     "mode": "read"
+    },
+    {
+     "target": "vro-platform",
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "read"
+    }
+   ],
+   "called_by_workflows": [],
+   "called_by_actions": [
+    "detection:com.example.detect/callRest",
+    "detection:com.example.detect/postSlackMessage",
+    "detection:com.example.detect/postTeamsMessage"
+   ],
+   "referenced_by_forms": [],
+   "rest_helper": false,
+   "all_ops": [
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "vro-platform",
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    }
+   ],
+   "targets": [],
+   "library_for": [],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": []
+  },
+  {
+   "key": "detection:com.example.detect/launchJobTemplate",
+   "uid": "detection-com.example.detect-launchJobTemplate",
+   "source": "detection",
+   "module": "com.example.detect",
+   "name": "launchJobTemplate",
+   "file": "upgrade/detection/ScriptModule/com/example/detect/launchJobTemplate.xml",
+   "params": {
+    "templateId": "string"
+   },
+   "lines": 3,
+   "norm_hash": "700f184633565c08",
+   "calls_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "callRest"
+    }
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "POST /api/v2/job_templates/{templateId}/launch/",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "write"
+    },
+    {
+     "target": "rest-host",
+     "op": "GET /api/v2/jobs/{id}/",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "read"
+    }
+   ],
+   "called_by_workflows": [
+    "detection-Detect---Patch-Linux"
+   ],
+   "called_by_actions": [],
+   "referenced_by_forms": [],
+   "rest_helper": false,
+   "all_ops": [
+    {
+     "target": "rest-host",
+     "op": "POST /api/v2/job_templates/{templateId}/launch/",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "write",
+     "via": "launchJobTemplate",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "rest-host",
+     "op": "GET /api/v2/jobs/{id}/",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "read",
+     "via": "launchJobTemplate",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    }
+   ],
+   "targets": [
+    "rest-host"
+   ],
+   "library_for": [
+    "rest-host"
+   ],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": [
+    "GET /api/v2/jobs/{id}/",
+    "POST /api/v2/job_templates/{templateId}/launch/"
+   ]
+  },
+  {
+   "key": "detection:com.example.detect/postSlackMessage",
+   "uid": "detection-com.example.detect-postSlackMessage",
+   "source": "detection",
+   "module": "com.example.detect",
+   "name": "postSlackMessage",
+   "file": "upgrade/detection/ScriptModule/com/example/detect/postSlackMessage.xml",
+   "params": {
+    "channel": "string",
+    "text": "string"
+   },
+   "lines": 6,
+   "norm_hash": "6618823d4ec543a2",
+   "calls_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "endpoint"
+    }
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "POST ",
+     "kind": "rest",
+     "mode": "write"
+    }
+   ],
+   "called_by_workflows": [
+    "detection-Detect---Notify"
+   ],
+   "called_by_actions": [],
+   "referenced_by_forms": [],
+   "rest_helper": false,
+   "all_ops": [
+    {
+     "target": "rest-host",
+     "op": "POST ",
+     "kind": "rest",
+     "mode": "write",
+     "via": "postSlackMessage",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "vro-platform",
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    }
+   ],
+   "targets": [
+    "rest-host"
+   ],
+   "library_for": [
+    "rest-host"
+   ],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": [
+    "POST "
+   ]
+  },
+  {
+   "key": "detection:com.example.detect/postTeamsMessage",
+   "uid": "detection-com.example.detect-postTeamsMessage",
+   "source": "detection",
+   "module": "com.example.detect",
+   "name": "postTeamsMessage",
+   "file": "upgrade/detection/ScriptModule/com/example/detect/postTeamsMessage.xml",
+   "params": {
+    "title": "string",
+    "text": "string"
+   },
+   "lines": 7,
+   "norm_hash": "cd9caf085c1ec88d",
+   "calls_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "endpoint"
+    }
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "POST ",
+     "kind": "rest",
+     "mode": "write"
+    }
+   ],
+   "called_by_workflows": [
+    "detection-Detect---Notify"
+   ],
+   "called_by_actions": [],
+   "referenced_by_forms": [],
+   "rest_helper": false,
+   "all_ops": [
+    {
+     "target": "rest-host",
+     "op": "POST ",
+     "kind": "rest",
+     "mode": "write",
+     "via": "postTeamsMessage",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    },
+    {
+     "target": "vro-platform",
+     "op": "read configuration element Example",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    },
+    {
+     "target": "vro-platform",
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "kind": "configuration element",
+     "mode": "read",
+     "via": "endpoint",
+     "reach": "replace",
+     "confirmed": true,
+     "gap_note": "State or settings kept in a vRO configuration element. Settings become namespace variables or secrets; state written at run time goes to the KV store."
+    }
+   ],
+   "targets": [
+    "rest-host"
+   ],
+   "library_for": [
+    "rest-host"
+   ],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": [
+    "POST "
+   ]
+  },
+  {
+   "key": "detection:com.example.detect/queueRun",
+   "uid": "detection-com.example.detect-queueRun",
+   "source": "detection",
+   "module": "com.example.detect",
+   "name": "queueRun",
+   "file": "upgrade/detection/ScriptModule/com/example/detect/queueRun.xml",
+   "params": {
+    "workspaceId": "string"
+   },
+   "lines": 3,
+   "norm_hash": "c4894314e90cf584",
+   "calls_actions": [
+    {
+     "module": "com.example.detect",
+     "action": "callRest"
+    }
+   ],
+   "ops": [
+    {
+     "target": "rest-host",
+     "op": "POST /api/v2/runs",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "write"
+    }
+   ],
+   "called_by_workflows": [
+    "detection-Detect---Apply-Segment"
+   ],
+   "called_by_actions": [],
+   "referenced_by_forms": [],
+   "rest_helper": false,
+   "all_ops": [
+    {
+     "target": "rest-host",
+     "op": "POST /api/v2/runs",
+     "kind": "rest",
+     "helper": "callRest",
+     "evidence": [],
+     "mode": "write",
+     "via": "queueRun",
+     "reach": "plugin",
+     "confirmed": true,
+     "gap_note": null
+    }
+   ],
+   "targets": [
+    "rest-host"
+   ],
+   "library_for": [
+    "rest-host"
+   ],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": [
+    "POST /api/v2/runs"
+   ]
+  },
+  {
+   "key": "triage:com.example.lab/createVRAPoolObj",
+   "uid": "triage-com.example.lab-createVRAPoolObj",
+   "source": "triage",
+   "module": "com.example.lab",
+   "name": "createVRAPoolObj",
+   "file": "upgrade/triage/ScriptModule/com/example/lab/createVRAPoolObj.xml",
+   "params": {
+    "poolName": "string",
+    "members": "Array/string"
+   },
+   "lines": 5,
+   "norm_hash": "e74f4ba0ff5c5871",
+   "calls_actions": [],
+   "ops": [],
+   "called_by_workflows": [
+    "triage-Lab---Create-Pool"
+   ],
+   "called_by_actions": [],
+   "referenced_by_forms": [],
+   "rest_helper": false,
+   "all_ops": [],
+   "targets": [],
+   "library_for": [],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": []
+  },
+  {
+   "key": "triage:com.example.lab/listControllers",
+   "uid": "triage-com.example.lab-listControllers",
+   "source": "triage",
+   "module": "com.example.lab",
+   "name": "listControllers",
+   "file": "upgrade/triage/ScriptModule/com/example/lab/listControllers.xml",
+   "params": {},
+   "lines": 1,
+   "norm_hash": "feba888375ddacb5",
+   "calls_actions": [],
+   "ops": [],
+   "called_by_workflows": [],
+   "called_by_actions": [],
+   "referenced_by_forms": [
+    "triage-Lab---Change-Password"
+   ],
+   "rest_helper": false,
+   "all_ops": [],
+   "targets": [],
+   "library_for": [],
+   "wrapper": false,
+   "called": true,
+   "event_payload_keys": [],
+   "event_branches": [],
+   "same_code_as": [],
+   "reaches": [],
+   "ops_resolved": []
+  }
+ ],
+ "targets": {
+  "ssh-host": {
+   "key": "ssh-host",
+   "name": "SSH hosts",
+   "short_name": "SSH",
+   "category": null,
+   "vro_plugin": "SSH",
+   "kestra_group": null,
+   "op_tasks": [],
+   "reach": "plugin",
+   "confirmed": true,
+   "reach_overridden": false,
+   "enterprise_only": false,
+   "kestra_tasks": [
+    "io.kestra.plugin.fs.ssh.Command"
+   ],
+   "kestra_evidence": "https://kestra.io/plugins/plugin-fs/ssh/io.kestra.plugin.fs.ssh.command",
+   "api": null,
+   "sdk_alternative": null,
+   "unconfirmed": [],
+   "detected_by": [
+    "plugin"
+   ],
+   "api_auth": null,
+   "client_auth": null,
+   "tls_off": null,
+   "workflows": [
+    "triage-Lab---Run-Remote-Command"
+   ],
+   "actions": [],
+   "declared_only": [],
+   "operations": [
+    {
+     "op": "SSHSession.connectWithPassword",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "plugin"
+    },
+    {
+     "op": "SSHSession.connectWithPasswordOrIdentity",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "plugin"
+    },
+    {
+     "op": "SSHSession.disconnect",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "plugin"
+    },
+    {
+     "op": "SSHSession.executeCommand",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "plugin"
+    }
+   ],
+   "action_only_operations": [],
+   "reads": 0,
+   "writes": 4
+  },
+  "rest-host": {
+   "key": "rest-host",
+   "name": "REST hosts (vRO HTTP-REST plugin)",
+   "short_name": "REST hosts",
+   "category": null,
+   "vro_plugin": "HTTP-REST",
+   "kestra_group": null,
+   "op_tasks": [],
+   "reach": "plugin",
+   "confirmed": true,
+   "reach_overridden": false,
+   "enterprise_only": false,
+   "kestra_tasks": [
+    "io.kestra.plugin.core.http.Request"
+   ],
+   "kestra_evidence": "https://kestra.io/plugins/core/http/io.kestra.plugin.core.http.request",
+   "api": null,
+   "sdk_alternative": null,
+   "unconfirmed": [],
+   "detected_by": [
+    "REST request",
+    "REST signature (the REST helper's call site)"
+   ],
+   "api_auth": null,
+   "client_auth": null,
+   "tls_off": null,
+   "workflows": [
+    "detection-Detect---Apply-Segment",
+    "detection-Detect---Notify",
+    "detection-Detect---Patch-Linux"
+   ],
+   "actions": [
+    "detection:com.example.detect/launchJobTemplate",
+    "detection:com.example.detect/postSlackMessage",
+    "detection:com.example.detect/postTeamsMessage",
+    "detection:com.example.detect/queueRun"
+   ],
+   "declared_only": [],
+   "operations": [
+    {
+     "op": "GET /api/v2/jobs/{id}/",
+     "workflows": 1,
+     "mode": "read",
+     "reach": "plugin"
+    },
+    {
+     "op": "POST ",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "plugin"
+    },
+    {
+     "op": "POST /api/v2/job_templates/{templateId}/launch/",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "plugin"
+    },
+    {
+     "op": "POST /api/v2/runs",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "plugin"
+    }
+   ],
+   "action_only_operations": [
+    "HTTP request (method and path from the caller)"
+   ],
+   "reads": 1,
+   "writes": 3
+  },
+  "vro-platform": {
+   "key": "vro-platform",
+   "name": "vRO platform services",
+   "short_name": "vRO",
+   "category": null,
+   "vro_plugin": "(built in)",
+   "kestra_group": null,
+   "op_tasks": [],
+   "reach": "plugin",
+   "confirmed": true,
+   "reach_overridden": false,
+   "enterprise_only": false,
+   "kestra_tasks": [
+    "io.kestra.plugin.core.flow.Subflow",
+    "io.kestra.plugin.core.log.Log"
+   ],
+   "kestra_evidence": "https://kestra.io/plugins/core",
+   "api": null,
+   "sdk_alternative": null,
+   "unconfirmed": [],
+   "detected_by": [
+    "vRO platform call"
+   ],
+   "api_auth": null,
+   "client_auth": null,
+   "tls_off": null,
+   "workflows": [
+    "detection-Detect---Notify",
+    "triage-Lab---Forget-Controller"
+   ],
+   "actions": [],
+   "declared_only": [],
+   "operations": [
+    {
+     "op": "get configuration element attribute (getAttributeWithKey)",
+     "workflows": 1,
+     "mode": "read",
+     "reach": "replace"
+    },
+    {
+     "op": "read configuration element Example",
+     "workflows": 1,
+     "mode": "read",
+     "reach": "replace"
+    },
+    {
+     "op": "read configuration element Example/Lab",
+     "workflows": 1,
+     "mode": "read",
+     "reach": "replace"
+    },
+    {
+     "op": "write configuration element (removeAttributeWithKey)",
+     "workflows": 1,
+     "mode": "write",
+     "reach": "replace"
+    }
+   ],
+   "action_only_operations": [],
+   "reads": 3,
+   "writes": 1
+  }
+ },
+ "unexported_calls": [
+  {
+   "caller": "triage-Lab---Enable-Override",
+   "item": null,
+   "mode": "action",
+   "workflow_id": "com.example.vendor/waitTaskEnd",
+   "display_name": "waitTaskEnd",
+   "kind": "action not in export",
+   "reaches": []
+  },
+  {
+   "caller": "triage-Lab---Purge-Volumes",
+   "item": null,
+   "mode": "action",
+   "workflow_id": "com.example.vendor/purgeOrphanedVolumes",
+   "display_name": "purgeOrphanedVolumes",
+   "kind": "action not in export",
+   "reaches": []
+  }
+ ],
+ "domains": {
+  "rule": "source package family x lifecycle stage (majority of member names by verb: provisioning: ^(create|instantiate|find or create|delete|remove|vs creation|install|deploy)\\b; configuration: ^(assign|attach|detach|edit|change|reconfigure|setup|set up|enable|disable|remote|nsx-t cloud|scale ?out|scale ?in|add|update|certificate)\\b; operations: ^(get|find|process|avi ssh|send|list|check|run)\\b). A cluster whose members and their exported callees make no call to an external system goes to fixtures. The cluster's primary target (most operations, vRO platform excluded) is recorded alongside.",
+  "domains": [
+   {
+    "id": "D1",
+    "key": "triage:operations",
+    "family": "triage",
+    "stage": "operations",
+    "targets": [
+     "rest-host",
+     "ssh-host"
+    ],
+    "name": "Tenant workflows (REST hosts, SSH)",
+    "description": null,
+    "name_source": "code fallback",
+    "clusters": [
+     "C01",
+     "C04"
+    ],
+    "workflows": 12
+   },
+   {
+    "id": "D2",
+    "key": "none:fixtures",
+    "family": null,
+    "stage": "fixtures",
+    "targets": [],
+    "name": "Tenant workflows (no external system found)",
+    "description": null,
+    "name_source": "code fallback",
+    "clusters": [
+     "C02",
+     "C03",
+     "C05"
+    ],
+    "workflows": 3
+   }
+  ],
+  "cluster_rows": [
+   {
+    "cluster_id": "C01",
+    "key": "triage:operations",
+    "how": "source triage; talks to rest-host (5 of 5 target operations, own or through exported callees); stage from member names {'operations': 5, 'configuration': 2, 'provisioning': 4}",
+    "primary_target": "rest-host",
+    "stage": "operations"
+   },
+   {
+    "cluster_id": "C02",
+    "key": "none:fixtures",
+    "how": "no operation against any external system in any member or its exported callees",
+    "primary_target": null,
+    "stage": "fixtures"
+   },
+   {
+    "cluster_id": "C03",
+    "key": "none:fixtures",
+    "how": "no operation against any external system in any member or its exported callees",
+    "primary_target": null,
+    "stage": "fixtures"
+   },
+   {
+    "cluster_id": "C04",
+    "key": "triage:operations",
+    "how": "source triage; talks to ssh-host (6 of 6 target operations, own or through exported callees); stage from member names {'operations': 1}",
+    "primary_target": "ssh-host",
+    "stage": "operations"
+   },
+   {
+    "cluster_id": "C05",
+    "key": "none:fixtures",
+    "how": "no operation against any external system in any member or its exported callees",
+    "primary_target": null,
+    "stage": "fixtures"
+   }
+  ],
+  "cluster_domain": {
+   "C01": "D1",
+   "C02": "D2",
+   "C03": "D2",
+   "C04": "D1",
+   "C05": "D2"
+  }
+ },
+ "call_graph": {
+  "edges": [
+   {
+    "from": "triage/Lab - Create Tenant",
+    "to": "triage/Lab - Find or Create Tenant",
+    "mode": "sync",
+    "item": "item1"
+   },
+   {
+    "from": "triage/Process Tenant Notification",
+    "to": "triage/Lab - Create Tenant",
+    "mode": "sync",
+    "item": "item2"
+   },
+   {
+    "from": "triage/Process Tenant Notification",
+    "to": "triage/Lab - Delete Tenant",
+    "mode": "sync",
+    "item": "item3"
+   }
+  ],
+  "entry_edges": []
+ },
+ "entry_points": {
+  "model": {
+   "subscriptions": [],
+   "catalog_items": [],
+   "cloud_templates": [],
+   "day2_actions": [],
+   "other_triggers": [],
+   "complete": false
+  },
+  "conflicts": [],
+  "resolution": {
+   "resolved": 0,
+   "unresolved": [],
+   "no_workflow": 0
+  },
+  "exports": [],
+  "manual": {
+   "path": "upgrade/kestra-assessment/your-input/entry-points.yaml",
+   "exists": true,
+   "filled": false,
+   "entries": 0,
+   "complete": false,
+   "warnings": []
+  }
+ },
+ "lifecycle_groups": [],
+ "plugin_coverage": {
+  "snapshot": {
+   "file": "kestra-plugins-2026-09-30.json",
+   "taken": "2026-09-30T21:43:15Z",
+   "sources": {
+    "installed": {
+     "available": true,
+     "edition": "EE",
+     "kestra_version": "2.0.2",
+     "url": "http://localhost:8082/api/v1/plugins",
+     "plugins": 255
+    },
+    "catalog": {
+     "available": true,
+     "url": "https://api.kestra.io/v1/plugins/subgroups",
+     "plugins": 240
+    }
+   }
+  },
+  "rows": [
+   {
+    "key": "rest-host",
+    "system": "REST hosts (vRO HTTP-REST plugin)",
+    "via": "workflow code",
+    "status": "http",
+    "label": "Over HTTP (no plugin)",
+    "kestra_group": "io.kestra.plugin.core",
+    "search_words": [],
+    "installed": {
+     "available": true,
+     "found_by": "group",
+     "plugins": [
+      {
+       "name": "core",
+       "group": "io.kestra.plugin.core",
+       "version": null,
+       "license": null,
+       "tasks": [
+        "io.kestra.plugin.core.debug.Return",
+        "io.kestra.plugin.core.execution.Assert",
+        "io.kestra.plugin.core.execution.Exit",
+        "io.kestra.plugin.core.execution.Fail",
+        "io.kestra.plugin.core.execution.Labels",
+        "io.kestra.plugin.core.execution.PurgeExecutions",
+        "io.kestra.plugin.core.execution.SetVariables",
+        "io.kestra.plugin.core.execution.UnsetVariables",
+        "io.kestra.plugin.core.flow.AllowFailure",
+        "io.kestra.plugin.core.flow.Dag",
+        "io.kestra.plugin.core.flow.If",
+        "io.kestra.plugin.core.flow.Loop",
+        "io.kestra.plugin.core.flow.LoopUntil",
+        "io.kestra.plugin.core.flow.Parallel",
+        "io.kestra.plugin.core.flow.Pause",
+        "io.kestra.plugin.core.flow.PurgeFlows",
+        "io.kestra.plugin.core.flow.Sequential",
+        "io.kestra.plugin.core.flow.Sleep",
+        "io.kestra.plugin.core.flow.Subflow",
+        "io.kestra.plugin.core.flow.Switch",
+        "io.kestra.plugin.core.flow.WorkingDirectory",
+        "io.kestra.plugin.core.http.Download",
+        "io.kestra.plugin.core.http.Request",
+        "io.kestra.plugin.core.http.SseRequest",
+        "io.kestra.plugin.core.kv.Delete",
+        "io.kestra.plugin.core.kv.Get",
+        "io.kestra.plugin.core.kv.GetKeys",
+        "io.kestra.plugin.core.kv.PurgeKV",
+        "io.kestra.plugin.core.kv.Put",
+        "io.kestra.plugin.core.kv.Set",
+        "io.kestra.plugin.core.log.Log",
+        "io.kestra.plugin.core.log.PurgeLogs",
+        "io.kestra.plugin.core.metric.Publish",
+        "io.kestra.plugin.core.namespace.DeleteFiles",
+        "io.kestra.plugin.core.namespace.DownloadFiles",
+        "io.kestra.plugin.core.namespace.PurgeFiles",
+        "io.kestra.plugin.core.namespace.UploadFiles",
+        "io.kestra.plugin.core.output.OutputValues",
+        "io.kestra.plugin.core.storage.Concat",
+        "io.kestra.plugin.core.storage.DeduplicateItems",
+        "io.kestra.plugin.core.storage.Delete",
+        "io.kestra.plugin.core.storage.FilterItems",
+        "io.kestra.plugin.core.storage.PurgeCurrentExecutionFiles",
+        "io.kestra.plugin.core.storage.PurgeStorage",
+        "io.kestra.plugin.core.storage.Reverse",
+        "io.kestra.plugin.core.storage.Size",
+        "io.kestra.plugin.core.storage.Split",
+        "io.kestra.plugin.core.storage.Write",
+        "io.kestra.plugin.core.templating.TemplatedTask",
+        "io.kestra.plugin.ee.assets.AssetShipper",
+        "io.kestra.plugin.ee.core.log.AuditLogShipper",
+        "io.kestra.plugin.ee.core.log.LogShipper",
+        "io.kestra.plugin.ee.core.log.PurgeAuditLogs",
+        "io.kestra.plugin.ee.flow.HumanTask"
+       ],
+       "triggers": [
+        "io.kestra.plugin.core.http.Trigger",
+        "io.kestra.plugin.core.trigger.Flow",
+        "io.kestra.plugin.core.trigger.McpToolTrigger",
+        "io.kestra.plugin.core.trigger.Schedule",
+        "io.kestra.plugin.core.trigger.ScheduleOnDates",
+        "io.kestra.plugin.core.trigger.Webhook",
+        "io.kestra.plugin.ee.assets.EventTrigger"
+       ]
+      }
+     ]
+    },
+    "catalog": {
+     "available": true,
+     "found_by": "group",
+     "plugins": [
+      {
+       "name": "core",
+       "group": "io.kestra.plugin.core",
+       "version": null,
+       "license": null,
+       "tasks": [
+        "io.kestra.plugin.core.debug.Return",
+        "io.kestra.plugin.core.execution.Assert",
+        "io.kestra.plugin.core.execution.Exit",
+        "io.kestra.plugin.core.execution.Fail",
+        "io.kestra.plugin.core.execution.Labels",
+        "io.kestra.plugin.core.execution.PurgeExecutions",
+        "io.kestra.plugin.core.execution.SetVariables",
+        "io.kestra.plugin.core.execution.UnsetVariables",
+        "io.kestra.plugin.core.flow.AllowFailure",
+        "io.kestra.plugin.core.flow.Dag",
+        "io.kestra.plugin.core.flow.If",
+        "io.kestra.plugin.core.flow.Loop",
+        "io.kestra.plugin.core.flow.LoopUntil",
+        "io.kestra.plugin.core.flow.Parallel",
+        "io.kestra.plugin.core.flow.Pause",
+        "io.kestra.plugin.core.flow.PurgeFlows",
+        "io.kestra.plugin.core.flow.Sequential",
+        "io.kestra.plugin.core.flow.Sleep",
+        "io.kestra.plugin.core.flow.Subflow",
+        "io.kestra.plugin.core.flow.Switch",
+        "io.kestra.plugin.core.flow.WorkingDirectory",
+        "io.kestra.plugin.core.http.Download",
+        "io.kestra.plugin.core.http.Request",
+        "io.kestra.plugin.core.http.SseRequest",
+        "io.kestra.plugin.core.kv.Delete",
+        "io.kestra.plugin.core.kv.Get",
+        "io.kestra.plugin.core.kv.GetKeys",
+        "io.kestra.plugin.core.kv.PurgeKV",
+        "io.kestra.plugin.core.kv.Put",
+        "io.kestra.plugin.core.kv.Set",
+        "io.kestra.plugin.core.log.Log",
+        "io.kestra.plugin.core.log.PurgeLogs",
+        "io.kestra.plugin.core.metric.Publish",
+        "io.kestra.plugin.core.namespace.DeleteFiles",
+        "io.kestra.plugin.core.namespace.DownloadFiles",
+        "io.kestra.plugin.core.namespace.PurgeFiles",
+        "io.kestra.plugin.core.namespace.UploadFiles",
+        "io.kestra.plugin.core.output.OutputValues",
+        "io.kestra.plugin.core.storage.Concat",
+        "io.kestra.plugin.core.storage.DeduplicateItems",
+        "io.kestra.plugin.core.storage.Delete",
+        "io.kestra.plugin.core.storage.FilterItems",
+        "io.kestra.plugin.core.storage.PurgeCurrentExecutionFiles",
+        "io.kestra.plugin.core.storage.PurgeStorage",
+        "io.kestra.plugin.core.storage.Reverse",
+        "io.kestra.plugin.core.storage.Size",
+        "io.kestra.plugin.core.storage.Split",
+        "io.kestra.plugin.core.storage.Write",
+        "io.kestra.plugin.core.templating.TemplatedTask",
+        "io.kestra.plugin.ee.assets.AssetShipper",
+        "io.kestra.plugin.ee.core.log.AuditLogShipper",
+        "io.kestra.plugin.ee.core.log.LogShipper",
+        "io.kestra.plugin.ee.core.log.PurgeAuditLogs",
+        "io.kestra.plugin.ee.flow.HumanTask"
+       ],
+       "triggers": [
+        "io.kestra.plugin.core.http.Trigger",
+        "io.kestra.plugin.core.trigger.Flow",
+        "io.kestra.plugin.core.trigger.McpToolTrigger",
+        "io.kestra.plugin.core.trigger.Schedule",
+        "io.kestra.plugin.core.trigger.ScheduleOnDates",
+        "io.kestra.plugin.core.trigger.Webhook",
+        "io.kestra.plugin.ee.assets.EventTrigger"
+       ]
+      }
+     ]
+    },
+    "disagreements": [],
+    "operations": 5,
+    "ops": [
+     "GET /api/v2/jobs/{id}/",
+     "POST ",
+     "POST /api/v2/job_templates/{templateId}/launch/",
+     "POST /api/v2/runs",
+     "HTTP request (method and path from the caller)"
+    ],
+    "task_map": [],
+    "unmatched_ops": [],
+    "http_task": "io.kestra.plugin.core.http.Request",
+    "http_task_where": {
+     "installed": true,
+     "catalog": true
+    },
+    "api": null,
+    "enterprise_only": false
+   },
+   {
+    "key": "ssh-host",
+    "system": "SSH hosts",
+    "via": "workflow code",
+    "status": "partial",
+    "label": "Kestra plugin, some operations over HTTP",
+    "kestra_group": "io.kestra.plugin.fs",
+    "search_words": [],
+    "installed": {
+     "available": true,
+     "found_by": "group",
+     "plugins": [
+      {
+       "name": "plugin-fs",
+       "group": "io.kestra.plugin.fs",
+       "version": "2.11.2",
+       "license": null,
+       "tasks": [
+        "io.kestra.plugin.fs.ftp.Delete",
+        "io.kestra.plugin.fs.ftp.Download",
+        "io.kestra.plugin.fs.ftp.Downloads",
+        "io.kestra.plugin.fs.ftp.List",
+        "io.kestra.plugin.fs.ftp.Move",
+        "io.kestra.plugin.fs.ftp.Upload",
+        "io.kestra.plugin.fs.ftp.Uploads",
+        "io.kestra.plugin.fs.ftps.Delete",
+        "io.kestra.plugin.fs.ftps.Download",
+        "io.kestra.plugin.fs.ftps.Downloads",
+        "io.kestra.plugin.fs.ftps.List",
+        "io.kestra.plugin.fs.ftps.Move",
+        "io.kestra.plugin.fs.ftps.Upload",
+        "io.kestra.plugin.fs.ftps.Uploads",
+        "io.kestra.plugin.fs.local.Copy",
+        "io.kestra.plugin.fs.local.Delete",
+        "io.kestra.plugin.fs.local.Download",
+        "io.kestra.plugin.fs.local.Downloads",
+        "io.kestra.plugin.fs.local.List",
+        "io.kestra.plugin.fs.local.Move",
+        "io.kestra.plugin.fs.local.Upload",
+        "io.kestra.plugin.fs.local.Uploads",
+        "io.kestra.plugin.fs.nfs.CheckMount",
+        "io.kestra.plugin.fs.nfs.Copy",
+        "io.kestra.plugin.fs.nfs.Delete",
+        "io.kestra.plugin.fs.nfs.List",
+        "io.kestra.plugin.fs.nfs.Move",
+        "io.kestra.plugin.fs.sftp.Delete",
+        "io.kestra.plugin.fs.sftp.Download",
+        "io.kestra.plugin.fs.sftp.Downloads",
+        "io.kestra.plugin.fs.sftp.List",
+        "io.kestra.plugin.fs.sftp.Move",
+        "io.kestra.plugin.fs.sftp.Upload",
+        "io.kestra.plugin.fs.sftp.Uploads",
+        "io.kestra.plugin.fs.smb.Delete",
+        "io.kestra.plugin.fs.smb.Download",
+        "io.kestra.plugin.fs.smb.Downloads",
+        "io.kestra.plugin.fs.smb.List",
+        "io.kestra.plugin.fs.smb.Move",
+        "io.kestra.plugin.fs.smb.Upload",
+        "io.kestra.plugin.fs.smb.Uploads",
+        "io.kestra.plugin.fs.ssh.Command",
+        "io.kestra.plugin.fs.tcp.Send",
+        "io.kestra.plugin.fs.udp.Send"
+       ],
+       "triggers": [
+        "io.kestra.plugin.fs.ftp.Trigger",
+        "io.kestra.plugin.fs.ftps.Trigger",
+        "io.kestra.plugin.fs.local.Trigger",
+        "io.kestra.plugin.fs.nfs.Trigger",
+        "io.kestra.plugin.fs.sftp.Trigger",
+        "io.kestra.plugin.fs.smb.Trigger",
+        "io.kestra.plugin.fs.tcp.RealtimeTrigger",
+        "io.kestra.plugin.fs.udp.RealtimeTrigger"
+       ]
+      }
+     ]
+    },
+    "catalog": {
+     "available": true,
+     "found_by": "group",
+     "plugins": [
+      {
+       "name": "plugin-fs",
+       "group": "io.kestra.plugin.fs",
+       "version": "2.12.0",
+       "license": null,
+       "tasks": [
+        "io.kestra.plugin.fs.ftp.Delete",
+        "io.kestra.plugin.fs.ftp.Download",
+        "io.kestra.plugin.fs.ftp.Downloads",
+        "io.kestra.plugin.fs.ftp.List",
+        "io.kestra.plugin.fs.ftp.Move",
+        "io.kestra.plugin.fs.ftp.Upload",
+        "io.kestra.plugin.fs.ftp.Uploads",
+        "io.kestra.plugin.fs.ftps.Delete",
+        "io.kestra.plugin.fs.ftps.Download",
+        "io.kestra.plugin.fs.ftps.Downloads",
+        "io.kestra.plugin.fs.ftps.List",
+        "io.kestra.plugin.fs.ftps.Move",
+        "io.kestra.plugin.fs.ftps.Upload",
+        "io.kestra.plugin.fs.ftps.Uploads",
+        "io.kestra.plugin.fs.local.Copy",
+        "io.kestra.plugin.fs.local.Delete",
+        "io.kestra.plugin.fs.local.Download",
+        "io.kestra.plugin.fs.local.Downloads",
+        "io.kestra.plugin.fs.local.List",
+        "io.kestra.plugin.fs.local.Move",
+        "io.kestra.plugin.fs.local.Upload",
+        "io.kestra.plugin.fs.local.Uploads",
+        "io.kestra.plugin.fs.nfs.CheckMount",
+        "io.kestra.plugin.fs.nfs.Copy",
+        "io.kestra.plugin.fs.nfs.Delete",
+        "io.kestra.plugin.fs.nfs.List",
+        "io.kestra.plugin.fs.nfs.Move",
+        "io.kestra.plugin.fs.sftp.Delete",
+        "io.kestra.plugin.fs.sftp.Download",
+        "io.kestra.plugin.fs.sftp.Downloads",
+        "io.kestra.plugin.fs.sftp.List",
+        "io.kestra.plugin.fs.sftp.Move",
+        "io.kestra.plugin.fs.sftp.Upload",
+        "io.kestra.plugin.fs.sftp.Uploads",
+        "io.kestra.plugin.fs.smb.Delete",
+        "io.kestra.plugin.fs.smb.Download",
+        "io.kestra.plugin.fs.smb.Downloads",
+        "io.kestra.plugin.fs.smb.List",
+        "io.kestra.plugin.fs.smb.Move",
+        "io.kestra.plugin.fs.smb.Upload",
+        "io.kestra.plugin.fs.smb.Uploads",
+        "io.kestra.plugin.fs.ssh.Command",
+        "io.kestra.plugin.fs.tcp.Send",
+        "io.kestra.plugin.fs.udp.Send"
+       ],
+       "triggers": [
+        "io.kestra.plugin.fs.ftp.Trigger",
+        "io.kestra.plugin.fs.ftps.Trigger",
+        "io.kestra.plugin.fs.local.Trigger",
+        "io.kestra.plugin.fs.nfs.Trigger",
+        "io.kestra.plugin.fs.sftp.Trigger",
+        "io.kestra.plugin.fs.smb.Trigger",
+        "io.kestra.plugin.fs.tcp.RealtimeTrigger",
+        "io.kestra.plugin.fs.udp.RealtimeTrigger"
+       ]
+      }
+     ]
+    },
+    "disagreements": [
+     "plugin-fs: installed 2.11.2, catalogue 2.12.0"
+    ],
+    "operations": 4,
+    "ops": [
+     "SSHSession.connectWithPassword",
+     "SSHSession.connectWithPasswordOrIdentity",
+     "SSHSession.disconnect",
+     "SSHSession.executeCommand"
+    ],
+    "task_map": [],
+    "unmatched_ops": [
+     "SSHSession.connectWithPassword",
+     "SSHSession.connectWithPasswordOrIdentity",
+     "SSHSession.disconnect",
+     "SSHSession.executeCommand"
+    ],
+    "http_task": "io.kestra.plugin.core.http.Request",
+    "http_task_where": {
+     "installed": true,
+     "catalog": true
+    },
+    "api": null,
+    "enterprise_only": false
+   },
+   {
+    "key": "vro-platform",
+    "system": "vRO platform services",
+    "via": "workflow code",
+    "status": "replace",
+    "label": "Replaced by Kestra features",
+    "kestra_group": "io.kestra.plugin.core",
+    "search_words": [],
+    "installed": {
+     "available": true,
+     "found_by": "group",
+     "plugins": [
+      {
+       "name": "core",
+       "group": "io.kestra.plugin.core",
+       "version": null,
+       "license": null,
+       "tasks": [
+        "io.kestra.plugin.core.debug.Return",
+        "io.kestra.plugin.core.execution.Assert",
+        "io.kestra.plugin.core.execution.Exit",
+        "io.kestra.plugin.core.execution.Fail",
+        "io.kestra.plugin.core.execution.Labels",
+        "io.kestra.plugin.core.execution.PurgeExecutions",
+        "io.kestra.plugin.core.execution.SetVariables",
+        "io.kestra.plugin.core.execution.UnsetVariables",
+        "io.kestra.plugin.core.flow.AllowFailure",
+        "io.kestra.plugin.core.flow.Dag",
+        "io.kestra.plugin.core.flow.If",
+        "io.kestra.plugin.core.flow.Loop",
+        "io.kestra.plugin.core.flow.LoopUntil",
+        "io.kestra.plugin.core.flow.Parallel",
+        "io.kestra.plugin.core.flow.Pause",
+        "io.kestra.plugin.core.flow.PurgeFlows",
+        "io.kestra.plugin.core.flow.Sequential",
+        "io.kestra.plugin.core.flow.Sleep",
+        "io.kestra.plugin.core.flow.Subflow",
+        "io.kestra.plugin.core.flow.Switch",
+        "io.kestra.plugin.core.flow.WorkingDirectory",
+        "io.kestra.plugin.core.http.Download",
+        "io.kestra.plugin.core.http.Request",
+        "io.kestra.plugin.core.http.SseRequest",
+        "io.kestra.plugin.core.kv.Delete",
+        "io.kestra.plugin.core.kv.Get",
+        "io.kestra.plugin.core.kv.GetKeys",
+        "io.kestra.plugin.core.kv.PurgeKV",
+        "io.kestra.plugin.core.kv.Put",
+        "io.kestra.plugin.core.kv.Set",
+        "io.kestra.plugin.core.log.Log",
+        "io.kestra.plugin.core.log.PurgeLogs",
+        "io.kestra.plugin.core.metric.Publish",
+        "io.kestra.plugin.core.namespace.DeleteFiles",
+        "io.kestra.plugin.core.namespace.DownloadFiles",
+        "io.kestra.plugin.core.namespace.PurgeFiles",
+        "io.kestra.plugin.core.namespace.UploadFiles",
+        "io.kestra.plugin.core.output.OutputValues",
+        "io.kestra.plugin.core.storage.Concat",
+        "io.kestra.plugin.core.storage.DeduplicateItems",
+        "io.kestra.plugin.core.storage.Delete",
+        "io.kestra.plugin.core.storage.FilterItems",
+        "io.kestra.plugin.core.storage.PurgeCurrentExecutionFiles",
+        "io.kestra.plugin.core.storage.PurgeStorage",
+        "io.kestra.plugin.core.storage.Reverse",
+        "io.kestra.plugin.core.storage.Size",
+        "io.kestra.plugin.core.storage.Split",
+        "io.kestra.plugin.core.storage.Write",
+        "io.kestra.plugin.core.templating.TemplatedTask",
+        "io.kestra.plugin.ee.assets.AssetShipper",
+        "io.kestra.plugin.ee.core.log.AuditLogShipper",
+        "io.kestra.plugin.ee.core.log.LogShipper",
+        "io.kestra.plugin.ee.core.log.PurgeAuditLogs",
+        "io.kestra.plugin.ee.flow.HumanTask"
+       ],
+       "triggers": [
+        "io.kestra.plugin.core.http.Trigger",
+        "io.kestra.plugin.core.trigger.Flow",
+        "io.kestra.plugin.core.trigger.McpToolTrigger",
+        "io.kestra.plugin.core.trigger.Schedule",
+        "io.kestra.plugin.core.trigger.ScheduleOnDates",
+        "io.kestra.plugin.core.trigger.Webhook",
+        "io.kestra.plugin.ee.assets.EventTrigger"
+       ]
+      }
+     ]
+    },
+    "catalog": {
+     "available": true,
+     "found_by": "group",
+     "plugins": [
+      {
+       "name": "core",
+       "group": "io.kestra.plugin.core",
+       "version": null,
+       "license": null,
+       "tasks": [
+        "io.kestra.plugin.core.debug.Return",
+        "io.kestra.plugin.core.execution.Assert",
+        "io.kestra.plugin.core.execution.Exit",
+        "io.kestra.plugin.core.execution.Fail",
+        "io.kestra.plugin.core.execution.Labels",
+        "io.kestra.plugin.core.execution.PurgeExecutions",
+        "io.kestra.plugin.core.execution.SetVariables",
+        "io.kestra.plugin.core.execution.UnsetVariables",
+        "io.kestra.plugin.core.flow.AllowFailure",
+        "io.kestra.plugin.core.flow.Dag",
+        "io.kestra.plugin.core.flow.If",
+        "io.kestra.plugin.core.flow.Loop",
+        "io.kestra.plugin.core.flow.LoopUntil",
+        "io.kestra.plugin.core.flow.Parallel",
+        "io.kestra.plugin.core.flow.Pause",
+        "io.kestra.plugin.core.flow.PurgeFlows",
+        "io.kestra.plugin.core.flow.Sequential",
+        "io.kestra.plugin.core.flow.Sleep",
+        "io.kestra.plugin.core.flow.Subflow",
+        "io.kestra.plugin.core.flow.Switch",
+        "io.kestra.plugin.core.flow.WorkingDirectory",
+        "io.kestra.plugin.core.http.Download",
+        "io.kestra.plugin.core.http.Request",
+        "io.kestra.plugin.core.http.SseRequest",
+        "io.kestra.plugin.core.kv.Delete",
+        "io.kestra.plugin.core.kv.Get",
+        "io.kestra.plugin.core.kv.GetKeys",
+        "io.kestra.plugin.core.kv.PurgeKV",
+        "io.kestra.plugin.core.kv.Put",
+        "io.kestra.plugin.core.kv.Set",
+        "io.kestra.plugin.core.log.Log",
+        "io.kestra.plugin.core.log.PurgeLogs",
+        "io.kestra.plugin.core.metric.Publish",
+        "io.kestra.plugin.core.namespace.DeleteFiles",
+        "io.kestra.plugin.core.namespace.DownloadFiles",
+        "io.kestra.plugin.core.namespace.PurgeFiles",
+        "io.kestra.plugin.core.namespace.UploadFiles",
+        "io.kestra.plugin.core.output.OutputValues",
+        "io.kestra.plugin.core.storage.Concat",
+        "io.kestra.plugin.core.storage.DeduplicateItems",
+        "io.kestra.plugin.core.storage.Delete",
+        "io.kestra.plugin.core.storage.FilterItems",
+        "io.kestra.plugin.core.storage.PurgeCurrentExecutionFiles",
+        "io.kestra.plugin.core.storage.PurgeStorage",
+        "io.kestra.plugin.core.storage.Reverse",
+        "io.kestra.plugin.core.storage.Size",
+        "io.kestra.plugin.core.storage.Split",
+        "io.kestra.plugin.core.storage.Write",
+        "io.kestra.plugin.core.templating.TemplatedTask",
+        "io.kestra.plugin.ee.assets.AssetShipper",
+        "io.kestra.plugin.ee.core.log.AuditLogShipper",
+        "io.kestra.plugin.ee.core.log.LogShipper",
+        "io.kestra.plugin.ee.core.log.PurgeAuditLogs",
+        "io.kestra.plugin.ee.flow.HumanTask"
+       ],
+       "triggers": [
+        "io.kestra.plugin.core.http.Trigger",
+        "io.kestra.plugin.core.trigger.Flow",
+        "io.kestra.plugin.core.trigger.McpToolTrigger",
+        "io.kestra.plugin.core.trigger.Schedule",
+        "io.kestra.plugin.core.trigger.ScheduleOnDates",
+        "io.kestra.plugin.core.trigger.Webhook",
+        "io.kestra.plugin.ee.assets.EventTrigger"
+       ]
+      }
+     ]
+    },
+    "disagreements": [],
+    "operations": 4,
+    "ops": [
+     "get configuration element attribute (getAttributeWithKey)",
+     "read configuration element Example",
+     "read configuration element Example/Lab",
+     "write configuration element (removeAttributeWithKey)"
+    ],
+    "task_map": [
+     {
+      "op": "state and settings in configuration elements",
+      "task": "io.kestra.plugin.core.kv.Set",
+      "where": {
+       "installed": true,
+       "catalog": true
+      }
+     },
+     {
+      "op": "state and settings in configuration elements",
+      "task": "io.kestra.plugin.core.kv.Get",
+      "where": {
+       "installed": true,
+       "catalog": true
+      }
+     },
+     {
+      "op": "state and settings in configuration elements",
+      "task": "io.kestra.plugin.core.kv.Delete",
+      "where": {
+       "installed": true,
+       "catalog": true
+      }
+     }
+    ],
+    "unmatched_ops": [],
+    "http_task": null,
+    "http_task_where": {
+     "installed": true,
+     "catalog": true
+    },
+    "api": null,
+    "enterprise_only": false
+   }
+  ]
+ },
+ "wid_to_uid": {
+  "detection/Detect - Apply Segment": "detection-Detect---Apply-Segment",
+  "detection/Detect - Create Group": "detection-Detect---Create-Group",
+  "detection/Detect - Notify": "detection-Detect---Notify",
+  "detection/Detect - Patch Linux": "detection-Detect---Patch-Linux",
+  "triage/Lab - Change Password": "triage-Lab---Change-Password",
+  "triage/Lab - Create Admin": "triage-Lab---Create-Admin",
+  "triage/Lab - Create Pool": "triage-Lab---Create-Pool",
+  "triage/Lab - Create Tenant": "triage-Lab---Create-Tenant",
+  "triage/Lab - Delete Tenant": "triage-Lab---Delete-Tenant",
+  "triage/Lab - Enable Override": "triage-Lab---Enable-Override",
+  "triage/Lab - Find or Create Tenant": "triage-Lab---Find-or-Create-Tenant",
+  "triage/Lab - Forget Controller": "triage-Lab---Forget-Controller",
+  "triage/Lab - Purge Volumes": "triage-Lab---Purge-Volumes",
+  "triage/Lab - Run Remote Command": "triage-Lab---Run-Remote-Command",
+  "triage/Process Tenant Notification": "triage-Process-Tenant-Notification"
+ }
+}

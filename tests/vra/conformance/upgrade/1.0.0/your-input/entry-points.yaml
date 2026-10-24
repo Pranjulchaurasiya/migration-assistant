@@ -1,0 +1,50 @@
+# entry points template (preflight Q2). Written by `kestra-migrate vra run`.
+#
+# What starts these workflows from outside vRO. Fill this in when you have no vRA or Aria Automation
+# export (.vra-ng), or to add what that export never holds: vRO scheduled tasks and policies, ITSM
+# calls (for example ServiceNow), and scripts on the vRO REST API.
+#
+# The schema is the one the tool reads from a .vra-ng. When both exist they are merged; where they
+# disagree, the export's value is kept and the conflict is listed in readiness.md, so fix whichever
+# side is wrong. Name each workflow by its vRO ID (`workflow_id`, the id attribute of the workflow);
+# `workflow_name` is used only when there is no ID.
+#
+# Every stage re-reads this file. Preflight never overwrites it once it has an entry.
+# Set `complete: true` when the export and this file list everything that starts these workflows.
+#
+# Example (remove the leading "# " to use it):
+#
+# subscriptions:
+#   - name: Add machine to pool
+#     event_topic: compute.provision.post
+#     condition: event.data.customProperties.lbEnabled == "true"
+#     blocking: true
+#     workflow_id: 00000000-0000-0000-0000-000000000000
+#     workflow_name: Add Machine To Pool
+# catalog_items:
+#   - name: Web tier
+#     content_source: Templates
+#     source_type: com.vmw.blueprint
+#     cloud_template: Web tier
+#     form_fields: [{id: vmCount, type: integer, required: true}]
+# cloud_templates:
+#   - name: Web tier
+#     inputs: [vmCount]
+#     creates: [{name: web, type: Cloud.vSphere.Machine}]
+# day2_actions:
+#   - name: Add disk
+#     kind: resource action
+#     resource_type: Cloud.vSphere.Machine
+#     workflow_id: 00000000-0000-0000-0000-000000000001
+# other_triggers:
+#   - name: Nightly clean-up
+#     kind: vro scheduled task        # or: vro policy, itsm, rest api, other
+#     schedule: every day at 02:00
+#     workflow_id: 00000000-0000-0000-0000-000000000002
+
+complete: false
+subscriptions: []
+catalog_items: []
+cloud_templates: []
+day2_actions: []
+other_triggers: []

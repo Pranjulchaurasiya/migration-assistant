@@ -1,0 +1,937 @@
+{
+ "preflight": [
+  {
+   "key": "q1-scope",
+   "group": "answer",
+   "ask": "Q1. Is this export the whole vRO estate? If not, what is missing, and how many vRO nodes or clusters does the estate run on?",
+   "question": null,
+   "title": "Q1 scope",
+   "why": "Every count in Assess and Brief is only as complete as the export. A partial export hides callers and callees.",
+   "unblocks": [
+    "assess: unexported calls",
+    "brief: retire candidates, waves"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  },
+  {
+   "key": "q2-external-callers",
+   "group": "answer",
+   "ask": "Q2. What starts these workflows from outside vRO? Two ways to answer, and they can be combined: put the vRA content export (a .vra-ng from Build Tools) in the export folder, and the tool reads its catalog items, cloud templates and event broker subscriptions; and list in your-input/entry-points.yaml whatever that export does not hold, or everything if there is no export: vRO scheduled tasks and policies, the ITSM (for example ServiceNow), and scripts calling the vRO REST API. Set complete: true there once the list is whole.",
+   "question": "No vRA export was found. What starts these workflows from outside vRO? List it in entry-points.yaml next to this file, or put the vRA export in the export folder and run again.",
+   "title": "Q2 external callers",
+   "why": "None of these are in a vRO package. Without them every workflow nobody calls in the export looks like an entry point or dead code, and the two cannot be told apart.",
+   "unblocks": [
+    "brief: retire pass, entry points, rebuild outcome"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  },
+  {
+   "systems": [
+    {
+     "key": "ssh-host",
+     "name": "SSH hosts"
+    }
+   ],
+   "key": "q3-non-production-targets",
+   "group": "answer",
+   "ask": "Q3. For each system the tool found (SSH hosts), is there a non-production instance a converted flow can run against? Name any other system the workflows reach.",
+   "question": null,
+   "title": "Q3 non-production targets",
+   "why": "A wave that writes to a target cannot be verified without somewhere safe to write. Read-only waves can go first either way.",
+   "unblocks": [
+    "brief: wave entry criteria"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": "SSH hosts (from the workflows' code).",
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  },
+  {
+   "key": "q4-off-limits",
+   "group": "answer",
+   "ask": "Q4. Is anything in this export off limits for this migration (owned by another team, frozen, vendor supplied, or due to be replaced)?",
+   "question": "Is any of it off limits (another team's, frozen, vendor supplied, or being replaced)?",
+   "title": "Q4 off limits",
+   "why": "Off-limits workflows are dropped from the waves, and whatever calls them keeps a dependency on vRO.",
+   "unblocks": [
+    "brief: waves, blocked list"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  },
+  {
+   "key": "q5-prior-attempts",
+   "group": "answer",
+   "ask": "Q5. Has anyone tried to migrate or rewrite any of this before? What happened?",
+   "question": "Has anyone tried to migrate or rewrite any of it before? What happened?",
+   "title": "Q5 prior attempts",
+   "why": "A previous attempt usually found the hard part already. It belongs in the brief's risks.",
+   "unblocks": [
+    "brief: risks"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  },
+  {
+   "key": "q6-owners",
+   "group": "answer",
+   "ask": "Q6. Who owns each functional area (for example load balancing, network provisioning, tenant onboarding)? Name a person or team per area.",
+   "question": "Who owns each functional area? A person or team for each.",
+   "title": "Q6 owners",
+   "why": "Open questions, retire candidates and wave approvals need someone to answer them. The brief lists open questions by area.",
+   "unblocks": [
+    "brief: open questions, approval"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  },
+  {
+   "key": "q7-execution-history",
+   "group": "answer",
+   "ask": "Q7. Can you export twelve months of workflow run history (vRO workflow tokens, or the vRA deployment history), with workflow ID, start time and result?",
+   "question": "Can you export twelve months of run history: workflow, start time and result?",
+   "title": "Q7 execution history",
+   "why": "The retire rule is 'no executions in twelve months'. Without history it cannot be tested, only guessed from the call graph.",
+   "unblocks": [
+    "brief: retire pass"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  },
+  {
+   "key": "q8-plugin-inventory",
+   "group": "confirm",
+   "ask": "Q8. The code uses these vRO plugins: HTTP-REST plugin (built in), SSH, the plugin of type AD. Is that the list? Correct it if not, and add the installed version per node and any custom or in-house plugin.",
+   "question": null,
+   "title": "Q8 plugin inventory",
+   "why": "A plugin object type Kestra cannot reach blocks every workflow that uses it. The export only records plugins by name where dunes-meta-inf lists them.",
+   "unblocks": [
+    "assess: target inventory"
+   ],
+   "options": [],
+   "suggested": "HTTP-REST plugin (built in), SSH, the plugin of type AD",
+   "found": "HTTP-REST plugin (built in) (REST requests built in callRest, launchJobTemplate, postSlackMessage, postTeamsMessage and 1 more); SSH (calls such as SSHSession.connectWithPassword, calls such as SSHSession.connectWithPasswordOrIdentity, calls such as SSHSession.disconnect, calls such as SSHSession.executeCommand); the plugin of type AD (object type AD:OrganizationalUnit, object type AD:UserGroup).",
+   "family": "preflight",
+   "link": "report/readiness.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Preflight: what the export cannot say"
+  }
+ ],
+ "_memo": {
+  "confirmed": {
+   "q8-plugin-inventory": "HTTP-REST plugin (built in), SSH, the plugin of type AD",
+   "writes.rest-host": "confirmed"
+  },
+  "reviewed": {
+   "spec.detect-apply-segment": {
+    "spec": "d0b1a7cb55b0",
+    "answer": "answer for specs"
+   },
+   "spec.detect-create-group": {
+    "spec": "14f568948010",
+    "answer": "answer for specs"
+   },
+   "spec.detect-notify": {
+    "spec": "e47d2c15d62e",
+    "answer": "answer for specs"
+   },
+   "spec.detect-patch-linux": {
+    "spec": "7588312e90ba",
+    "answer": "answer for specs"
+   },
+   "spec.lab-change-password": {
+    "spec": "345ca834ecc3",
+    "answer": "answer for specs"
+   },
+   "spec.lab-create-admin": {
+    "spec": "8546ba977d64",
+    "answer": "answer for specs"
+   },
+   "spec.lab-create-pool": {
+    "spec": "c5a78e775397",
+    "answer": "answer for specs"
+   },
+   "spec.lab-create-tenant": {
+    "spec": "7d8479725115",
+    "answer": "answer for specs"
+   },
+   "spec.lab-enable-override": {
+    "spec": "358bd7ebc935",
+    "answer": "answer for specs"
+   },
+   "spec.lab-forget-controller": {
+    "spec": "b3ca629c2b87",
+    "answer": "answer for specs"
+   },
+   "spec.lab-purge-volumes": {
+    "spec": "3aadb3970fc7",
+    "answer": "answer for specs"
+   },
+   "spec.lab-run-remote-command": {
+    "spec": "1906f10a9f8a",
+    "answer": "answer for specs"
+   },
+   "spec.process-tenant-notification": {
+    "spec": "57859f1fa21d",
+    "answer": "answer for specs"
+   }
+  },
+  "groups": {
+   "about-the-estate": {
+    "members": [
+     "q1-scope",
+     "q2-external-callers",
+     "q4-off-limits",
+     "q5-prior-attempts",
+     "q6-owners",
+     "q7-execution-history"
+    ],
+    "answer": "null"
+   },
+   "endpoints": {
+    "members": [
+     "q3-non-production-targets",
+     "endpoint.rest-host"
+    ],
+    "answer": "null"
+   },
+   "suggested": {
+    "members": [
+     "q8-plugin-inventory",
+     "writes.rest-host"
+    ],
+    "answer": "yes"
+   },
+   "questions": {
+    "members": [
+     "question.detect-apply-segment.error-semantics",
+     "question.detect-patch-linux.error-semantics",
+     "question.lab-change-password.error-semantics",
+     "question.lab-create-admin.error-semantics",
+     "question.lab-enable-override.error-semantics",
+     "question.lab-forget-controller.error-semantics",
+     "question.lab-purge-volumes.error-semantics",
+     "question.detect-create-group.error-semantics",
+     "question.lab-create-tenant.error-semantics",
+     "question.lab-run-remote-command.error-semantics",
+     "question.process-tenant-notification.error-semantics"
+    ],
+    "answer": "null"
+   },
+   "specs": {
+    "members": [
+     "spec.detect-apply-segment",
+     "spec.detect-create-group",
+     "spec.detect-notify",
+     "spec.detect-patch-linux",
+     "spec.lab-change-password",
+     "spec.lab-create-admin",
+     "spec.lab-create-pool",
+     "spec.lab-create-tenant",
+     "spec.lab-enable-override",
+     "spec.lab-forget-controller",
+     "spec.lab-purge-volumes",
+     "spec.lab-run-remote-command",
+     "spec.process-tenant-notification"
+    ],
+    "answer": "answer for specs"
+   }
+  },
+  "stand_in": false
+ },
+ "brief": [
+  {
+   "key": "endpoint.rest-host",
+   "group": "answer",
+   "ask": "Which REST hosts (vRO HTTP-REST plugin) do the flows call: its base URL or host, and the names of the Kestra secrets that hold its credentials? Write them in the answer.",
+   "question": "REST hosts: the URL of a non-production instance, and the Kestra secrets that hold its credentials?",
+   "title": "Which REST hosts (vRO HTTP-REST plugin) do the flows call: its base URL or host, and the names of the Kestra secrets that hold its credentials? Write them in the answer.",
+   "why": "the vRO side kept them in its own settings; a Kestra flow names them (the plugin's tasks take host, username and password)",
+   "unblocks": [
+    "Wave 1: REST hosts (vRO HTTP-REST plugin): the instance this wave's flows call is named (base URL or host) and its credentials are stored as Kestra secrets"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "endpoint",
+   "link": null,
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Endpoints and credentials"
+  },
+  {
+   "key": "writes.rest-host",
+   "group": "confirm",
+   "ask": "Is the read and write classification of each operation right for REST hosts (vRO HTTP-REST plugin)? (per operation on the target inventory page, judged from operation names)",
+   "question": "Are the read and write labels on the target inventory page right?",
+   "title": "Is the read and write classification of each operation right for REST hosts (vRO HTTP-REST plugin)? (per operation on the target inventory page, judged from operation names)",
+   "why": "'corrected' holds the wave until the correction is in your-input/corrections.yaml and the brief is re-run; then set it to confirmed",
+   "unblocks": [
+    "Wave 1: Owner confirms the write classification for REST hosts (vRO HTTP-REST plugin)"
+   ],
+   "options": [
+    "confirmed",
+    "corrected"
+   ],
+   "suggested": "confirmed",
+   "found": null,
+   "family": "writes",
+   "link": null,
+   "fixed": {},
+   "blocks": [
+    "corrected"
+   ],
+   "family_title": "Read and write classification"
+  },
+  {
+   "key": "defect.detect-apply-segment.other",
+   "group": "answer",
+   "ask": "Detect - Apply Segment: Detect   Apply Segment does not check the input before the call (the first script item). Keep it, or fix it?",
+   "question": "Possible defect in Detect - Apply Segment: detect   Apply Segment does not check the input before the call. Keep the current behavior, or fix it?",
+   "title": "Detect - Apply Segment: Detect   Apply Segment does not check the input before the call (the first script item). Keep it, or fix it?",
+   "why": "the converter builds one or the other; the spec found it in the code",
+   "unblocks": [
+    "Wave 1: Suspected defect in Detect - Apply Segment: Detect   Apply Segment does not check the input before the call. Preserve it or fix it in the conversion"
+   ],
+   "options": [
+    "keep",
+    "fix"
+   ],
+   "suggested": null,
+   "found": null,
+   "family": "defect",
+   "link": null,
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Suspected defects"
+  },
+  {
+   "key": "defect.detect-create-group.other",
+   "group": "answer",
+   "ask": "Detect - Create Group: Detect   Create Group does not check the input before the call (the first script item). Keep it, or fix it?",
+   "question": "Possible defect in Detect - Create Group: detect   Create Group does not check the input before the call. Keep the current behavior, or fix it?",
+   "title": "Detect - Create Group: Detect   Create Group does not check the input before the call (the first script item). Keep it, or fix it?",
+   "why": "the converter builds one or the other; the spec found it in the code",
+   "unblocks": [
+    "Wave 1: Suspected defect in Detect - Create Group: Detect   Create Group does not check the input before the call. Preserve it or fix it in the conversion"
+   ],
+   "options": [
+    "keep",
+    "fix"
+   ],
+   "suggested": null,
+   "found": null,
+   "family": "defect",
+   "link": null,
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Suspected defects"
+  },
+  {
+   "key": "defect.detect-notify.other",
+   "group": "answer",
+   "ask": "Detect - Notify: Detect   Notify does not check the input before the call (the first script item). Keep it, or fix it?",
+   "question": "Possible defect in Detect - Notify: detect   Notify does not check the input before the call. Keep the current behavior, or fix it?",
+   "title": "Detect - Notify: Detect   Notify does not check the input before the call (the first script item). Keep it, or fix it?",
+   "why": "the converter builds one or the other; the spec found it in the code",
+   "unblocks": [
+    "Wave 1: Suspected defect in Detect - Notify: Detect   Notify does not check the input before the call. Preserve it or fix it in the conversion"
+   ],
+   "options": [
+    "keep",
+    "fix"
+   ],
+   "suggested": null,
+   "found": null,
+   "family": "defect",
+   "link": null,
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Suspected defects"
+  },
+  {
+   "key": "defect.detect-patch-linux.other",
+   "group": "answer",
+   "ask": "Detect - Patch Linux: Detect   Patch Linux does not check the input before the call (the first script item). Keep it, or fix it?",
+   "question": "Possible defect in Detect - Patch Linux: detect   Patch Linux does not check the input before the call. Keep the current behavior, or fix it?",
+   "title": "Detect - Patch Linux: Detect   Patch Linux does not check the input before the call (the first script item). Keep it, or fix it?",
+   "why": "the converter builds one or the other; the spec found it in the code",
+   "unblocks": [
+    "Wave 1: Suspected defect in Detect - Patch Linux: Detect   Patch Linux does not check the input before the call. Preserve it or fix it in the conversion"
+   ],
+   "options": [
+    "keep",
+    "fix"
+   ],
+   "suggested": null,
+   "found": null,
+   "family": "defect",
+   "link": null,
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Suspected defects"
+  },
+  {
+   "key": "defect.lab-enable-override.other",
+   "group": "answer",
+   "ask": "Lab - Enable Override: Lab   Enable Override does not check the input before the call (the first script item). Keep it, or fix it?",
+   "question": "Possible defect in Lab - Enable Override: lab   Enable Override does not check the input before the call. Keep the current behavior, or fix it?",
+   "title": "Lab - Enable Override: Lab   Enable Override does not check the input before the call (the first script item). Keep it, or fix it?",
+   "why": "the converter builds one or the other; the spec found it in the code",
+   "unblocks": [
+    "Wave 1: Suspected defect in Lab - Enable Override: Lab   Enable Override does not check the input before the call. Preserve it or fix it in the conversion"
+   ],
+   "options": [
+    "keep",
+    "fix"
+   ],
+   "suggested": null,
+   "found": null,
+   "family": "defect",
+   "link": null,
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Suspected defects"
+  },
+  {
+   "key": "missing.waittaskend",
+   "group": "answer",
+   "ask": "waitTaskEnd is called by Lab - Enable Override but is not in the export. Add its export to sources/<estate>/ and re-run, or say what it does.",
+   "question": null,
+   "title": "waitTaskEnd is called by Lab - Enable Override but is not in the export. Add its export to sources/<estate>/ and re-run, or say what it does.",
+   "why": null,
+   "unblocks": [
+    "Wave 1: Owner supplies waitTaskEnd, called by Lab - Enable Override, or says what it does (not in the export)"
+   ],
+   "options": [
+    "exported",
+    "described in the answer",
+    "not needed"
+   ],
+   "suggested": null,
+   "found": null,
+   "family": "missing",
+   "link": null,
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Missing from the export"
+  },
+  {
+   "key": "question.detect-apply-segment.error-semantics",
+   "group": "answer",
+   "ask": "Detect - Apply Segment, Detect - Notify: What should Detect   Apply Segment do when the target is unreachable?",
+   "question": null,
+   "title": "Detect - Apply Segment, Detect - Notify: What should Detect   Apply Segment do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/detect-apply-segment.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.detect-patch-linux.error-semantics",
+   "group": "answer",
+   "ask": "Detect - Patch Linux: What should Detect   Patch Linux do when the target is unreachable?",
+   "question": null,
+   "title": "Detect - Patch Linux: What should Detect   Patch Linux do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/detect-patch-linux.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.lab-change-password.error-semantics",
+   "group": "answer",
+   "ask": "Lab - Change Password: What should Lab   Change Password do when the target is unreachable?",
+   "question": null,
+   "title": "Lab - Change Password: What should Lab   Change Password do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/lab-change-password.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.lab-create-admin.error-semantics",
+   "group": "answer",
+   "ask": "Lab - Create Admin, Lab - Create Pool: What should Lab   Create Admin do when the target is unreachable?",
+   "question": null,
+   "title": "Lab - Create Admin, Lab - Create Pool: What should Lab   Create Admin do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/lab-create-admin.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.lab-enable-override.error-semantics",
+   "group": "answer",
+   "ask": "Lab - Enable Override: What should Lab   Enable Override do when the target is unreachable?",
+   "question": null,
+   "title": "Lab - Enable Override: What should Lab   Enable Override do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/lab-enable-override.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.lab-forget-controller.error-semantics",
+   "group": "answer",
+   "ask": "Lab - Forget Controller: What should Lab   Forget Controller do when the target is unreachable?",
+   "question": null,
+   "title": "Lab - Forget Controller: What should Lab   Forget Controller do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/lab-forget-controller.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.lab-purge-volumes.error-semantics",
+   "group": "answer",
+   "ask": "Lab - Purge Volumes: What should Lab   Purge Volumes do when the target is unreachable?",
+   "question": null,
+   "title": "Lab - Purge Volumes: What should Lab   Purge Volumes do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/lab-purge-volumes.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.detect-create-group.error-semantics",
+   "group": "answer",
+   "ask": "Detect - Create Group: What should Detect   Create Group do when the target is unreachable?",
+   "question": null,
+   "title": "Detect - Create Group: What should Detect   Create Group do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/detect-create-group.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.lab-create-tenant.error-semantics",
+   "group": "answer",
+   "ask": "Lab - Create Tenant: What should Lab   Create Tenant do when the target is unreachable?",
+   "question": null,
+   "title": "Lab - Create Tenant: What should Lab   Create Tenant do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/lab-create-tenant.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.lab-run-remote-command.error-semantics",
+   "group": "answer",
+   "ask": "Lab - Run Remote Command: What should Lab   Run Remote Command do when the target is unreachable?",
+   "question": null,
+   "title": "Lab - Run Remote Command: What should Lab   Run Remote Command do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/lab-run-remote-command.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "question.process-tenant-notification.error-semantics",
+   "group": "answer",
+   "ask": "Process Tenant Notification: What should Process Tenant Notification do when the target is unreachable?",
+   "question": null,
+   "title": "Process Tenant Notification: What should Process Tenant Notification do when the target is unreachable?",
+   "why": "The flow's error handling depends on it.",
+   "unblocks": [
+    "the converter builds what you say (nothing waits on it)"
+   ],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "question",
+   "link": "report/workflows/process-tenant-notification.html",
+   "fixed": {},
+   "blocks": [],
+   "family_title": "Spec questions"
+  },
+  {
+   "key": "spec.detect-apply-segment",
+   "group": "review",
+   "ask": "Read the spec of Detect - Apply Segment (confidence high). Is it right?",
+   "question": "Is the spec of Detect - Apply Segment right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Detect - Apply Segment (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/detect-apply-segment.html",
+   "fixed": {
+    "spec": "d0b1a7cb55b0"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Detect - Apply Segment"
+  },
+  {
+   "key": "spec.detect-create-group",
+   "group": "review",
+   "ask": "Read the spec of Detect - Create Group (confidence high). Is it right?",
+   "question": "Is the spec of Detect - Create Group right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Detect - Create Group (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/detect-create-group.html",
+   "fixed": {
+    "spec": "14f568948010"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Detect - Create Group"
+  },
+  {
+   "key": "spec.detect-notify",
+   "group": "review",
+   "ask": "Read the spec of Detect - Notify (confidence high). Is it right?",
+   "question": "Is the spec of Detect - Notify right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Detect - Notify (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/detect-notify.html",
+   "fixed": {
+    "spec": "e47d2c15d62e"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Detect - Notify"
+  },
+  {
+   "key": "spec.detect-patch-linux",
+   "group": "review",
+   "ask": "Read the spec of Detect - Patch Linux (confidence high). Is it right?",
+   "question": "Is the spec of Detect - Patch Linux right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Detect - Patch Linux (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/detect-patch-linux.html",
+   "fixed": {
+    "spec": "7588312e90ba"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Detect - Patch Linux"
+  },
+  {
+   "key": "spec.lab-change-password",
+   "group": "review",
+   "ask": "Read the spec of Lab - Change Password (confidence high). Is it right?",
+   "question": "Is the spec of Lab - Change Password right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Change Password (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-change-password.html",
+   "fixed": {
+    "spec": "345ca834ecc3"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Change Password"
+  },
+  {
+   "key": "spec.lab-create-admin",
+   "group": "review",
+   "ask": "Read the spec of Lab - Create Admin (confidence low). Is it right?",
+   "question": "Is the spec of Lab - Create Admin right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Create Admin (confidence low). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-create-admin.html",
+   "fixed": {
+    "spec": "8546ba977d64"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Create Admin"
+  },
+  {
+   "key": "spec.lab-create-pool",
+   "group": "review",
+   "ask": "Read the spec of Lab - Create Pool (confidence high). Is it right?",
+   "question": "Is the spec of Lab - Create Pool right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Create Pool (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-create-pool.html",
+   "fixed": {
+    "spec": "c5a78e775397"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Create Pool"
+  },
+  {
+   "key": "spec.lab-create-tenant",
+   "group": "review",
+   "ask": "Read the spec of Lab - Create Tenant (confidence high). Is it right?",
+   "question": "Is the spec of Lab - Create Tenant right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Create Tenant (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-create-tenant.html",
+   "fixed": {
+    "spec": "7d8479725115"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Create Tenant"
+  },
+  {
+   "key": "spec.lab-enable-override",
+   "group": "review",
+   "ask": "Read the spec of Lab - Enable Override (confidence high). Is it right?",
+   "question": "Is the spec of Lab - Enable Override right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Enable Override (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-enable-override.html",
+   "fixed": {
+    "spec": "358bd7ebc935"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Enable Override"
+  },
+  {
+   "key": "spec.lab-forget-controller",
+   "group": "review",
+   "ask": "Read the spec of Lab - Forget Controller (confidence high). Is it right?",
+   "question": "Is the spec of Lab - Forget Controller right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Forget Controller (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-forget-controller.html",
+   "fixed": {
+    "spec": "b3ca629c2b87"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Forget Controller"
+  },
+  {
+   "key": "spec.lab-purge-volumes",
+   "group": "review",
+   "ask": "Read the spec of Lab - Purge Volumes (confidence low). Is it right?",
+   "question": "Is the spec of Lab - Purge Volumes right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Purge Volumes (confidence low). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-purge-volumes.html",
+   "fixed": {
+    "spec": "3aadb3970fc7"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Purge Volumes"
+  },
+  {
+   "key": "spec.lab-run-remote-command",
+   "group": "review",
+   "ask": "Read the spec of Lab - Run Remote Command (confidence high). Is it right?",
+   "question": "Is the spec of Lab - Run Remote Command right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Lab - Run Remote Command (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/lab-run-remote-command.html",
+   "fixed": {
+    "spec": "1906f10a9f8a"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Lab - Run Remote Command"
+  },
+  {
+   "key": "spec.process-tenant-notification",
+   "group": "review",
+   "ask": "Read the spec of Process Tenant Notification (confidence high). Is it right?",
+   "question": "Is the spec of Process Tenant Notification right? (see its workflow page; answer yes, or say what is wrong)",
+   "title": "Read the spec of Process Tenant Notification (confidence high). Is it right?",
+   "why": "the converter builds what the spec says; a wrong spec converts wrongly",
+   "unblocks": [],
+   "options": [],
+   "suggested": null,
+   "found": null,
+   "family": "spec",
+   "link": "report/workflows/process-tenant-notification.html",
+   "fixed": {
+    "spec": "57859f1fa21d"
+   },
+   "blocks": [],
+   "family_title": "Specs",
+   "workflow": "Process Tenant Notification"
+  }
+ ],
+ "_unblocks": {
+  "q3-non-production-targets": [
+   "Wave 1: A non-production REST hosts (vRO HTTP-REST plugin) is named for this wave to write to"
+  ]
+ }
+}

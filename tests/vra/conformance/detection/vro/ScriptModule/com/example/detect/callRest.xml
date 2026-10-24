@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dunes-script-module name="callRest" result-type="string" api-version="6.0.0" id="a6000000-0000-4000-8000-000000000002" version="1.0.0" allowed-operations="vef"><description/><param n="method" t="string"/><param n="path" t="string"/><param n="body" t="string"/><script encoded="false"><![CDATA[var prototype = RESTHostManager.createHost("detect");
+prototype.url = System.getModule("com.example.detect").endpoint("towerUrl");
+var host = RESTHostManager.createTransientHostFrom(prototype);
+var request = host.createRequest(method, path, body);
+request.contentType = "application/json";
+return request.execute().contentAsString;]]></script></dunes-script-module>

@@ -1,0 +1,820 @@
+{
+ "workflows": [
+  {
+   "wid": "detection/Detect - Apply Segment",
+   "uid": "detection-Detect---Apply-Segment",
+   "id": "e6000000-0000-4000-8000-000000000002",
+   "name": "Detect - Apply Segment",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "container_format": "raw-xml",
+   "baseline_key": "detection/Detect - Apply Segment",
+   "baseline_ambiguous": false,
+   "total_script_lines": 4,
+   "sdk_calls": [
+    "System.getModule"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "detection/Detect - Create Group",
+   "uid": "detection-Detect---Create-Group",
+   "id": "e6000000-0000-4000-8000-000000000004",
+   "name": "Detect - Create Group",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "container_format": "raw-xml",
+   "baseline_key": "detection/Detect - Create Group",
+   "baseline_ambiguous": false,
+   "total_script_lines": 5,
+   "sdk_calls": [
+    "System.getModule",
+    "System.log"
+   ],
+   "plugin_types": [
+    "AD:OrganizationalUnit",
+    "AD:UserGroup"
+   ],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "detection/Detect - Notify",
+   "uid": "detection-Detect---Notify",
+   "id": "e6000000-0000-4000-8000-000000000003",
+   "name": "Detect - Notify",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "container_format": "raw-xml",
+   "baseline_key": "detection/Detect - Notify",
+   "baseline_ambiguous": false,
+   "total_script_lines": 5,
+   "sdk_calls": [
+    "System.getModule"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "detection/Detect - Patch Linux",
+   "uid": "detection-Detect---Patch-Linux",
+   "id": "e6000000-0000-4000-8000-000000000001",
+   "name": "Detect - Patch Linux",
+   "source": "detection",
+   "category_path": "Example.Detect",
+   "container_format": "raw-xml",
+   "baseline_key": "detection/Detect - Patch Linux",
+   "baseline_ambiguous": false,
+   "total_script_lines": 4,
+   "sdk_calls": [
+    "System.getModule"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Lab - Change Password",
+   "uid": "triage-Lab---Change-Password",
+   "id": "e5000000-0000-4000-8000-000000000007",
+   "name": "Lab - Change Password",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Change Password",
+   "baseline_ambiguous": false,
+   "total_script_lines": 4,
+   "sdk_calls": [
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": true,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Lab - Create Admin",
+   "uid": "triage-Lab---Create-Admin",
+   "id": "e5000000-0000-4000-8000-000000000008",
+   "name": "Lab - Create Admin",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Create Admin",
+   "baseline_ambiguous": false,
+   "total_script_lines": 4,
+   "sdk_calls": [
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Lab - Create Pool",
+   "uid": "triage-Lab---Create-Pool",
+   "id": "e5000000-0000-4000-8000-000000000006",
+   "name": "Lab - Create Pool",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Create Pool",
+   "baseline_ambiguous": false,
+   "total_script_lines": 6,
+   "sdk_calls": [
+    "System.getModule",
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Lab - Create Tenant",
+   "uid": "triage-Lab---Create-Tenant",
+   "id": "e5000000-0000-4000-8000-000000000003",
+   "name": "Lab - Create Tenant",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Create Tenant",
+   "baseline_ambiguous": false,
+   "total_script_lines": 0,
+   "sdk_calls": [],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "link": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": false
+  },
+  {
+   "wid": "triage/Lab - Delete Tenant",
+   "uid": "triage-Lab---Delete-Tenant",
+   "id": "e5000000-0000-4000-8000-000000000002",
+   "name": "Lab - Delete Tenant",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Delete Tenant",
+   "baseline_ambiguous": false,
+   "total_script_lines": 4,
+   "sdk_calls": [
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": false
+  },
+  {
+   "wid": "triage/Lab - Enable Override",
+   "uid": "triage-Lab---Enable-Override",
+   "id": "e5000000-0000-4000-8000-000000000010",
+   "name": "Lab - Enable Override",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Enable Override",
+   "baseline_ambiguous": false,
+   "total_script_lines": 6,
+   "sdk_calls": [
+    "System.getModule",
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Lab - Find or Create Tenant",
+   "uid": "triage-Lab---Find-or-Create-Tenant",
+   "id": "e5000000-0000-4000-8000-000000000001",
+   "name": "Lab - Find or Create Tenant",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Find or Create Tenant",
+   "baseline_ambiguous": false,
+   "total_script_lines": 6,
+   "sdk_calls": [
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": false
+  },
+  {
+   "wid": "triage/Lab - Forget Controller",
+   "uid": "triage-Lab---Forget-Controller",
+   "id": "e5000000-0000-4000-8000-000000000005",
+   "name": "Lab - Forget Controller",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Forget Controller",
+   "baseline_ambiguous": false,
+   "total_script_lines": 3,
+   "sdk_calls": [
+    "Server.getConfigurationElementCategoryWithPath"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Lab - Purge Volumes",
+   "uid": "triage-Lab---Purge-Volumes",
+   "id": "e5000000-0000-4000-8000-000000000011",
+   "name": "Lab - Purge Volumes",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Purge Volumes",
+   "baseline_ambiguous": false,
+   "total_script_lines": 5,
+   "sdk_calls": [
+    "System.getModule",
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "task": 1
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Lab - Run Remote Command",
+   "uid": "triage-Lab---Run-Remote-Command",
+   "id": "e5000000-0000-4000-8000-000000000009",
+   "name": "Lab - Run Remote Command",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Lab - Run Remote Command",
+   "baseline_ambiguous": false,
+   "total_script_lines": 23,
+   "sdk_calls": [
+    "System.log"
+   ],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "task": 5,
+    "condition": 1,
+    "end": 1
+   },
+   "doc_order_would_mislead": true,
+   "is_orphan": true
+  },
+  {
+   "wid": "triage/Process Tenant Notification",
+   "uid": "triage-Process-Tenant-Notification",
+   "id": "e5000000-0000-4000-8000-000000000004",
+   "name": "Process Tenant Notification",
+   "source": "triage",
+   "category_path": "Example.Lab",
+   "container_format": "raw-xml",
+   "baseline_key": "triage/Process Tenant Notification",
+   "baseline_ambiguous": false,
+   "total_script_lines": 5,
+   "sdk_calls": [],
+   "plugin_types": [],
+   "has_ognl": false,
+   "item_type_counts": {
+    "end": 1,
+    "switch": 1,
+    "link": 2
+   },
+   "doc_order_would_mislead": false,
+   "is_orphan": true
+  }
+ ],
+ "graph_summary": {
+  "detection-Detect---Apply-Segment": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "detection-Detect---Create-Group": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "detection-Detect---Notify": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "detection-Detect---Patch-Linux": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Change-Password": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Create-Admin": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Create-Pool": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Create-Tenant": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Delete-Tenant": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Enable-Override": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Find-or-Create-Tenant": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Forget-Controller": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Purge-Volumes": {
+   "items": 2,
+   "edges": 1,
+   "branches": 0,
+   "joins": 0,
+   "cycle": false,
+   "depth": 1,
+   "reachable_from_root": 2,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": true
+  },
+  "triage-Lab---Run-Remote-Command": {
+   "items": 7,
+   "edges": 7,
+   "branches": 1,
+   "joins": 1,
+   "cycle": false,
+   "depth": 5,
+   "reachable_from_root": 7,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": false
+  },
+  "triage-Process-Tenant-Notification": {
+   "items": 4,
+   "edges": 4,
+   "branches": 1,
+   "joins": 1,
+   "cycle": false,
+   "depth": 2,
+   "reachable_from_root": 4,
+   "error_handler_path": [],
+   "unreachable_items": [],
+   "linear": false
+  }
+ },
+ "call_graph": {
+  "nodes": [
+   {
+    "wid": "detection/Detect - Apply Segment",
+    "id": "e6000000-0000-4000-8000-000000000002",
+    "name": "Detect - Apply Segment",
+    "source": "detection"
+   },
+   {
+    "wid": "detection/Detect - Create Group",
+    "id": "e6000000-0000-4000-8000-000000000004",
+    "name": "Detect - Create Group",
+    "source": "detection"
+   },
+   {
+    "wid": "detection/Detect - Notify",
+    "id": "e6000000-0000-4000-8000-000000000003",
+    "name": "Detect - Notify",
+    "source": "detection"
+   },
+   {
+    "wid": "detection/Detect - Patch Linux",
+    "id": "e6000000-0000-4000-8000-000000000001",
+    "name": "Detect - Patch Linux",
+    "source": "detection"
+   },
+   {
+    "wid": "triage/Lab - Change Password",
+    "id": "e5000000-0000-4000-8000-000000000007",
+    "name": "Lab - Change Password",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Create Admin",
+    "id": "e5000000-0000-4000-8000-000000000008",
+    "name": "Lab - Create Admin",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Create Pool",
+    "id": "e5000000-0000-4000-8000-000000000006",
+    "name": "Lab - Create Pool",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Create Tenant",
+    "id": "e5000000-0000-4000-8000-000000000003",
+    "name": "Lab - Create Tenant",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Delete Tenant",
+    "id": "e5000000-0000-4000-8000-000000000002",
+    "name": "Lab - Delete Tenant",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Enable Override",
+    "id": "e5000000-0000-4000-8000-000000000010",
+    "name": "Lab - Enable Override",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Find or Create Tenant",
+    "id": "e5000000-0000-4000-8000-000000000001",
+    "name": "Lab - Find or Create Tenant",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Forget Controller",
+    "id": "e5000000-0000-4000-8000-000000000005",
+    "name": "Lab - Forget Controller",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Purge Volumes",
+    "id": "e5000000-0000-4000-8000-000000000011",
+    "name": "Lab - Purge Volumes",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Lab - Run Remote Command",
+    "id": "e5000000-0000-4000-8000-000000000009",
+    "name": "Lab - Run Remote Command",
+    "source": "triage"
+   },
+   {
+    "wid": "triage/Process Tenant Notification",
+    "id": "e5000000-0000-4000-8000-000000000004",
+    "name": "Process Tenant Notification",
+    "source": "triage"
+   }
+  ],
+  "edges": [
+   {
+    "from": "triage/Lab - Create Tenant",
+    "to": "triage/Lab - Find or Create Tenant",
+    "mode": "sync",
+    "item": "item1"
+   },
+   {
+    "from": "triage/Process Tenant Notification",
+    "to": "triage/Lab - Create Tenant",
+    "mode": "sync",
+    "item": "item2"
+   },
+   {
+    "from": "triage/Process Tenant Notification",
+    "to": "triage/Lab - Delete Tenant",
+    "mode": "sync",
+    "item": "item3"
+   }
+  ],
+  "unresolved": []
+ },
+ "other_elements": [
+  {
+   "source": "detection",
+   "kind": "ScriptModule",
+   "uuid": "a6000000-0000-4000-8000-000000000002",
+   "name": "callRest",
+   "category_path": "com.example.detect",
+   "source_path": "detection/ScriptModule/com/example/detect/callRest.xml",
+   "container_format": "raw-xml",
+   "bytes": 699,
+   "warnings": [],
+   "script": "var prototype = RESTHostManager.createHost(\"detect\");\nprototype.url = System.getModule(\"com.example.detect\").endpoint(\"towerUrl\");\nvar host = RESTHostManager.createTransientHostFrom(prototype);\nvar request = host.createRequest(method, path, body);\nrequest.contentType = \"application/json\";\nreturn request.execute().contentAsString;"
+  },
+  {
+   "source": "detection",
+   "kind": "ScriptModule",
+   "uuid": "a6000000-0000-4000-8000-000000000007",
+   "name": "createSecurityGroup",
+   "category_path": "com.example.detect",
+   "source_path": "detection/ScriptModule/com/example/detect/createSecurityGroup.xml",
+   "container_format": "raw-xml",
+   "bytes": 742,
+   "warnings": [],
+   "script": "var existing = ActiveDirectory.searchExactMatch(\"UserGroup\", groupName);\nif (existing && existing.length > 0) {\n    return existing[0];\n}\nou.createUserGroup(groupName);\ngroup.setAttribute(\"description\", \"created by vRO\");\nif (group.distinguishedName.indexOf(\"OU=Managed\") < 0) {\n    System.warn(\"group outside the managed OU\");\n}\nreturn group;"
+  },
+  {
+   "source": "detection",
+   "kind": "ScriptModule",
+   "uuid": "a6000000-0000-4000-8000-000000000001",
+   "name": "endpoint",
+   "category_path": "com.example.detect",
+   "source_path": "detection/ScriptModule/com/example/detect/endpoint.xml",
+   "container_format": "raw-xml",
+   "bytes": 478,
+   "warnings": [],
+   "script": "var category = Server.getConfigurationElementCategoryWithPath(\"Example\");\nvar element = category.configurationElements[0];\nreturn element.getAttributeWithKey(key).value;"
+  },
+  {
+   "source": "detection",
+   "kind": "ScriptModule",
+   "uuid": "a6000000-0000-4000-8000-000000000003",
+   "name": "launchJobTemplate",
+   "category_path": "com.example.detect",
+   "source_path": "detection/ScriptModule/com/example/detect/launchJobTemplate.xml",
+   "container_format": "raw-xml",
+   "bytes": 598,
+   "warnings": [],
+   "script": "var job = JSON.parse(System.getModule(\"com.example.detect\").callRest(\"POST\", \"/api/v2/job_templates/\" + templateId + \"/launch/\", \"{}\"));\nvar state = JSON.parse(System.getModule(\"com.example.detect\").callRest(\"GET\", \"/api/v2/jobs/\" + job.id + \"/\", \"\"));\nreturn state.status;"
+  },
+  {
+   "source": "detection",
+   "kind": "ScriptModule",
+   "uuid": "a6000000-0000-4000-8000-000000000006",
+   "name": "postSlackMessage",
+   "category_path": "com.example.detect",
+   "source_path": "detection/ScriptModule/com/example/detect/postSlackMessage.xml",
+   "container_format": "raw-xml",
+   "bytes": 703,
+   "warnings": [],
+   "script": "var prototype = RESTHostManager.createHost(\"slack\");\nprototype.url = System.getModule(\"com.example.detect\").endpoint(\"slackWebhookUrl\");\nvar host = RESTHostManager.createTransientHostFrom(prototype);\nvar request = host.createRequest(\"POST\", \"\", JSON.stringify({ channel: channel, text: text }));\nrequest.contentType = \"application/json\";\nrequest.execute();"
+  },
+  {
+   "source": "detection",
+   "kind": "ScriptModule",
+   "uuid": "a6000000-0000-4000-8000-000000000005",
+   "name": "postTeamsMessage",
+   "category_path": "com.example.detect",
+   "source_path": "detection/ScriptModule/com/example/detect/postTeamsMessage.xml",
+   "container_format": "raw-xml",
+   "bytes": 740,
+   "warnings": [],
+   "script": "var prototype = RESTHostManager.createHost(\"teams\");\nprototype.url = System.getModule(\"com.example.detect\").endpoint(\"teamsWebhookUrl\");\nvar host = RESTHostManager.createTransientHostFrom(prototype);\nvar card = { \"@type\": \"MessageCard\", summary: title, text: text };\nvar request = host.createRequest(\"POST\", \"\", JSON.stringify(card));\nrequest.contentType = \"application/json\";\nrequest.execute();"
+  },
+  {
+   "source": "detection",
+   "kind": "ScriptModule",
+   "uuid": "a6000000-0000-4000-8000-000000000004",
+   "name": "queueRun",
+   "category_path": "com.example.detect",
+   "source_path": "detection/ScriptModule/com/example/detect/queueRun.xml",
+   "container_format": "raw-xml",
+   "bytes": 571,
+   "warnings": [],
+   "script": "var run = { data: { type: \"runs\", relationships: { workspace: { data: { type: \"workspaces\", id: workspaceId } } } } };\nvar out = JSON.parse(System.getModule(\"com.example.detect\").callRest(\"POST\", \"/api/v2/runs\", JSON.stringify(run)));\nreturn out.data.id;"
+  },
+  {
+   "source": "detection",
+   "kind": "ConfigurationElement",
+   "uuid": "c6000000-0000-4000-8000-000000000001",
+   "name": "Endpoints",
+   "category_path": "Example",
+   "source_path": "detection/ConfigurationElement/Example/Endpoints.xml",
+   "container_format": "raw-xml",
+   "bytes": 587,
+   "warnings": [],
+   "attributes": [
+    {
+     "name": "teamsWebhookUrl",
+     "type": "string",
+     "is_secure": false,
+     "value": null,
+     "is_null_sentinel": true
+    },
+    {
+     "name": "slackWebhookUrl",
+     "type": "string",
+     "is_secure": false,
+     "value": null,
+     "is_null_sentinel": true
+    },
+    {
+     "name": "towerUrl",
+     "type": "string",
+     "is_secure": false,
+     "value": null,
+     "is_null_sentinel": true
+    }
+   ]
+  },
+  {
+   "source": "triage",
+   "kind": "ScriptModule",
+   "uuid": "a5000000-0000-4000-8000-000000000001",
+   "name": "createVRAPoolObj",
+   "category_path": "com.example.lab",
+   "source_path": "triage/ScriptModule/com/example/lab/createVRAPoolObj.xml",
+   "container_format": "raw-xml",
+   "bytes": 510,
+   "warnings": [],
+   "script": "var pool = { name: poolName, members: [] };\nfor (var i = 0; i < members.length; i++) {\n    pool.members.push({ ip: members[i], port: 80 });\n}\nreturn pool;"
+  },
+  {
+   "source": "triage",
+   "kind": "ScriptModule",
+   "uuid": "a5000000-0000-4000-8000-000000000002",
+   "name": "listControllers",
+   "category_path": "com.example.lab",
+   "source_path": "triage/ScriptModule/com/example/lab/listControllers.xml",
+   "container_format": "raw-xml",
+   "bytes": 329,
+   "warnings": [],
+   "script": "return [\"lab-ctl-a\", \"lab-ctl-b\"];"
+  }
+ ],
+ "package_summaries": {
+  "detection": {
+   "source_path": "detection",
+   "format": "raw-xml",
+   "element_counts": {
+    "ScriptModule": 7,
+    "Workflow": 4,
+    "ConfigurationElement": 1
+   }
+  },
+  "triage": {
+   "source_path": "triage",
+   "format": "raw-xml",
+   "element_counts": {
+    "ScriptModule": 2,
+    "Workflow": 11
+   }
+  }
+ },
+ "failures": [],
+ "counts": {
+  "workflows_parsed": 15,
+  "parse_failures": 0,
+  "other_elements": 10
+ }
+}

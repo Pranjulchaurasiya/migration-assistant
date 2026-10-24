@@ -1,0 +1,625 @@
+{
+ "id": "e5000000-0000-4000-8000-000000000009",
+ "name": "Lab - Run Remote Command",
+ "description": "",
+ "category_path": "Example.Lab",
+ "source_path": "triage/Workflow/Example/Lab/Lab - Run Remote Command.xml",
+ "container_format": "raw-xml",
+ "root_item": "item6",
+ "restart_mode": "1",
+ "api_version": "6.0.0",
+ "version": "1.0.0",
+ "inputs": [
+  {
+   "name": "hostName",
+   "type": "string"
+  },
+  {
+   "name": "port",
+   "type": "number"
+  },
+  {
+   "name": "cmd",
+   "type": "string"
+  },
+  {
+   "name": "username",
+   "type": "string"
+  },
+  {
+   "name": "passwordAuthentication",
+   "type": "boolean"
+  },
+  {
+   "name": "password",
+   "type": "SecureString"
+  },
+  {
+   "name": "path",
+   "type": "Path"
+  },
+  {
+   "name": "passphrase",
+   "type": "SecureString"
+  }
+ ],
+ "outputs": [
+  {
+   "name": "result",
+   "type": "number"
+  },
+  {
+   "name": "errorText",
+   "type": "string"
+  },
+  {
+   "name": "outputText",
+   "type": "string"
+  }
+ ],
+ "attributes": [
+  {
+   "name": "output",
+   "type": "string",
+   "read_only": false,
+   "value": null,
+   "is_null_sentinel": false,
+   "description": null
+  },
+  {
+   "name": "error",
+   "type": "string",
+   "read_only": false,
+   "value": null,
+   "is_null_sentinel": false,
+   "description": null
+  },
+  {
+   "name": "exitCode",
+   "type": "number",
+   "read_only": false,
+   "value": null,
+   "is_null_sentinel": false,
+   "description": null
+  },
+  {
+   "name": "logText",
+   "type": "string",
+   "read_only": false,
+   "value": null,
+   "is_null_sentinel": false,
+   "description": null
+  },
+  {
+   "name": "defaultKeyPairPath",
+   "type": "Path",
+   "read_only": false,
+   "value": null,
+   "is_null_sentinel": false,
+   "description": null
+  }
+ ],
+ "items": [
+  {
+   "name": "item2",
+   "type": "task",
+   "display_name": "item2",
+   "attributes": {
+    "name": "item2",
+    "out-name": "item5",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "hostName",
+     "type": "string",
+     "export_name": "hostName",
+     "explanation": ""
+    },
+    {
+     "name": "username",
+     "type": "string",
+     "export_name": "username",
+     "explanation": ""
+    },
+    {
+     "name": "port",
+     "type": "number",
+     "export_name": "port",
+     "explanation": ""
+    },
+    {
+     "name": "password",
+     "type": "SecureString",
+     "export_name": "password",
+     "explanation": ""
+    },
+    {
+     "name": "cmd",
+     "type": "string",
+     "export_name": "cmd",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [
+    {
+     "name": "output",
+     "type": "string",
+     "export_name": "output",
+     "explanation": ""
+    },
+    {
+     "name": "error",
+     "type": "string",
+     "export_name": "error",
+     "explanation": ""
+    },
+    {
+     "name": "exitCode",
+     "type": "number",
+     "export_name": "exitCode",
+     "explanation": ""
+    }
+   ],
+   "script": "var session = new SSHSession(hostName, username, port);\nsession.connectWithPassword(password);\nsession.executeCommand(cmd, true);\noutput = session.getOutput();\nerror = session.getError();\nexitCode = session.exitCode;\nsession.disconnect();",
+   "script_lines": 7,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "5047b00db08c349d"
+  },
+  {
+   "name": "item3",
+   "type": "condition",
+   "display_name": "Password authentication?",
+   "attributes": {
+    "name": "item3",
+    "out-name": "item2",
+    "alt-out-name": "item4",
+    "type": "condition",
+    "comparator": "0"
+   },
+   "in_bindings": [
+    {
+     "name": "passwordAuthentication",
+     "type": "boolean",
+     "export_name": "passwordAuthentication",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [],
+   "script": null,
+   "script_lines": 0,
+   "conditions": [
+    {
+     "name": "passwordAuthentication",
+     "type": "boolean",
+     "comparator": "0",
+     "label": "",
+     "value": "true",
+     "is_null_check": false
+    }
+   ],
+   "references": []
+  },
+  {
+   "name": "item4",
+   "type": "task",
+   "display_name": "item4",
+   "attributes": {
+    "name": "item4",
+    "out-name": "item5",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "hostName",
+     "type": "string",
+     "export_name": "hostName",
+     "explanation": ""
+    },
+    {
+     "name": "username",
+     "type": "string",
+     "export_name": "username",
+     "explanation": ""
+    },
+    {
+     "name": "port",
+     "type": "number",
+     "export_name": "port",
+     "explanation": ""
+    },
+    {
+     "name": "passphrase",
+     "type": "SecureString",
+     "export_name": "passphrase",
+     "explanation": ""
+    },
+    {
+     "name": "path",
+     "type": "Path",
+     "export_name": "path",
+     "explanation": ""
+    },
+    {
+     "name": "defaultKeyPairPath",
+     "type": "Path",
+     "export_name": "defaultKeyPairPath",
+     "explanation": ""
+    },
+    {
+     "name": "cmd",
+     "type": "string",
+     "export_name": "cmd",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [
+    {
+     "name": "output",
+     "type": "string",
+     "export_name": "output",
+     "explanation": ""
+    },
+    {
+     "name": "error",
+     "type": "string",
+     "export_name": "error",
+     "explanation": ""
+    },
+    {
+     "name": "exitCode",
+     "type": "number",
+     "export_name": "exitCode",
+     "explanation": ""
+    }
+   ],
+   "script": "var keyPath = path ? path : defaultKeyPairPath;\nvar session = new SSHSession(hostName, username, port);\nsession.connectWithPasswordOrIdentity(false, passphrase, keyPath);\nsession.executeCommand(cmd, true);\noutput = session.getOutput();\nerror = session.getError();\nexitCode = session.exitCode;\nsession.disconnect();",
+   "script_lines": 8,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "7bbc00d9bcfd38d4"
+  },
+  {
+   "name": "item5",
+   "type": "task",
+   "display_name": "item5",
+   "attributes": {
+    "name": "item5",
+    "out-name": "item8",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "output",
+     "type": "string",
+     "export_name": "output",
+     "explanation": ""
+    },
+    {
+     "name": "error",
+     "type": "string",
+     "export_name": "error",
+     "explanation": ""
+    },
+    {
+     "name": "exitCode",
+     "type": "number",
+     "export_name": "exitCode",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [
+    {
+     "name": "result",
+     "type": "number",
+     "export_name": "result",
+     "explanation": ""
+    },
+    {
+     "name": "errorText",
+     "type": "string",
+     "export_name": "errorText",
+     "explanation": ""
+    },
+    {
+     "name": "outputText",
+     "type": "string",
+     "export_name": "outputText",
+     "explanation": ""
+    }
+   ],
+   "script": "result = exitCode;\nerrorText = error;\noutputText = output;",
+   "script_lines": 3,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "d5f4950c2074746f"
+  },
+  {
+   "name": "item6",
+   "type": "task",
+   "display_name": "item6",
+   "attributes": {
+    "name": "item6",
+    "out-name": "item9",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "hostName",
+     "type": "string",
+     "export_name": "hostName",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [],
+   "script": "if (!hostName) {\n    throw \"no host name\";\n}",
+   "script_lines": 3,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "c01b2f573c70fe9b"
+  },
+  {
+   "name": "item8",
+   "type": "end",
+   "display_name": null,
+   "attributes": {
+    "name": "item8",
+    "type": "end",
+    "end-mode": "0"
+   },
+   "in_bindings": [],
+   "out_bindings": [],
+   "script": null,
+   "script_lines": 0,
+   "conditions": [],
+   "references": []
+  },
+  {
+   "name": "item9",
+   "type": "task",
+   "display_name": "item9",
+   "attributes": {
+    "name": "item9",
+    "out-name": "item3",
+    "type": "task"
+   },
+   "in_bindings": [
+    {
+     "name": "hostName",
+     "type": "string",
+     "export_name": "hostName",
+     "explanation": ""
+    },
+    {
+     "name": "cmd",
+     "type": "string",
+     "export_name": "cmd",
+     "explanation": ""
+    }
+   ],
+   "out_bindings": [
+    {
+     "name": "logText",
+     "type": "string",
+     "export_name": "logText",
+     "explanation": ""
+    }
+   ],
+   "script": "logText = \"running on \" + hostName + \": \" + cmd;\nSystem.log(logText);",
+   "script_lines": 2,
+   "conditions": [],
+   "references": [],
+   "script_norm_hash": "06f3133d84bbbc6a"
+  }
+ ],
+ "edges": [
+  {
+   "from": "item2",
+   "to": "item5",
+   "kind": "next",
+   "label": null
+  },
+  {
+   "from": "item3",
+   "to": "item2",
+   "kind": "next",
+   "label": null
+  },
+  {
+   "from": "item3",
+   "to": "item4",
+   "kind": "alt",
+   "label": null
+  },
+  {
+   "from": "item4",
+   "to": "item5",
+   "kind": "next",
+   "label": null
+  },
+  {
+   "from": "item5",
+   "to": "item8",
+   "kind": "next",
+   "label": null
+  },
+  {
+   "from": "item6",
+   "to": "item9",
+   "kind": "next",
+   "label": null
+  },
+  {
+   "from": "item9",
+   "to": "item3",
+   "kind": "next",
+   "label": null
+  }
+ ],
+ "item_type_counts": {
+  "task": 5,
+  "condition": 1,
+  "end": 1
+ },
+ "scripts": [
+  {
+   "item": "item2",
+   "lines": 7,
+   "source": "var session = new SSHSession(hostName, username, port);\nsession.connectWithPassword(password);\nsession.executeCommand(cmd, true);\noutput = session.getOutput();\nerror = session.getError();\nexitCode = session.exitCode;\nsession.disconnect();",
+   "norm": "var ID = new ID(ID, ID, ID); ID.ID(ID); ID.ID(ID, true); ID = ID.ID(); ID = ID.ID(); ID = ID.ID; ID.ID();"
+  },
+  {
+   "item": "item4",
+   "lines": 8,
+   "source": "var keyPath = path ? path : defaultKeyPairPath;\nvar session = new SSHSession(hostName, username, port);\nsession.connectWithPasswordOrIdentity(false, passphrase, keyPath);\nsession.executeCommand(cmd, true);\noutput = session.getOutput();\nerror = session.getError();\nexitCode = session.exitCode;\nsession.disconnect();",
+   "norm": "var ID = ID ? ID : ID; var ID = new ID(ID, ID, ID); ID.ID(false, ID, ID); ID.ID(ID, true); ID = ID.ID(); ID = ID.ID(); ID = ID.ID; ID.ID();"
+  },
+  {
+   "item": "item5",
+   "lines": 3,
+   "source": "result = exitCode;\nerrorText = error;\noutputText = output;",
+   "norm": "ID = ID; ID = ID; ID = ID;"
+  },
+  {
+   "item": "item6",
+   "lines": 3,
+   "source": "if (!hostName) {\n    throw \"no host name\";\n}",
+   "norm": "if (!ID) { throw \"ID\"; }"
+  },
+  {
+   "item": "item9",
+   "lines": 2,
+   "source": "logText = \"running on \" + hostName + \": \" + cmd;\nSystem.log(logText);",
+   "norm": "ID = \"ID\" + ID + \"ID\" + ID; ID.ID(ID);"
+  }
+ ],
+ "script_shingles": {
+  "item2": [
+   "var ID = new ID(ID,",
+   "ID = new ID(ID, ID,",
+   "= new ID(ID, ID, ID);",
+   "new ID(ID, ID, ID); ID.ID(ID);",
+   "ID(ID, ID, ID); ID.ID(ID); ID.ID(ID,",
+   "ID, ID); ID.ID(ID); ID.ID(ID, true);",
+   "ID); ID.ID(ID); ID.ID(ID, true); ID",
+   "ID.ID(ID); ID.ID(ID, true); ID =",
+   "ID.ID(ID, true); ID = ID.ID();",
+   "true); ID = ID.ID(); ID",
+   "ID = ID.ID(); ID =",
+   "= ID.ID(); ID = ID.ID();",
+   "ID.ID(); ID = ID.ID(); ID",
+   "ID = ID.ID(); ID =",
+   "= ID.ID(); ID = ID.ID;",
+   "ID.ID(); ID = ID.ID; ID.ID();"
+  ],
+  "item4": [
+   "var ID = ID ?",
+   "ID = ID ? ID",
+   "= ID ? ID :",
+   "ID ? ID : ID;",
+   "? ID : ID; var",
+   "ID : ID; var ID",
+   ": ID; var ID =",
+   "ID; var ID = new",
+   "var ID = new ID(ID,",
+   "ID = new ID(ID, ID,",
+   "= new ID(ID, ID, ID);",
+   "new ID(ID, ID, ID); ID.ID(false,",
+   "ID(ID, ID, ID); ID.ID(false, ID,",
+   "ID, ID); ID.ID(false, ID, ID);",
+   "ID); ID.ID(false, ID, ID); ID.ID(ID,",
+   "ID.ID(false, ID, ID); ID.ID(ID, true);",
+   "ID, ID); ID.ID(ID, true); ID",
+   "ID); ID.ID(ID, true); ID =",
+   "ID.ID(ID, true); ID = ID.ID();",
+   "true); ID = ID.ID(); ID",
+   "ID = ID.ID(); ID =",
+   "= ID.ID(); ID = ID.ID();",
+   "ID.ID(); ID = ID.ID(); ID",
+   "ID = ID.ID(); ID =",
+   "= ID.ID(); ID = ID.ID;",
+   "ID.ID(); ID = ID.ID; ID.ID();"
+  ],
+  "item5": [
+   "ID = ID; ID =",
+   "= ID; ID = ID;",
+   "ID; ID = ID; ID",
+   "ID = ID; ID =",
+   "= ID; ID = ID;"
+  ],
+  "item6": [
+   "if (!ID) { throw \"ID\";",
+   "(!ID) { throw \"ID\"; }"
+  ],
+  "item9": [
+   "ID = \"ID\" + ID",
+   "= \"ID\" + ID +",
+   "\"ID\" + ID + \"ID\"",
+   "+ ID + \"ID\" +",
+   "ID + \"ID\" + ID;",
+   "+ \"ID\" + ID; ID.ID(ID);"
+  ]
+ },
+ "total_script_lines": 23,
+ "sdk_calls": [
+  "System.log"
+ ],
+ "plugin_types": [],
+ "nested_calls": [],
+ "action_calls": [],
+ "config_refs": [],
+ "presentation": {
+  "params": [],
+  "ognl": [],
+  "raw_present": true
+ },
+ "has_ognl": false,
+ "error_handler_items": [],
+ "default_error_handler": null,
+ "throw_end_items": [],
+ "input_form_present": false,
+ "warnings": [],
+ "wid": "triage/Lab - Run Remote Command",
+ "uid": "triage-Lab---Run-Remote-Command",
+ "source": "triage",
+ "file_stem": "Lab - Run Remote Command",
+ "baseline_key": "triage/Lab - Run Remote Command",
+ "baseline_ambiguous": false,
+ "graph": {
+  "items": 7,
+  "edges": 7,
+  "branches": 1,
+  "joins": 1,
+  "cycle": false,
+  "depth": 5,
+  "reachable_from_root": 7,
+  "error_handler_path": [],
+  "unreachable_items": [],
+  "linear": false
+ },
+ "item_type_sequence": [
+  "task",
+  "task",
+  "condition",
+  "task",
+  "task",
+  "task",
+  "end"
+ ],
+ "root_path_items": [
+  "item6",
+  "item9",
+  "item3",
+  "item2",
+  "item4",
+  "item5",
+  "item8"
+ ],
+ "error_handler_path_items": [],
+ "first_task_on_root_path": "item6",
+ "first_task_in_doc_order": "item2",
+ "doc_order_would_mislead": true,
+ "called_by": [],
+ "is_orphan": true
+}

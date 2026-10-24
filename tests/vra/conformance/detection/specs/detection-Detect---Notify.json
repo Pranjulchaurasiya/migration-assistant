@@ -1,0 +1,7 @@
+{
+  "workflow_uid": "detection-Detect---Notify",
+  "purpose": "Detect - Notify, for the detection fixture.",
+  "confidence": "high",
+  "open_questions": [],
+  "external_systems": []
+}

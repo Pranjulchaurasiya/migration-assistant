@@ -1,0 +1,73 @@
+{
+ "counts": {
+  "HOST": 0,
+  "IP": 0,
+  "URL": 3,
+  "EMAIL": 0,
+  "USER": 0,
+  "SECRET": 0,
+  "IDENTITY": 0,
+  "NETWORK": 0
+ },
+ "distinct": {
+  "HOST": 0,
+  "IP": 0,
+  "URL": 3,
+  "EMAIL": 0,
+  "USER": 0,
+  "SECRET": 0,
+  "IDENTITY": 0,
+  "NETWORK": 0
+ },
+ "dropped_values": 3,
+ "kept_values": 0,
+ "stripped_entries": 0,
+ "files_seen": 52,
+ "files_touched": 1,
+ "touched": [
+  "detection/ConfigurationElement/Example/Endpoints.xml"
+ ],
+ "per_file": {
+  "detection/ConfigurationElement/Example/Endpoints.xml": {
+   "URL": 3,
+   "DROPPED": 3
+  }
+ },
+ "unsure": [],
+ "skipped": [],
+ "kept_public": {},
+ "kept_names": {},
+ "unreadable": {},
+ "signed": [],
+ "placeholders": {
+  "HOST": [],
+  "IP": [],
+  "URL": [
+   "<URL-01>",
+   "<URL-02>",
+   "<URL-03>"
+  ],
+  "EMAIL": [],
+  "USER": [],
+  "SECRET": [],
+  "IDENTITY": [],
+  "NETWORK": []
+ },
+ "_masked": {
+  "HOST": {},
+  "IP": {},
+  "URL": {
+   "<URL-01>": "ht\u2026 (67 chars)",
+   "<URL-02>": "ht\u2026 (60 chars)",
+   "<URL-03>": "ht\u2026 (25 chars)"
+  },
+  "EMAIL": {},
+  "USER": {},
+  "SECRET": {},
+  "IDENTITY": {},
+  "NETWORK": {}
+ },
+ "estate": "upgrade",
+ "generated": "2026-10-24T16:02:09Z",
+ "source_dir": "upgrade"
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dunes-script-module name="postSlackMessage" result-type="void" api-version="6.0.0" id="a6000000-0000-4000-8000-000000000006" version="1.0.0" allowed-operations="vef"><description/><param n="channel" t="string"/><param n="text" t="string"/><script encoded="false"><![CDATA[var prototype = RESTHostManager.createHost("slack");
+prototype.url = System.getModule("com.example.detect").endpoint("slackWebhookUrl");
+var host = RESTHostManager.createTransientHostFrom(prototype);
+var request = host.createRequest("POST", "", JSON.stringify({ channel: channel, text: text }));
+request.contentType = "application/json";
+request.execute();]]></script></dunes-script-module>
