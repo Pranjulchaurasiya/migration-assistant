@@ -385,6 +385,21 @@ def _rebuild_reason(brief: dict) -> str:
             "hand": "the code alone does not say enough to convert them"}[top]
 
 
+def _own_conversions(brief: dict, converting: int) -> str:
+    """The conversion work itself, when the count of workflows that convert says more: a near-duplicate follows its
+    first of a kind, and a wrapper goes, its callers calling what it calls. Empty when the two are the same."""
+    outs = [t["outcome"] for t in brief["triage"].values()]
+    own = sum(1 for o in outs if o in ("Convert", "Needs owner input"))
+    nd, wr = outs.count("Near-duplicate"), outs.count("Wrapper")
+    if not (nd or wr) or own >= converting:
+        return ""
+    parts = ([f"{word(nd)} {_s(nd, 'is a near-duplicate that follows its', 'are near-duplicates that follow their')} "
+              "first of a kind"] if nd else []) + \
+            ([f"{word(wr)} {_s(wr, 'is a wrapper', 'are wrappers')}, whose callers call what "
+              f"{_s(wr, 'it calls', 'they call')} directly"] if wr else [])
+    return (f" {cap(word(own))} of the {word(converting)} need a conversion of their own: {_and(parts)}.")
+
+
 def recommendation(assess: dict, brief: dict, rows: list[dict]) -> tuple[str, list[str]]:
     """The heading's word, and the opening sentences: what happens to the workflows, then the split."""
     rec = brief["recommendation"]
@@ -425,6 +440,8 @@ def recommendation(assess: dict, brief: dict, rows: list[dict]) -> tuple[str, li
         first = (f"Most of this estate can be converted: {c['convert']} {_s(c['convert'], 'workflow')} convert, "
                  f"and {c['rebuilt']} {_s(c['rebuilt'], 'is', 'are')} rebuilt from scratch because {why}{retire}.")
         head = "convert"
+    if v != "rebuild":
+        first += _own_conversions(brief, c["convert"])
     sp = split(rows)
     red = [x for x in rows if x["how"] == "Redesign"]
     vra_red = sum(x["count"] for x in red if x["key"][0].startswith("vra"))

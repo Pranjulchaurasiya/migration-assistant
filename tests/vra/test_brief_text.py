@@ -121,3 +121,14 @@ def test_client_actions_for_other_systems_counts_every_system_it_holds():
     assert label == "Client actions for six other systems"
     x["rows"] = x["rows"][:1]
     assert F._say(x, assess, brief, {}, False, 4, False)[0] == "Client actions for five other systems"
+
+
+def test_the_recommendation_says_how_much_conversion_work_is_its_own():
+    from kestra_migration_assistant.vra.stages import front as F
+    outs = ["Convert"] * 26 + ["Needs owner input"] * 2 + ["Near-duplicate"] * 7 + ["Wrapper"] * 4
+    brief = {"triage": {str(i): {"outcome": o} for i, o in enumerate(outs)}}
+    assert F._own_conversions(brief, 39) == (" 28 of the 39 need a conversion of their own: seven are near-duplicates "
+                                             "that follow their first of a kind and four are wrappers, whose callers "
+                                             "call what they call directly.")
+    # nothing to say when every workflow that converts is its own work (the load balancer sample)
+    assert F._own_conversions({"triage": {str(i): {"outcome": "Convert"} for i in range(4)}}, 4) == ""
