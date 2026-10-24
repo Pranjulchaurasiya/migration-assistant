@@ -279,3 +279,38 @@ def test_the_re_running_line_names_each_file_once(tmp_path, capsys):
     for line in lines:
         named = line.split("newer than assess.json: ")[1].split(", ")
         assert len(named) == len(set(named)), line
+
+
+# ------------------------------------------------------------------ loose files and trees (1.1.0)
+
+def test_a_build_project_file_or_a_loose_xml_at_the_top_does_not_stop_the_run(tmp_path):
+    """A Build Tools project folder as the export folder: pom.xml at the top is a project file, not an input, and
+    another .xml that is not a vRO workflow is reported and not read. 1.0.0 opened both as packages (BadZipFile)."""
+    export = _export(tmp_path / "export")
+    with open(os.path.join(export, "pom.xml"), "w") as f:
+        f.write("<project><modelVersion>4.0.0</modelVersion></project>\n")
+    with open(os.path.join(export, "settings.xml"), "w") as f:
+        f.write('<?xml version="1.0"?>\n<settings><profiles/></settings>\n')
+    assert _main("run", export, "--no-model") == 0
+    out = os.path.join(export, "kestra-assessment", "data")
+    pre = json.load(open(os.path.join(out, "0-preflight", "preflight.json")))
+    assert "pom" not in {s["source"] for s in pre["export"]["sources"]}
+    assert "pom.xml (a build project file, not an export)" in open(
+        os.path.join(out, "0-preflight", "readiness.md")).read()
+    names = {w["name"] for w in json.load(open(os.path.join(out, "1-assess", "assess.json")))["workflows"].values()}
+    assert names and not any("settings" in n.lower() for n in names)
+
+
+def test_a_tree_without_element_info_takes_the_kind_folder_nearest_the_root(tmp_path):
+    """An action module named like a kind folder (`...loadbalancer.actions.common`) under ScriptModule/, with no
+    element_info.xml: its category is the module, not `common`, so System.getModule() still resolves it."""
+    from kestra_migration_assistant.vra.parse import formats
+    d = tmp_path / "tree" / "ScriptModule" / "com" / "example" / "lb" / "actions" / "common"
+    d.mkdir(parents=True)
+    (d / "buildNames.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<dunes-script-module name="buildNames" result-type="string" '
+        'api-version="6.0.0" id="a7000000-0000-4000-8000-000000000001" version="1.0.0" allowed-operations="vef">'
+        '<description/><script encoded="false"><![CDATA[return "x";]]></script></dunes-script-module>\n')
+    elements, _ = formats.read_raw_tree(str(tmp_path / "tree"))
+    (e,) = elements
+    assert e.kind == "ScriptModule" and e.category_path == "com.example.lb.actions.common"

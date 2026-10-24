@@ -305,15 +305,26 @@ def read_raw_tree(root: str) -> tuple[list[Element], dict]:
     elements: list[Element] = []
     summary: dict = {"source_path": root, "format": "raw-xml", "element_counts": {}}
 
+    above = os.path.normpath(root).replace("\\", "/").split("/")
     for dirpath, dirs, files in os.walk(root):
         outdir.prune(dirpath, dirs)
-        parts = dirpath.replace("\\", "/").split("/")
+        # The kind folder is the first one under the tree root, since a category folder further down may be named
+        # like a kind (local/corp/it/cloud/loadbalancer/actions/common). Only a tree read from below its kind
+        # folder (the root is a category inside Workflow/) takes the nearest one above the root.
+        rel = os.path.relpath(dirpath, root).replace("\\", "/")
+        below = [] if rel == "." else rel.split("/")
+        parts = above + below
         kind = None
         idx = -1
-        for i in range(len(parts) - 1, -1, -1):
+        for i in range(len(above), len(parts)):
             if parts[i] in KIND_DIRS:
                 kind, idx = KIND_DIRS[parts[i]], i
                 break
+        else:
+            for i in range(len(above) - 1, -1, -1):
+                if parts[i] in KIND_DIRS:
+                    kind, idx = KIND_DIRS[parts[i]], i
+                    break
         if kind is None:
             continue
         cat_from_dirs = ".".join(parts[idx + 1:])
@@ -411,6 +422,12 @@ def read_any(path: str) -> tuple[list[Element], dict]:
     if path.endswith(".xml"):
         raw = safety.read_file(path)
         xml = read_xml_text(raw)
+        # one exported workflow; any other XML (a build file, a settings file) is not an element
+        root = re.search(r"<(?:[\w.-]+:)?([A-Za-z][\w.-]*)", re.sub(r"<\?.*?\?>|<!--.*?-->|<!DOCTYPE[^>]*>", "", xml, flags=re.S))
+        if not root or root.group(1) != "workflow":
+            return [], {"source_path": path, "format": "raw-xml", "element_counts": {},
+                        "warnings": [f"{os.path.basename(path)}: not a vRO workflow (its root element is "
+                                     f"<{root.group(1) if root else '?'}>), not read"]}
         return [Element(kind="Workflow", name=_display_name(xml), xml=xml,
                         source_path=path, container_format="raw-xml")], \
                {"source_path": path, "format": "raw-xml", "element_counts": {"Workflow": 1}}

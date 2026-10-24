@@ -214,6 +214,8 @@ def estate_inputs(source_dir: str) -> tuple[dict[str, str], list[str]]:
             ignored.append(n + " (symlink, not followed)")
         elif vra.is_vra_input(p):
             continue                                        # a vRA export: see vra_inputs_of()
+        elif n in vra.PROJECT_FILES:
+            ignored.append(n + " (a build project file, not an export)")
         elif os.path.isdir(p):
             inputs[slug(n)] = p
         elif n.lower().endswith(INPUT_SUFFIXES):
